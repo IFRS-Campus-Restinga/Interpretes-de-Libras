@@ -16,6 +16,8 @@ public record SurdoCadastroDTO(
         @Length(min= 0 , max = 20)
         String nome,
         @NotBlank
+        String username,//NEW!
+        @NotBlank
         String sobrenome,
         @NotBlank
         String telefone,
