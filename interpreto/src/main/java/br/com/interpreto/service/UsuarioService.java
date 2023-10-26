@@ -13,7 +13,7 @@ public class UsuarioService {
 	@Autowired
     private UsuarioRepository usuarioRepository;
 	
-
+    /*
     public boolean autenticarUsuario(String username, String password) {
         //verificar no banco de dados).
     	Usuario usuario = usuarioRepository.findByUsername(username);
@@ -22,7 +22,7 @@ public class UsuarioService {
             return true; // senha valida.
         }
         return false; // senha invalida.
-    }
+    }*/
     
 //    public boolean autenticarSurdo(String username, String password) {
 //        //verificar no banco de dados).

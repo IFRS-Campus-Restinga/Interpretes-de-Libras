@@ -12,7 +12,7 @@ import br.com.interpreto.service.UsuarioService;
 public class LoginController {
     @Autowired
     private UsuarioService usuarioService;
-
+    /*
     @PostMapping("/login")
     public String processoLogin(String username, String password) {
         if (usuarioService.autenticarUsuario(username, password)) {
@@ -22,5 +22,5 @@ public class LoginController {
             // Lógica para lidar com falha na autenticação, por exemplo, exibindo uma mensagem de erro.
             return "redirect:/login?error";
         }
-    }
+    }*/
 }

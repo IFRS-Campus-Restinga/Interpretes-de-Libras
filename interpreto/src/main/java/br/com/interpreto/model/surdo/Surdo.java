@@ -3,6 +3,7 @@ package br.com.interpreto.model.surdo;
 import br.com.interpreto.model.usuario.Usuario;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 
 @Entity
 @Table(name = "surdo")
@@ -22,11 +23,12 @@ public class Surdo extends Usuario {
 
     }
     //CONSTRUTOR
+    @Deprecated //Funcionamento do Hibernate
     public Surdo() {
 
     }
     
-	public void surdoAtualizarDTO(SurdoAtualizaDTO novosDados) {
+	public void surdoAtualizarDTO(@Valid SurdoAtualizaDTO novosDados) {
 		this.setCpf(novosDados.cpf()); //dados são do tipo SurdoDTO que possuem GETTER, dados.cpf é como se usar esse GETTER
         this.setNome(novosDados.nome());
         this.setUsername(novosDados.username());//NEW!

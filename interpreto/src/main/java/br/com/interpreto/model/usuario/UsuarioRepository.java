@@ -5,8 +5,9 @@ import org.springframework.data.repository.CrudRepository;
 import br.com.interpreto.model.surdo.Surdo;
 
 public interface UsuarioRepository  extends CrudRepository<Usuario, Long> {
+    /*
     Usuario findByUsername(String username);
-    Usuario findByEmail(String email);
+    Usuario findByEmail(String email);*/
 }
 
 //public interface UsuarioRepository  extends CrudRepository<Surdo, Long> {

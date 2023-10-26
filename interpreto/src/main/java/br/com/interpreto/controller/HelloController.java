@@ -10,6 +10,6 @@ public class HelloController {
     //USADO SOMENTE PARA TESTES DA APLICACAO, VERIFICAR SE SUBIU!
     @GetMapping
     public String olaMundo() {
-        return "Hello World Spring!";
+        return "Hello World Spring!!!";
     }
 }
