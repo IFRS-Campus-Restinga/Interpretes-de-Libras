@@ -3,9 +3,11 @@ package br.com.interpreto.controller;
 import br.com.interpreto.model.interprete.Interprete;
 import br.com.interpreto.model.interprete.InterpreteAtualizaDTO;
 import br.com.interpreto.model.interprete.InterpreteCadastroDTO;
+import br.com.interpreto.model.interprete.InterpreteDetalhamentoDTO;
 import br.com.interpreto.service.InterpreteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +24,7 @@ public class InterpreteController {
 	}
 
 	@GetMapping
-	public List<Interprete> listarInterprete() {
+	public ResponseEntity<List<InterpreteDetalhamentoDTO>> listarInterprete() {
 		return interpreteService.listarInterprete();
 	}
 
@@ -32,7 +34,7 @@ public class InterpreteController {
 	}
 
 	@GetMapping("/{id}")
-	public Optional<Interprete> buscarInterprete(@PathVariable Long id) {
+	public ResponseEntity buscarInterprete(@PathVariable Long id) {
 		return interpreteService.buscarInterprete(id);
 	}
 
