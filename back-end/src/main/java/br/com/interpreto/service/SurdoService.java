@@ -1,13 +1,15 @@
 package br.com.interpreto.service;
 
-import br.com.interpreto.model.surdo.Surdo;
-import br.com.interpreto.model.surdo.SurdoAtualizaDTO;
-import br.com.interpreto.model.surdo.SurdoCadastroDTO;
-import br.com.interpreto.model.surdo.SurdoRepository;
+import br.com.interpreto.model.interprete.Interprete;
+import br.com.interpreto.model.interprete.InterpreteAtualizaDTO;
+import br.com.interpreto.model.interprete.InterpreteDetalhamentoDTO;
+import br.com.interpreto.model.surdo.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,30 +27,38 @@ public class SurdoService {
 		surdoRepository.save(new Surdo(dados));
 	}
 
-	public List<Surdo> listarSurdo() {
-		return surdoRepository.findAll();
-	}
+	public ResponseEntity<List<SurdoDetalhamentoDTO>> listarSurdo() {
+		List<Surdo> listagem = surdoRepository.findAll();
 
-	public Optional<Surdo> buscarSurdo(Long id) {
-		return surdoRepository.findById(id);
-	}
-
-	//
-	@Transactional
-	public void atualizarSurdo(Long id, SurdoAtualizaDTO novosDados) {
-		Optional<Surdo> opcionalSurdo = surdoRepository.findById(id);
-		if (opcionalSurdo.isPresent()) {
-			Surdo surdo = opcionalSurdo.get();
-			surdo.surdoAtualizarDTO(novosDados);
-			surdoRepository.save(surdo);
+		List<SurdoDetalhamentoDTO> listagemDTO = new ArrayList<>();
+		for (Surdo surdo: listagem){
+			listagemDTO.add(new SurdoDetalhamentoDTO(surdo));
 		}
+
+		return ResponseEntity.ok(listagemDTO);
+	}
+
+	public ResponseEntity buscarSurdo(Long id) {
+		Surdo surdo = surdoRepository.getReferenceById(id);
+
+		return ResponseEntity.ok(new SurdoDetalhamentoDTO(surdo));
+	}
+
+
+	@Transactional
+	public ResponseEntity atualizarSurdo(Long id, SurdoAtualizaDTO novosDados) {
+		Surdo surdo = surdoRepository.getReferenceById(id);
+		surdo.surdoAtualizarDTO(novosDados);
+		surdoRepository.save(surdo);
+
+		return ResponseEntity.ok(new SurdoDetalhamentoDTO(surdo));
 	}
 	
 	@Transactional
-	public void deletarSurdo(Long id) {
-	    Optional<Surdo> opcionalSurdo = surdoRepository.findById(id);
-	    if (opcionalSurdo.isPresent()) {
+	public ResponseEntity deletarSurdo(Long id) {
+	    Surdo surdo = surdoRepository.getReferenceById(id);
+
 	        surdoRepository.deleteById(id);
-	    }
+	    return ResponseEntity.noContent().build();
 	}
 }

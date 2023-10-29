@@ -3,9 +3,11 @@ package br.com.interpreto.controller;
 import br.com.interpreto.model.surdo.Surdo;
 import br.com.interpreto.model.surdo.SurdoAtualizaDTO;
 import br.com.interpreto.model.surdo.SurdoCadastroDTO;
+import br.com.interpreto.model.surdo.SurdoDetalhamentoDTO;
 import br.com.interpreto.service.SurdoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +24,7 @@ public class SurdoController {
 	}
 
 	@GetMapping
-	public List<Surdo> listarSurdo() {
+	public ResponseEntity<List<SurdoDetalhamentoDTO>> listarSurdo() {
 		return surdoService.listarSurdo();
 	}
 
@@ -31,20 +33,19 @@ public class SurdoController {
 		surdoService.cadastrarSurdo(dados);
 	}
 
-	// FALTA E O DELETE
 	@GetMapping("/{id}")
-	public Optional<Surdo> buscarSurdo(@PathVariable Long id) {
+	public ResponseEntity buscarSurdo(@PathVariable Long id) {
 		return surdoService.buscarSurdo(id);
 	}
-	// FALTA O DELETE
+
 
 	@PutMapping("/{id}")
-	public void atualizarSurdo(@PathVariable Long id, @RequestBody @Valid SurdoAtualizaDTO novosDados) {
-		surdoService.atualizarSurdo(id, novosDados);
+	public ResponseEntity atualizarSurdo(@PathVariable Long id, @RequestBody @Valid SurdoAtualizaDTO novosDados) {
+		return surdoService.atualizarSurdo(id, novosDados);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deletarSurdo(@PathVariable Long id) {
-	        surdoService.deletarSurdo(id);
+	public ResponseEntity deletarSurdo(@PathVariable Long id) {
+	       return surdoService.deletarSurdo(id);
 	}
 }
