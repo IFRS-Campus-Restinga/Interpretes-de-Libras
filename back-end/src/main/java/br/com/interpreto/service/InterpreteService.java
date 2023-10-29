@@ -43,22 +43,23 @@ public class InterpreteService {
 		return ResponseEntity.ok(new InterpreteDetalhamentoDTO(interprete));
 	}
 
-	//
-	@Transactional
-	public void atualizarInterprete(Long id, InterpreteAtualizaDTO novosDados) {
-		Optional<Interprete> opcionalInterprete = interpreteRepository.findById(id);
-		if (opcionalInterprete.isPresent()) {
-			Interprete interprete = opcionalInterprete.get();
-			interprete.interpreteAtualizarDTO(novosDados);
-			interpreteRepository.save(interprete);
-		}
-	}
 
 	@Transactional
-	public void deletarInterprete(Long id) {
-		Optional<Interprete> opcionalInterprete = interpreteRepository.findById(id);
-		if (opcionalInterprete.isPresent()) {
+	public ResponseEntity atualizarInterprete(Long id, InterpreteAtualizaDTO novosDados) {
+		Interprete interprete = interpreteRepository.getReferenceById(id);
+			interprete.interpreteAtualizarDTO(novosDados);
+			interpreteRepository.save(interprete);
+
+		return ResponseEntity.ok(new InterpreteDetalhamentoDTO(interprete));
+	}
+
+
+	@Transactional
+	public ResponseEntity deletarInterprete(Long id) {
+		Interprete interprete = interpreteRepository.getReferenceById(id);
+
 			interpreteRepository.deleteById(id);
-		}
+
+		return ResponseEntity.noContent().build();
 	}
 }

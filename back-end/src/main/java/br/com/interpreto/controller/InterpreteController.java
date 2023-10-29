@@ -39,13 +39,14 @@ public class InterpreteController {
 	}
 
 	@PutMapping("/{id}")
-	public void atualizarInterprete(@PathVariable Long id, @RequestBody @Valid InterpreteAtualizaDTO novosDados) {
-		interpreteService.atualizarInterprete(id, novosDados);
+	public ResponseEntity atualizarInterprete(@PathVariable Long id, @RequestBody @Valid InterpreteAtualizaDTO novosDados) {
+		return interpreteService.atualizarInterprete(id, novosDados);
+
 	}
 
 	@DeleteMapping("/{id}")
-	public void deletarInterprete(@PathVariable Long id) {
-		interpreteService.deletarInterprete(id);
+	public ResponseEntity deletarInterprete(@PathVariable Long id) {
+		return interpreteService.deletarInterprete(id);
 	}
 
 }

@@ -47,7 +47,6 @@ public class Interprete extends Usuario {
 		this.setEmail(novosDados.email());
 		this.setSenha(novosDados.senha());
 		this.setDataNascimento(novosDados.dataNascimento());
-		this.setAtivo(false);
 		this.valorHora = novosDados.valorHora();
 		this.especialidade = novosDados.especialidades();
 		this.regioes = novosDados.regioes();
