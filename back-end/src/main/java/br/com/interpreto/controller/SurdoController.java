@@ -9,9 +9,9 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/surdo")
@@ -29,8 +29,9 @@ public class SurdoController {
 	}
 
 	@PostMapping
-	public void cadastrarSurdo(@RequestBody @Valid SurdoCadastroDTO dados) {
-		surdoService.cadastrarSurdo(dados);
+	public ResponseEntity cadastrarSurdo(@RequestBody @Valid SurdoCadastroDTO dados, UriComponentsBuilder uriBuilder) {
+		return surdoService.cadastrarSurdo(dados, uriBuilder);
+
 	}
 
 	@GetMapping("/{id}")

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +23,13 @@ public class InterpreteService {
 	}
 
 	@Transactional
-	public void cadastrarInterprete(InterpreteCadastroDTO dados) {
-		interpreteRepository.save(new Interprete(dados));
+	public ResponseEntity cadastrarInterprete(InterpreteCadastroDTO dados, UriComponentsBuilder uriBuilder) {
+		Interprete interprete = new Interprete(dados);
+		interpreteRepository.save(interprete);
+
+		var uri = uriBuilder.path("/interprete/{id}").buildAndExpand(interprete.getId()).toUri();
+
+		return ResponseEntity.created(uri).body(new InterpreteDetalhamentoDTO(interprete));
 	}
 
 	public ResponseEntity<List<InterpreteDetalhamentoDTO>> listarInterprete() {

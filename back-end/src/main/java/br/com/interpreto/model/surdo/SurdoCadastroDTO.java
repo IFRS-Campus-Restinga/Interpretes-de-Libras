@@ -26,7 +26,6 @@ public record SurdoCadastroDTO(
         String email,
         @NotBlank
         String senha,
-        @NotBlank
         @JsonFormat(pattern="yyyy-MM-dd")
         LocalDate dataNascimento
 ) {

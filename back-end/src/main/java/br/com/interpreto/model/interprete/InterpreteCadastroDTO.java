@@ -27,7 +27,6 @@ public record InterpreteCadastroDTO(
         String email,
         @NotBlank
         String senha,
-        @NotBlank
         @JsonFormat(pattern="yyyy-MM-dd")
         LocalDate dataNascimento,
         Set<Especialidade> especialidades,

@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +24,13 @@ public class SurdoService {
 	}
 
 	@Transactional
-	public void cadastrarSurdo(SurdoCadastroDTO dados) {
-		surdoRepository.save(new Surdo(dados));
+	public ResponseEntity cadastrarSurdo(SurdoCadastroDTO dados, UriComponentsBuilder uriBuilder) {
+		Surdo surdo = new Surdo(dados);
+		surdoRepository.save(surdo);
+
+		var uri = uriBuilder.path("/surdo/{id}").buildAndExpand(surdo.getId()).toUri();
+
+		return ResponseEntity.created(uri).body(new SurdoDetalhamentoDTO(surdo));
 	}
 
 	public ResponseEntity<List<SurdoDetalhamentoDTO>> listarSurdo() {

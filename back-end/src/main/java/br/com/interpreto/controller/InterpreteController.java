@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,8 +30,8 @@ public class InterpreteController {
 	}
 
 	@PostMapping
-	public void cadastrarInterprete(@RequestBody @Valid InterpreteCadastroDTO dados) {
-		interpreteService.cadastrarInterprete(dados);
+	public ResponseEntity cadastrarInterprete(@RequestBody @Valid InterpreteCadastroDTO dados, UriComponentsBuilder uriBuilder) {
+		return interpreteService.cadastrarInterprete(dados, uriBuilder);
 	}
 
 	@GetMapping("/{id}")
