@@ -1,8 +1,7 @@
 package br.com.interpreto.model.avaliacaousuario;
 
+import br.com.interpreto.model.documento.Documento;
 import br.com.interpreto.model.enums.StatusAvaliacao;
-import br.com.interpreto.model.interprete.Interprete;
-import br.com.interpreto.model.surdo.SurdoAtualizaDTO;
 import br.com.interpreto.model.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
@@ -29,6 +28,11 @@ public class AvaliacaoUsuario {
     @JoinColumn(name = "usuario_id", nullable = false) // Coluna que faz a associação
     @JsonBackReference
     private Usuario usuario;
+
+    @OneToOne
+    @JoinColumn(name = "documento_id")
+    private Documento documento;
+
 
     public AvaliacaoUsuario(@Valid AvaliacaoUsuarioCadastroDTO dados) {
         this.usuario = dados.usuario();
@@ -89,4 +93,13 @@ public class AvaliacaoUsuario {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public Documento getDocumento() {
+        return documento;
+    }
+
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
+    }
 }
+
