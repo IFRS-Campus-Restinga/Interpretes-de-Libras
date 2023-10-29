@@ -1,12 +1,15 @@
 package br.com.interpreto.model.usuario;
 
+import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity//NEW!
 //@MappedSuperclass //login não suporta @MappedSuperclass, só @Entity.
-public abstract class Usuario {
+public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,6 +24,10 @@ public abstract class Usuario {
     private Boolean ativo;
     private Double nota;
     private Long quantidadeEncontros;
+
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)//Para tornar Bidirecional...
+    @JsonManagedReference
+    private List<AvaliacaoUsuario> avaliacaoUsuario;
     public Usuario() {
 
     }
@@ -113,5 +120,13 @@ public abstract class Usuario {
 
     public void setQuantidadeEncontros(Long quantidadeEncontros) {
         this.quantidadeEncontros = quantidadeEncontros;
+    }
+
+    public List<AvaliacaoUsuario> getAvaliacaoUsuario() {
+        return avaliacaoUsuario;
+    }
+
+    public void setAvaliacaoUsuario(List<AvaliacaoUsuario> avaliacaoUsuario) {
+        this.avaliacaoUsuario = avaliacaoUsuario;
     }
 }

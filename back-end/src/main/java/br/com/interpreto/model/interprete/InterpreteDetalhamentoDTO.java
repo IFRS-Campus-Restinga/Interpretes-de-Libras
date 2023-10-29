@@ -1,5 +1,6 @@
 package br.com.interpreto.model.interprete;
 
+import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
 import br.com.interpreto.model.enums.Especialidade;
 import br.com.interpreto.model.enums.Regiao;
 import com.fasterxml.jackson.annotation.JsonFormat;
