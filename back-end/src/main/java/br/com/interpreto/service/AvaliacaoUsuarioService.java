@@ -16,7 +16,7 @@ import java.util.Optional;
 public class AvaliacaoUsuarioService {
     final private AvaliacaoUsuarioRepository avaliacaoUsuarioRepository;
 
-    @Autowired
+    @Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
     public AvaliacaoUsuarioService(AvaliacaoUsuarioRepository avaliacaoUsuarioRepository) {
         this.avaliacaoUsuarioRepository = avaliacaoUsuarioRepository;
     }

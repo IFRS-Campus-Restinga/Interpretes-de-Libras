@@ -21,7 +21,7 @@ public class InterpreteService {
 	final private InterpreteRepository interpreteRepository;
 	final private AvaliacaoUsuarioRepository avaliacaoUsuarioRepository;
 	final private DocumentoService documentoService;
-	@Autowired
+	@Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
 	public InterpreteService(InterpreteRepository interpreteRepository, AvaliacaoUsuarioRepository avaliacaoUsuarioRepository, DocumentoService documentoService) {
 		this.interpreteRepository = interpreteRepository;
 		this.avaliacaoUsuarioRepository = avaliacaoUsuarioRepository;

@@ -27,7 +27,7 @@ public class DocumentoService {
 
     final private DocumentoRepository documentoRepository;
 
-    @Autowired
+    @Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
     public DocumentoService(DocumentoRepository documentoRepository) {
         this.documentoRepository = documentoRepository;
     }

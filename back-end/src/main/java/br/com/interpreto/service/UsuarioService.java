@@ -9,11 +9,14 @@ import br.com.interpreto.model.usuario.UsuarioRepository;
 
 @Service
 public class UsuarioService {
-	
-	@Autowired
-    private UsuarioRepository usuarioRepository;
-	
+    private final UsuarioRepository usuarioRepository;
 
+    @Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
+    UsuarioService(UsuarioRepository usuarioRepository){
+        this.usuarioRepository = usuarioRepository;
+    }
+	
+/*
     public boolean autenticarUsuario(String username, String password) {
         //verificar no banco de dados).
     	Usuario usuario = usuarioRepository.findByUsername(username);
@@ -22,7 +25,7 @@ public class UsuarioService {
             return true; // senha valida.
         }
         return false; // senha invalida.
-    }
+    }*/
     
 //    public boolean autenticarSurdo(String username, String password) {
 //        //verificar no banco de dados).

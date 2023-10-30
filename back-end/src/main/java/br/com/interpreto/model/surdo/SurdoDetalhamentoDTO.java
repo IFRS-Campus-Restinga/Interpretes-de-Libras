@@ -11,7 +11,6 @@ public record SurdoDetalhamentoDTO(
         Long id,
         String cpf,
         String nome,
-        String username,
         String sobrenome,
         String telefone,
         String email,
@@ -20,7 +19,7 @@ public record SurdoDetalhamentoDTO(
         LocalDate dataNascimento
 ) {
     public SurdoDetalhamentoDTO(Surdo surdo){
-        this(surdo.getId(), surdo.getCpf(), surdo.getNome(), surdo.getUsername(), surdo.getSobrenome(), surdo.getTelefone(),
+        this(surdo.getId(), surdo.getCpf(), surdo.getNome(), surdo.getSobrenome(), surdo.getTelefone(),
                 surdo.getEmail(), surdo.getSenha(), surdo.getDataNascimento());
     }
 }

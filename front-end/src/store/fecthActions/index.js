@@ -19,7 +19,7 @@ export const getAllSocilicitacoesCadastro = () => {
 export const postSocilicitacaoCadastro = (solcitacao) => {
   return (dispatch) => {
     api
-      .post("/addSolicitacaoCadastro", solcitacao)
+      .post("/surdo", solcitacao)
       .then((response) => {
         dispatch(addSolicitacaoCadastro(response.data));
       })

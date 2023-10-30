@@ -18,10 +18,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/interprete")
+@CrossOrigin(origins = "*")
 public class InterpreteController {
 	private final InterpreteService interpreteService;
 
-	@Autowired
+	@Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
 	public InterpreteController(InterpreteService interpreteService) {
 		this.interpreteService = interpreteService;
 	}

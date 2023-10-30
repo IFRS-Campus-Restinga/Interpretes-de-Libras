@@ -18,7 +18,7 @@ import java.util.Optional;
 public class SurdoService {
 	final private SurdoRepository surdoRepository;
 
-	@Autowired
+	@Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
 	public SurdoService(SurdoRepository surdoRepository) {
 		this.surdoRepository = surdoRepository;
 	}

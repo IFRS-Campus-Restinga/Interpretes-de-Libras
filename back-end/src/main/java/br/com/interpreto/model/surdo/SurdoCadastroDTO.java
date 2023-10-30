@@ -16,15 +16,13 @@ public record SurdoCadastroDTO(
         @Length(min= 0 , max = 20)
         String nome,
         @NotBlank
-        String username,//NEW!
-        @NotBlank
         String sobrenome,
         @NotBlank
         String telefone,
         @NotBlank
         @Email
         String email,
-        @NotBlank
+        //@NotBlank
         String senha,
         @JsonFormat(pattern="yyyy-MM-dd")
         LocalDate dataNascimento

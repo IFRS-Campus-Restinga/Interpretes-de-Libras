@@ -26,7 +26,6 @@ public class Interprete extends Usuario {
 	public Interprete(@Valid InterpreteCadastroDTO dados) {
 		this.setCpf(dados.cpf());
 		this.setNome(dados.nome());
-		this.setUsername(dados.username());//NEW!
 		this.setSobrenome(dados.sobrenome());
 		this.setTelefone(dados.telefone());
 		this.setEmail(dados.email());
@@ -41,7 +40,6 @@ public class Interprete extends Usuario {
 	public void interpreteAtualizarDTO(InterpreteAtualizaDTO novosDados) {
 		this.setCpf(novosDados.cpf());
 		this.setNome(novosDados.nome());
-		this.setUsername(novosDados.username());//NEW!
 		this.setSobrenome(novosDados.sobrenome());
 		this.setTelefone(novosDados.telefone());
 		this.setEmail(novosDados.email());

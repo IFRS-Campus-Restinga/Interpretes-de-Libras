@@ -13,7 +13,6 @@ public record InterpreteDetalhamentoDTO(
         Long id,
         String cpf,
         String nome,
-        String username,//NEW!
         String sobrenome,
         String telefone,
         String email,
@@ -24,7 +23,7 @@ public record InterpreteDetalhamentoDTO(
         Set<Regiao> regioes,
         Double valorHora) {
     public InterpreteDetalhamentoDTO(Interprete interprete){
-            this(interprete.getId(), interprete.getCpf(), interprete.getNome(), interprete.getUsername(), interprete.getSobrenome(), interprete.getTelefone(),
+            this(interprete.getId(), interprete.getCpf(), interprete.getNome(), interprete.getSobrenome(), interprete.getTelefone(),
                     interprete.getEmail(), interprete.getSenha(), interprete.getDataNascimento(), interprete.getEspecialidade(),
                     interprete.getRegioes(), interprete.getValorHora());
     }

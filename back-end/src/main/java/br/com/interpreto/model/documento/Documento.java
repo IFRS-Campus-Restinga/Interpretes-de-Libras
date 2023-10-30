@@ -13,7 +13,7 @@ public class Documento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
 	String nomeArquivo;
-	//Relacionamento com avaliacaoUsuario
+	//Relacionamento com avaliacaoUsuario ficou do lado da AvaliacaoUsuario
 
 	public Documento(){
 

@@ -15,10 +15,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/surdo")
+@CrossOrigin(origins = "*")
 public class SurdoController {
 	private final SurdoService surdoService;
 
-	@Autowired
+	@Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
 	public SurdoController(SurdoService surdoService) {
 		this.surdoService = surdoService;
 	}

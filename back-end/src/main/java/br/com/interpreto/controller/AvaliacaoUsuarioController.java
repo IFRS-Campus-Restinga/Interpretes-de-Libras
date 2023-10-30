@@ -19,7 +19,7 @@ import java.util.Optional;
 public class AvaliacaoUsuarioController {
     private final AvaliacaoUsuarioService avaliacaoUsuarioService;
 
-    @Autowired
+    @Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
     public AvaliacaoUsuarioController(AvaliacaoUsuarioService avaliacaoUsuarioService) {
         this.avaliacaoUsuarioService = avaliacaoUsuarioService;
     }

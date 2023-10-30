@@ -7,14 +7,12 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity//NEW!
-//@MappedSuperclass //login não suporta @MappedSuperclass, só @Entity.
+@Entity
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String cpf;
-    private String username;//NEW! //login 
     private String nome;
     private String sobrenome;
     private String telefone;
@@ -36,12 +34,6 @@ public class Usuario {
         return id;
     }
 
-    public String getUsername() {//NEW!
-		return username;
-	}
-	public void setUsername(String username) {//NEW!
-		this.username = username;
-	}
 	public String getCpf() {
         return cpf;
     }
