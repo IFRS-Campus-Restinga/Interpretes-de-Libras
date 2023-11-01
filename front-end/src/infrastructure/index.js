@@ -6,7 +6,7 @@ const connection = axios.create({
 
 const GET = "get";
 const POST = "post";
-const PUT = "PUT";
+const PATCH = "patch";
 const DELETE = "delete";
 
 const request = (path, method, data = {}) => {

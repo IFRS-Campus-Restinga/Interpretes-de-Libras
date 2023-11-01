@@ -1,13 +1,10 @@
 import { useForm } from "react-hook-form";
 import { isEmail } from "validator";
-import { useDispatch } from "react-redux";
-import { postSocilicitacaoCadastro } from "../../../store/fecthActions";
-
+import { useState } from "react";
+import axios from "axios";
 import "./formulario.css";
 
-const Formulario = () => {
-  const dispatch = useDispatch();
-
+const Formulario = ({ tipoUsuario }) => {
   const {
     register,
     handleSubmit,
@@ -16,11 +13,68 @@ const Formulario = () => {
   } = useForm();
 
   const watchPassword = watch("password");
+  const [file, setFile] = useState(null);
 
   const onSubmit = (data) => {
-    console.log("data", data);
-    //adiciona dado no store de solicitações cadastro
-    dispatch(postSocilicitacaoCadastro(data));
+    if (!file) {
+      console.log("No files selected");
+      return;
+    }
+    var regioes = [
+      data.sul ? "SUL" : null,
+      data.norte ? "NORTE" : null,
+      data.oeste ? "OESTE" : null,
+      data.leste ? "LESTE" : null,
+      data.centro ? "CENTRO" : null,
+    ];
+    var especialidade = [
+      data.ti ? "TI" : null,
+      data.medicina ? "MEDICINA" : null,
+      data.literatura ? "LITERATURA" : null,
+      data.engenharia ? "ENGENHARIA" : null,
+      data.humanas ? "HUMANAS" : null,
+    ];
+    delete data.sul;
+    delete data.norte;
+    delete data.oeste;
+    delete data.leste;
+    delete data.centro;
+    delete data.dataNascimento;
+    delete data.password;
+    delete data.passwordConfirmation;
+    delete data.estado;
+    delete data.cidade;
+    delete data.file;
+    delete data.ti;
+    delete data.medicina;
+    delete data.literatura;
+    delete data.engenharia;
+    delete data.humanas;
+    data["regioes"] = regioes;
+    data["especialidades"] = especialidade;
+    data["senha"] = data.password;
+    const json = JSON.stringify(data);
+    const formData = new FormData();
+    formData.append("arquivo", file);
+    formData.append("dados", json);
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "multipart/form-data" },
+      data: formData,
+      url:
+        tipoUsuario === "surdo"
+          ? "http://localhost:8080/surdo"
+          : "http://localhost:8080/interprete",
+    };
+    axios(options)
+      .then(function () {
+        alert("Cadastro realizado com sucesso!");
+      })
+      .catch(function (error) {
+        alert("Erro ao cadastrar usuário!");
+        console.log(error);
+      });
+      console.log(options);
   };
 
   return (
@@ -71,7 +125,7 @@ const Formulario = () => {
           <label>Data de Nascimento</label>
           <input
             className={errors?.dataNascimento && "input-error"}
-            type="text"
+            type="date"
             placeholder="Escreva sua Data de Nascimento"
             {...register("dataNascimento", { required: true })}
           />
@@ -198,117 +252,107 @@ const Formulario = () => {
         </div>
       </div>
 
+      {tipoUsuario === "interprete" && (
+        <div className="form-container-line-one">
+          <div className="form-group">
+            <label>Valor da Hora</label>
+            <input
+              className={errors?.valorHora && "input-error"}
+              type="text"
+              placeholder="Escreva o valor do seu atendimento por hora."
+              {...register("valorHora", { required: true })}
+            />
+            {errors?.valorHora?.type === "required" && (
+              <p className="error-message">
+                Valor da hora é um campo obrigatório.
+              </p>
+            )}
+          </div>
+        </div>
+      )}
+
       <div className="form-container-line-one">
         <div className="form-group">
-          <label>Valor da Hora</label>
+          <label>Documento</label>
           <input
-            className={errors?.valorHora && "input-error"}
-            type="text"
-            placeholder="Escreva o valor do seu atendimento por hora."
-            {...register("valorHora", { required: true })}
+            className={errors?.documento && "input-error"}
+            type="file"
+            {...register("file", {
+              onChange: (e) => {
+                setFile(e.target.files[0]);
+              },
+              required: true,
+            })}
           />
-          {errors?.valorHora?.type === "required" && (
-            <p className="error-message">
-              Valor da hora é um campo obrigatório.
-            </p>
+          {errors?.documento?.type === "required" && (
+            <p className="error-message">Documento é um campo obrigatório.</p>
           )}
         </div>
       </div>
 
-      <div className="form-container-line-one">
-        <div className="form-group">
-          <label>Região</label>
-          <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="sul"
-              value="SUL"
-              {...register("sul")}
-            />
-            <label>Sul</label>
+      {tipoUsuario === "interprete" && (
+        <div className="form-container-line-one">
+          <div className="form-group">
+            <label>Região</label>
+            <div className="checkbox-group">
+              <input type="checkbox" name="sul" {...register("sul")} />
+              <label>Sul</label>
+            </div>
+            <div className="checkbox-group">
+              <input type="checkbox" name="norte" {...register("norte")} />
+              <label>Norte</label>
+            </div>
+            <div className="checkbox-group">
+              <input type="checkbox" name="leste" {...register("leste")} />
+              <label>Leste</label>
+            </div>
+            <div className="checkbox-group">
+              <input type="checkbox" name="oeste" {...register("oeste")} />
+              <label>Oeste</label>
+            </div>
+            <div className="checkbox-group">
+              <input type="checkbox" name="centro" {...register("centro")} />
+              <label>Centro</label>
+            </div>
           </div>
-          <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="norte"
-              value="NORTE"
-              {...register("norte")}
-            />
-            <label>Norte</label>
-          </div>
-          <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="leste"
-              value="LESTE"
-              {...register("leste")}
-            />
-            <label>Leste</label>
-          </div>
-          <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="oeste"
-              value="OESTE"
-              {...register("oeste")}
-            />
-            <label>Oeste</label>
-          </div>
-          <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="centro"
-              value="CENTRO"
-              {...register("centro")}
-            />
-            <label>Centro</label>
-          </div>
-        </div>
 
-        <div className="form-group">
-          <label>Especialidades</label>
-          <div className="checkbox-group">
-            <input type="checkbox" name="ti" value="TI" {...register("ti")} />
-            <label>TI</label>
-          </div>
-          <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="medicina"
-              value="MEDICINA"
-              {...register("medicina")}
-            />
-            <label>Medicina</label>
-          </div>
-          <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="literatura"
-              value="LITERATURA"
-              {...register("literatura")}
-            />
-            <label>Literatura</label>
-          </div>
-          <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="engenharia"
-              valeu="ENGENHARIA"
-              {...register("engenharia")}
-            />
-            <label>Engenharia</label>
-          </div>
-          <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="humanas"
-              value="HUMANAS"
-              {...register("humanas")}
-            />
-            <label>Humanas</label>
+          <div className="form-group">
+            <label>Especialidades</label>
+            <div className="checkbox-group">
+              <input type="checkbox" name="ti" {...register("ti")} />
+              <label>TI</label>
+            </div>
+            <div className="checkbox-group">
+              <input
+                type="checkbox"
+                name="medicina"
+                {...register("medicina")}
+              />
+              <label>Medicina</label>
+            </div>
+            <div className="checkbox-group">
+              <input
+                type="checkbox"
+                name="literatura"
+                {...register("literatura")}
+              />
+              <label>Literatura</label>
+            </div>
+            <div className="checkbox-group">
+              <input
+                type="checkbox"
+                name="engenharia"
+                {...register("engenharia")}
+              />
+              <label>Engenharia</label>
+            </div>
+            <div className="checkbox-group">
+              <input type="checkbox" name="humanas" {...register("humanas")} />
+              <label>Humanas</label>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className="form-group">
         <button onClick={() => handleSubmit(onSubmit)()}>Criar conta</button>

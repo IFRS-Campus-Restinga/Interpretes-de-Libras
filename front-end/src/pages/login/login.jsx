@@ -1,4 +1,5 @@
 import "./login.css";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   return (
@@ -12,7 +13,9 @@ const Login = () => {
         <input type="text" placeholder="Escreva seu e-mail" />
       </div>
       <div className="login-group">
-        <button>Login</button>
+        <Link to="/perfil">
+          <button className="loginButton">Login</button>
+        </Link>  
       </div>
     </div>
   );
