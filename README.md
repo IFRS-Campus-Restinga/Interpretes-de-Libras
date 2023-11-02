@@ -3,6 +3,12 @@
 
 # Como executar a aplicação
 ## Front-end:
+### Passo a passo para rodar o app
+1 - Baixar o node.js pelo link https://nodejs.org/en, preferencialmente a versão LTS. 
+2 - Clonar o projeto do git
+3 - Abrir a pasta "front-end" em um terminal (integrado a IDE ou externo).
+4 - Rodar o comando "npm install".
+5 - Depois o comando "npm start"
 
 ## Back-end: 
 ### Pré-requisitos
