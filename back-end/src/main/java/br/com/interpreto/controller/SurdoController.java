@@ -5,10 +5,12 @@ import br.com.interpreto.model.surdo.SurdoAtualizaDTO;
 import br.com.interpreto.model.surdo.SurdoCadastroDTO;
 import br.com.interpreto.model.surdo.SurdoDetalhamentoDTO;
 import br.com.interpreto.service.SurdoService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
@@ -30,9 +32,8 @@ public class SurdoController {
 	}
 
 	@PostMapping
-	public ResponseEntity cadastrarSurdo(@RequestBody @Valid SurdoCadastroDTO dados, UriComponentsBuilder uriBuilder) {
-		return surdoService.cadastrarSurdo(dados, uriBuilder);
-
+	public ResponseEntity cadastrarSurdo(@RequestParam("dados") String dados, @RequestParam("arquivo") MultipartFile arquivo, UriComponentsBuilder uriBuilder) throws JsonProcessingException {
+		return surdoService.cadastrarSurdo(dados, arquivo, uriBuilder);
 	}
 
 	@GetMapping("/{id}")
