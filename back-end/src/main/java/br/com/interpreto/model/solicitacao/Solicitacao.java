@@ -1,11 +1,15 @@
 package br.com.interpreto.model.solicitacao;
 
+import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioAtualizaDTO;
+import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioCadastroDTO;
 import br.com.interpreto.model.documento.Documento;
 import br.com.interpreto.model.enums.Especialidade;
 import br.com.interpreto.model.enums.Regiao;
+import br.com.interpreto.model.enums.StatusAvaliacao;
 import br.com.interpreto.model.enums.StatusSolicitacao;
 import br.com.interpreto.model.endereco.Endereco;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -30,6 +34,7 @@ public class Solicitacao {
     private int duracaoAtendimento;
     @Enumerated(EnumType.STRING)
     private StatusSolicitacao statusSolicitacao;
+    @Column(columnDefinition = "TEXT")
     private String observacaoSolicitacao;
     @OneToOne
     @JoinColumn(name = "documento_id")
@@ -40,9 +45,113 @@ public class Solicitacao {
     @Embedded
     private Endereco endereco;
 
+    //Falta ligação com surdo e interprete
+
     @Deprecated //Uso do hibernate
     public Solicitacao(){
 
     };
+    public Solicitacao(@Valid SolicitacaoCadastroDTO dados) {
+        this.dataCriacao = LocalDate.now();
+        this.horaCriacao = LocalTime.now();
+        this.statusSolicitacao = StatusSolicitacao.ABERTA;
 
+    }
+    public void solicitacaoAtualizarDTO(@Valid SolicitacaoAtualizaDTO novosDados) {
+        //this.msg = novosDados.msg();
+        //this.dataResposta = LocalDate.now();
+        //this.statusAvaliacao = novosDados.statusAvaliacao();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public Set<Regiao> getRegioes() {
+        return regioes;
+    }
+
+    public void setRegioes(Set<Regiao> regioes) {
+        this.regioes = regioes;
+    }
+
+    public Set<Especialidade> getEspecialidade() {
+        return especialidade;
+    }
+
+    public void setEspecialidade(Set<Especialidade> especialidade) {
+        this.especialidade = especialidade;
+    }
+
+    public LocalDate getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDate dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public LocalTime getHoraCriacao() {
+        return horaCriacao;
+    }
+
+    public void setHoraCriacao(LocalTime horaCriacao) {
+        this.horaCriacao = horaCriacao;
+    }
+
+    public int getDuracaoAtendimento() {
+        return duracaoAtendimento;
+    }
+
+    public void setDuracaoAtendimento(int duracaoAtendimento) {
+        this.duracaoAtendimento = duracaoAtendimento;
+    }
+
+    public StatusSolicitacao getStatusSolicitacao() {
+        return statusSolicitacao;
+    }
+
+    public void setStatusSolicitacao(StatusSolicitacao statusSolicitacao) {
+        this.statusSolicitacao = statusSolicitacao;
+    }
+
+    public String getObservacaoSolicitacao() {
+        return observacaoSolicitacao;
+    }
+
+    public void setObservacaoSolicitacao(String observacaoSolicitacao) {
+        this.observacaoSolicitacao = observacaoSolicitacao;
+    }
+
+    public Documento getComprovantePagamento() {
+        return comprovantePagamento;
+    }
+
+    public void setComprovantePagamento(Documento comprovantePagamento) {
+        this.comprovantePagamento = comprovantePagamento;
+    }
+
+    public Double getNotaSurdo() {
+        return notaSurdo;
+    }
+
+    public void setNotaSurdo(Double notaSurdo) {
+        this.notaSurdo = notaSurdo;
+    }
+
+    public Double getNotaInterprete() {
+        return notaInterprete;
+    }
+
+    public void setNotaInterprete(Double notaInterprete) {
+        this.notaInterprete = notaInterprete;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
 }

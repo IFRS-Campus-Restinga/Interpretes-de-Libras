@@ -37,7 +37,7 @@ public class AvaliacaoUsuario {
     public AvaliacaoUsuario(@Valid AvaliacaoUsuarioCadastroDTO dados) {
         this.usuario = dados.usuario();
         this.dataCriacao = LocalDate.now();
-        this.statusAvaliacao = StatusAvaliacao.valueOf("ANALISANDO");
+        this.statusAvaliacao = StatusAvaliacao.ANALISANDO;
 
     }
     public void avaliacaoUsuarioAtualizarDTO(@Valid AvaliacaoUsuarioAtualizaDTO novosDados) {

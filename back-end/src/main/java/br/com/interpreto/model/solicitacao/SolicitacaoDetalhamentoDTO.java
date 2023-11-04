@@ -1,4 +1,4 @@
 package br.com.interpreto.model.solicitacao;
 
-public class SolicitacaoDetalhamentoDTO {
+public record SolicitacaoDetalhamentoDTO() {
 }
