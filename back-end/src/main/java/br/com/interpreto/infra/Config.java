@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class Config implements WebMvcConfigurer {
+    //Usado para liberar portas dentro dos navegadores!
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**");

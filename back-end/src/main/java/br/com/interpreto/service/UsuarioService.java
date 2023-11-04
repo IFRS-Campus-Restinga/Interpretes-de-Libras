@@ -1,11 +1,16 @@
 package br.com.interpreto.service;
 
+import br.com.interpreto.model.surdo.SurdoDetalhamentoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.interpreto.model.surdo.Surdo;
 import br.com.interpreto.model.usuario.Usuario;
 import br.com.interpreto.model.usuario.UsuarioRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UsuarioService {
@@ -15,25 +20,8 @@ public class UsuarioService {
     UsuarioService(UsuarioRepository usuarioRepository){
         this.usuarioRepository = usuarioRepository;
     }
-	
-/*
-    public boolean autenticarUsuario(String username, String password) {
-        //verificar no banco de dados).
-    	Usuario usuario = usuarioRepository.findByUsername(username);
-    	//Usuario usuario = usuarioRepository.findByEmail(email);
-        if (usuario != null && usuario.getSenha().equals(password)) {
-            return true; // senha valida.
-        }
-        return false; // senha invalida.
-    }*/
-    
-//    public boolean autenticarSurdo(String username, String password) {
-//        //verificar no banco de dados).
-//    	Surdo surdo = usuarioRepository.findByUsername(username);
-//    	//Usuario usuario = usuarioRepository.findByEmail(email);
-//        if (surdo != null && surdo.getSenha().equals(password)) {
-//            return true; // senha valida.
-//        }
-//        return false; // senha invalida.
-//    }
+
+    public ResponseEntity<List<Usuario>> listarUsuario() {
+        return ResponseEntity.ok(usuarioRepository.findAll());
+    }
 }

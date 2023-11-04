@@ -4,10 +4,7 @@ import br.com.interpreto.model.enums.Especialidade;
 import br.com.interpreto.model.enums.Regiao;
 import br.com.interpreto.model.surdo.SurdoAtualizaDTO;
 import br.com.interpreto.model.usuario.Usuario;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.Valid;
 
 import java.util.Set;
@@ -17,9 +14,10 @@ import java.util.Set;
 public class Interprete extends Usuario {
 
 	private Double valorHora;
+	@ElementCollection
 	@Enumerated(EnumType.STRING)
 	private Set<Especialidade> especialidade;
-	// file docCertificado;
+	@ElementCollection
 	@Enumerated(EnumType.STRING)
 	private Set<Regiao> regioes;
 

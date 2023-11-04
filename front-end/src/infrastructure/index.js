@@ -1,13 +1,13 @@
 import axios from "axios";
-
+//Não é utilizado segundo pessoal do front-end
 const connection = axios.create({
   baseURL: "http://localhost:8080",
 });
 
-const GET = "get";
-const POST = "post";
-const PATCH = "patch";
-const DELETE = "delete";
+const GET = "GET";
+const POST = "POST";
+const PUT = "PUT";
+const DELETE = "DELETE";
 
 const request = (path, method, data = {}) => {
   return new Promise((resolve, reject) => {

@@ -8,8 +8,6 @@ import jakarta.persistence.Table;
 @Table(name = "surdo")
 public class Surdo extends Usuario {
 
-    //file docCID;
-
     //CONSTRUTOR
     public Surdo() {
 
