@@ -12,7 +12,7 @@ const Formulario = ({ tipoUsuario }) => {
     formState: { errors },
   } = useForm();
 
-  const watchPassword = watch("password");
+  const watchPassword = watch("senha");
   const [file, setFile] = useState(null);
 
   const onSubmit = (data) => {
@@ -52,7 +52,7 @@ const Formulario = ({ tipoUsuario }) => {
     delete data.humanas;
     data["regioes"] = regioes;
     data["especialidades"] = especialidade;
-    data["senha"] = data.password;
+    data["senha"] = data.senha;
     const json = JSON.stringify(data);
     const formData = new FormData();
     formData.append("arquivo", file);
@@ -143,18 +143,18 @@ const Formulario = ({ tipoUsuario }) => {
           <input
             className={errors?.email && "input-error"}
             type="email"
-            placeholder="Your e-mail"
+            placeholder="seuemail@mail.com"
             {...register("email", {
               required: true,
               validate: (value) => isEmail(value),
             })}
           />
           {errors?.email?.type === "required" && (
-            <p className="error-message">Email is required.</p>
+            <p className="error-message">Email é obrigatório.</p>
           )}
 
           {errors?.email?.type === "validate" && (
-            <p className="error-message">Email is invalid.</p>
+            <p className="error-message">Informe um email válido.</p>
           )}
         </div>
 
@@ -212,41 +212,37 @@ const Formulario = ({ tipoUsuario }) => {
         <div className="form-group">
           <label>Senha</label>
           <input
-            className={errors?.password && "input-error"}
+            className={errors?.senha && "input-error"}
             type="password"
-            placeholder="Password"
-            {...register("password", { required: true, minLength: 7 })}
+            placeholder="Digite sua senha"
+            {...register("senha", { required: true, minLength: 7 })}
           />
 
-          {errors?.password?.type === "required" && (
+          {errors?.senha?.type === "required" && (
             <p className="error-message">Senha é um campo obrigatório.</p>
           )}
 
-          {errors?.password?.type === "minLength" && (
-            <p className="error-message">
-              A senha precisa ter no mínimo 7 caracteres.
-            </p>
+          {errors?.senha?.type === "minLength" && (
+            <p className="error-message">A senha precisa ter no mínimo 7 caracteres.</p>
           )}
         </div>
 
         <div className="form-group">
           <label>Confirmação de Senha</label>
           <input
-            className={errors?.passwordConfirmation && "input-error"}
+            className={errors?.senhaConfirmation && "input-error"}
             type="password"
-            placeholder="Repeat your password"
-            {...register("passwordConfirmation", {
+            placeholder="Repita sua senha"
+            {...register("senhaConfirmation", {
               required: true,
               validate: (value) => value === watchPassword,
             })}
           />
-          {errors?.passwordConfirmation?.type === "required" && (
-            <p className="error-message">
-              Confirmação de Senha é um campo obrigatório.
-            </p>
+          {errors?.senhaConfirmation?.type === "required" && (
+            <p className="error-message">Confirmação de senha é um campo obrigatório.</p>
           )}
 
-          {errors?.passwordConfirmation?.type === "validate" && (
+          {errors?.senhaConfirmation?.type === "validate" && (
             <p className="error-message">As senhas não conferem.</p>
           )}
         </div>

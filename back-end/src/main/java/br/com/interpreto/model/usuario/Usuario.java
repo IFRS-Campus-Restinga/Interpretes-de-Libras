@@ -1,6 +1,7 @@
 package br.com.interpreto.model.usuario;
 
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -18,6 +19,8 @@ public class Usuario {
     private String telefone;
     private String email;
     private String senha;
+
+    @JsonFormat(pattern = "yyyy-MM-dd") //Deve ser verificado
     private LocalDate dataNascimento;
     private Boolean ativo;
     private Double nota;

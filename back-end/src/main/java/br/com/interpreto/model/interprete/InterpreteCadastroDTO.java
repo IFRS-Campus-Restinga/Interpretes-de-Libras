@@ -25,7 +25,9 @@ public record InterpreteCadastroDTO(
         String email,
         @NotBlank
         String senha,
-        @JsonFormat(pattern="yyyy-MM-dd")
+
+        String senhaConfirmation,
+        @JsonFormat(pattern="yyyy-MM-dd")//Deve ser verificado
         LocalDate dataNascimento,
         Set<Especialidade> especialidades,
 
