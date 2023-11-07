@@ -5,38 +5,20 @@ import br.com.interpreto.model.enums.Regiao;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;
 import java.util.Set;
 
 public record SolicitacaoCadastroDTO(
-        @NotBlank
+
         int duracaoAtendimento,
-
-
-
-
-        @NotBlank(message = "O nome não pode estar em branco ou nulo!")
-        @Length(min= 0 , max = 20)
-        String nome,
-        @NotBlank
-        String username,//NEW!
-        @NotBlank
-        String sobrenome,
-        @NotBlank
-        String telefone,
-        @NotBlank
-        @Email
-        String email,
-        @NotBlank
-        String senha,
-        @JsonFormat(pattern="yyyy-MM-dd")
-        LocalDate dataNascimento,
-        Set<Especialidade> especialidades,
-
         Set<Regiao> regioes,
+        Set<Especialidade> especialidades,
+        @JsonFormat(pattern="yyyy-MM-dd")
+        LocalDate dataEncontro,
+        String observacao
 
-        Double valorHora
 ) {
 }

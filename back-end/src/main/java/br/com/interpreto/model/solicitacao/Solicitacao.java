@@ -29,6 +29,9 @@ public class Solicitacao {
     private Set<Especialidade> especialidade;
     @Temporal(TemporalType.DATE)
     private LocalDate dataCriacao;
+
+    @Temporal(TemporalType.DATE)
+    private LocalDate dataEncontro;
     @Temporal(TemporalType.TIME)
     private LocalTime horaCriacao;
     private int duracaoAtendimento;
@@ -41,8 +44,7 @@ public class Solicitacao {
     private Documento comprovantePagamento;
     private Double notaSurdo;
     private Double notaInterprete;
-    //Indica que a classe Endereço sera mapeada para dentro de Solicitacao
-    @Embedded
+    @Embedded //Indica que a classe Endereço sera mapeada para dentro de Solicitacao
     private Endereco endereco;
 
     //Falta ligação com surdo e interprete
@@ -53,8 +55,11 @@ public class Solicitacao {
     };
     public Solicitacao(@Valid SolicitacaoCadastroDTO dados) {
         this.dataCriacao = LocalDate.now();
-        this.horaCriacao = LocalTime.now();
         this.statusSolicitacao = StatusSolicitacao.ABERTA;
+        this.dataEncontro = dados.dataEncontro();
+        this.especialidade = dados.especialidades();
+        this.regioes = dados.regioes();
+        this.duracaoAtendimento = dados.duracaoAtendimento();
 
     }
     public void solicitacaoAtualizarDTO(@Valid SolicitacaoAtualizaDTO novosDados) {
@@ -153,5 +158,13 @@ public class Solicitacao {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public LocalDate getDataEncontro() {
+        return dataEncontro;
+    }
+
+    public void setDataEncontro(LocalDate dataEncontro) {
+        this.dataEncontro = dataEncontro;
     }
 }
