@@ -20,7 +20,7 @@ public class Usuario {
     private String email;
     private String senha;
 
-    @JsonFormat(pattern = "yyyy-MM-dd") //Deve ser verificado
+    @JsonFormat(pattern="yyyy-MM-dd")//Deve ser verificado
     private LocalDate dataNascimento;
     private Boolean ativo;
     private Double nota;

@@ -4,6 +4,9 @@ import br.com.interpreto.model.usuario.Usuario;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 @Entity
 @Table(name = "surdo")
 public class Surdo extends Usuario {
@@ -19,7 +22,14 @@ public class Surdo extends Usuario {
         this.setTelefone(dados.telefone());
         this.setEmail(dados.email());
         this.setSenha(dados.senha());
-        this.setDataNascimento(dados.dataNascimento());
+        // Converte a data de nascimento da String para LocalDate
+        if (dados.dataNascimento() != null) {
+            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate dataNascimento = LocalDate.parse(dados.dataNascimento(), inputFormatter);
+            this.setDataNascimento(dataNascimento);
+        } else {
+            this.setDataNascimento(null); // Define como null se a data de nascimento for nula
+        }
         this.setAtivo(false);
 
     }

@@ -7,6 +7,8 @@ import br.com.interpreto.model.usuario.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Set;
 
 @Entity
@@ -21,6 +23,9 @@ public class Interprete extends Usuario {
 	@Enumerated(EnumType.STRING)
 	private Set<Regiao> regioes;
 
+	//@Transient //Não cria a coluna no MYSQL
+	//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
 	public Interprete(@Valid InterpreteCadastroDTO dados) {
 		this.setCpf(dados.cpf());
 		this.setNome(dados.nome());
@@ -28,7 +33,16 @@ public class Interprete extends Usuario {
 		this.setTelefone(dados.telefone());
 		this.setEmail(dados.email());
 		this.setSenha(dados.senha());
-		this.setDataNascimento(dados.dataNascimento());
+		// Converte a data de nascimento da String para LocalDate
+		if (dados.dataNascimento() != null) {
+			DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate dataNascimento = LocalDate.parse(dados.dataNascimento(), inputFormatter);
+			this.setDataNascimento(dataNascimento);
+		} else {
+			this.setDataNascimento(null); // Define como null se a data de nascimento for nula
+		}
+
+		//this.setDataNascimento(dados.dataNascimento());
 		this.setAtivo(false);
 		this.valorHora = dados.valorHora();
 		this.especialidade = dados.especialidades();
