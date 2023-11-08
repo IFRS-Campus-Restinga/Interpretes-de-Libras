@@ -29,7 +29,6 @@ public class Solicitacao {
     private Set<Especialidade> especialidade;
     @Temporal(TemporalType.DATE)
     private LocalDate dataCriacao;
-
     @Temporal(TemporalType.DATE)
     private LocalDate dataEncontro;
     @Temporal(TemporalType.TIME)
@@ -55,11 +54,13 @@ public class Solicitacao {
     };
     public Solicitacao(@Valid SolicitacaoCadastroDTO dados) {
         this.dataCriacao = LocalDate.now();
+        this.horaCriacao = LocalTime.now();
         this.statusSolicitacao = StatusSolicitacao.ABERTA;
         this.dataEncontro = dados.dataEncontro();
         this.especialidade = dados.especialidades();
         this.regioes = dados.regioes();
         this.duracaoAtendimento = dados.duracaoAtendimento();
+        this.endereco = dados.endereco();
 
     }
     public void solicitacaoAtualizarDTO(@Valid SolicitacaoAtualizaDTO novosDados) {
