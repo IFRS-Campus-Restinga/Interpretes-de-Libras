@@ -25,6 +25,11 @@ public class AvaliacaoUsuarioService {
     public void cadastrarAvaliacaoUsuario(AvaliacaoUsuarioCadastroDTO dados) {
         avaliacaoUsuarioRepository.save(new AvaliacaoUsuario(dados));
     }
+    
+    @GetMapping("/{id}")
+    public Optional<AvaliacaoUsuario> ReceberResultadoSolicitacaoCadastro(Long id) {
+        return avaliacaoUsuarioRepository.findById(id);
+    }
 
     public List<AvaliacaoUsuario> listarAvaliacaoUsuario() {
         return avaliacaoUsuarioRepository.findAll();
