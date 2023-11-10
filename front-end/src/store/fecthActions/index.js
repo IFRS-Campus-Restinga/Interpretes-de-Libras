@@ -8,7 +8,7 @@ import {
 export const getAllSocilicitacoesCadastro = () => {
   return (dispatch) => {
     api
-      .get("/solicitacoesCadastro")
+      .get("/avaliacaousuario")
       .then((response) => {
         dispatch(getAllSolicitacoesCadastros(response.data));
       })
@@ -16,10 +16,10 @@ export const getAllSocilicitacoesCadastro = () => {
   };
 };
 
-export const postSocilicitacaoCadastro = (solcitacao) => {
+export const postSocilicitacaoCadastroSurdo = (solcitacao) => {
   return (dispatch) => {
     api
-      .post("/addSolicitacaoCadastro", solcitacao)
+      .post("/surdo", solcitacao)
       .then((response) => {
         dispatch(addSolicitacaoCadastro(response.data));
       })
@@ -27,7 +27,7 @@ export const postSocilicitacaoCadastro = (solcitacao) => {
   };
 };
 
-export const putSocilicitacaoCadastro = (solcitacao) => {
+/*export const putSocilicitacaoCadastro = (solcitacao) => {
   return (dispatch) => {
     api
       .post("/changeSolicitacaoCadastro", solcitacao)
@@ -36,4 +36,27 @@ export const putSocilicitacaoCadastro = (solcitacao) => {
       })
       .catch(console.log);
   };
+};*/
+
+export const aprovarCadastroPut = (data, id) => {
+  console.log(data)
+  return () => {
+    api
+      .put(`/avaliacaousuario/${id}`, data)
+      .then((response) => {
+        console.log("avaliacaousuario", response)
+      })
+      .catch(console.log);
+  };
 };
+
+export const getDadosFormInterprete = (id) => {
+  return () => {
+    api
+      .get(`/interprete/${id}`)
+      .then((response) => {
+        console.log("interprete", response)
+      })
+    };
+}
+

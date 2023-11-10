@@ -1,32 +1,38 @@
 import "./card-solicitacoes.css";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { putSocilicitacaoCadastro } from "../../store/fecthActions";
+import { putSocilicitacaoCadastro, aprovarCadastroPut } from "../../store/fecthActions";
 import classNames from "classnames";
 
-const CardSolicitacao = ({ nome, endereco, telefone, email, status }) => {
+const CardSolicitacao = ({ id, dataCriacao, nome, telefone, email, status }) => {
   const [stateSolicitacao, setStateSolicitacao] = useState(status);
+  const [msg, setMsg] = useState('');
+  const [statusAvaliacao, setStatusAvaliacao] =  useState('');
   const dispatch = useDispatch();
   const classStatus = classNames("card-status", status);
 
   useEffect(() => {
     console.log(stateSolicitacao);
-    dispatch(putSocilicitacaoCadastro(stateSolicitacao));
+    dispatch(aprovarCadastroPut({'msg': msg, 'statusAvaliacao': statusAvaliacao}, id));
   }, [stateSolicitacao, dispatch]);
 
   const aprovarCadastro = () => {
-    setStateSolicitacao("APROVADO");
+    setMsg('não deve estar em branco')
+    setStatusAvaliacao('DEFERIDO');
+    setStateSolicitacao("DEFERIDO");
   };
 
   const reprovarCadastro = () => {
-    setStateSolicitacao("REPROVADO");
+    setMsg('não deve estar em branco')
+    setStatusAvaliacao('INDEFERIDO');
+    setStateSolicitacao("INDEFERIDO");
   };
 
   return (
     <div className="card">
       <div className="card-left">
         <div className="card-nome">{nome}</div>
-        <div>Endereço: {endereco} </div>
+        <div>Data criacao: {dataCriacao}</div>
         <div>Telefone: {telefone} </div>
         <div>E-mail: {email} </div>
       </div>

@@ -1,6 +1,6 @@
 .card {
   display: flex;
-  height: 100px;
+  height: 200px;;
   justify-content: space-between;
   background: white;
   border-radius: 10px;
@@ -11,7 +11,7 @@
   padding: 20px;
 }
 
-.card-status.ANALISE {
+.card-status.ANALISANDO {
   display: flex;
   justify-content: center;
   width: 100px;
@@ -23,7 +23,7 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-.card-status.APROVADO {
+.card-status.DEFERIDO {
   display: flex;
   justify-content: center;
   width: 100px;
@@ -35,7 +35,7 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-.card-status.REPROVADO {
+.card-status.INDEFERIDO {
   display: flex;
   justify-content: center;
   width: 100px;
@@ -45,6 +45,11 @@
   border-radius: 5px;
   background-color: #cc5145;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+.card-left{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .card-rigth {

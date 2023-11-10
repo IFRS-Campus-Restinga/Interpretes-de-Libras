@@ -17,6 +17,9 @@ const Header = () => {
         <Link to="/cadastro">
           <button id="signUp">Cadastrar-se</button>
         </Link>
+        <Link to="/listaSolicitacoes">
+          <button id="signUp">Lista Soliciações</button>
+        </Link>
       </div>
     </div>
   );

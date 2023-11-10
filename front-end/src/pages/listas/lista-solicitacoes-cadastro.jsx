@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 import { getAllSocilicitacoesCadastro } from "../../store/fecthActions";
 
-const Home = () => {
+const ListaSolicitacoes = () => {
   const solicitacoes = useSelector((state) => state.solicitacoes);
   const dispatch = useDispatch();
 
@@ -18,11 +18,12 @@ const Home = () => {
         return (
           <CardSolicitacao
             key={index}
+            id={solicitacao.id}
+            dataCriacao={solicitacao.dataCriacao}
             nome={solicitacao.nome}
-            endereco={solicitacao.endereco}
             telefone={solicitacao.telefone}
             email={solicitacao.email}
-            status={solicitacao?.state ? solicitacao.state : "ANALISE"}
+            status={solicitacao.statusAvaliacao}
           />
         );
       })}
@@ -30,4 +31,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default ListaSolicitacoes;

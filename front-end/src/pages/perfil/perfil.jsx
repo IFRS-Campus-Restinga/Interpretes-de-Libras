@@ -1,7 +1,8 @@
-import Formulario from "../cadastro/formulario/formulario";
 import "./Perfil.css";
+import FormularioEditarInterprete from "./formularios/formulario-editar-interprete";
 
 import interprete from "../../images/interprete.png";
+
 const Perfil = () => {
   return (
     <div className="perfil">
@@ -14,7 +15,7 @@ const Perfil = () => {
         <h1>
             Configuração do perfil
         </h1>
-        <Formulario />
+        <FormularioEditarInterprete />
       </div>
     </div>
   );

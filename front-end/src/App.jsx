@@ -6,6 +6,8 @@ import Cadastro from "./pages/cadastro/cadastro";
 import Formulario from "./pages/cadastro/formulario/formulario";
 import Home from "./pages/home/home";
 import Perfil from "./pages/perfil/perfil";
+import FormularioSurdo from "./pages/cadastro/formulario-surdo/formulario";
+import ListaSolicitacoes from "./pages/listas/lista-solicitacoes-cadastro";
 
 function App() {
   return (
@@ -16,8 +18,9 @@ function App() {
         <Route path="/login" element={<Login />}></Route>
         <Route path="/cadastro" element={<Cadastro />}></Route>
         <Route path="/perfil" element={<Perfil />}></Route>
-        <Route path="/cadastro/formulario/surdo" element={<Formulario tipoUsuario="surdo"/>}></Route>
+        <Route path="/cadastro/formulario/surdo" element={<FormularioSurdo/>}></Route>
         <Route path="/cadastro/formulario/interprete" element={<Formulario tipoUsuario="interprete"/>}></Route>
+        <Route path="/listaSolicitacoes" element={<ListaSolicitacoes />}></Route>
       </Routes>
     </>
   );
