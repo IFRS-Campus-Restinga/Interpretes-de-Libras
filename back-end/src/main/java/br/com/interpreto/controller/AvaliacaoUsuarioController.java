@@ -1,15 +1,17 @@
 package br.com.interpreto.controller;
 
-import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioAtualizaDTO;
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioCadastroDTO;
+import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioDetalhamentoDTO;
 import br.com.interpreto.service.AvaliacaoUsuarioService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/avaliacaousuario")
@@ -23,25 +25,23 @@ public class AvaliacaoUsuarioController {
         this.avaliacaoUsuarioService = avaliacaoUsuarioService;
     }
     @GetMapping
-    public List<AvaliacaoUsuario> listarAvaliacao() {
+    public ResponseEntity<List<AvaliacaoUsuarioDetalhamentoDTO>> listarAvaliacaoUsuario() {
         return avaliacaoUsuarioService.listarAvaliacaoUsuario();
     }
-
-
     @PostMapping
-    public void cadastrarAvaliacaoUsuario(@RequestBody @Valid AvaliacaoUsuarioCadastroDTO dados) {
-        avaliacaoUsuarioService.cadastrarAvaliacaoUsuario(dados);
+    public ResponseEntity cadastrarAvaliacaoUsuario(@RequestBody @Valid AvaliacaoUsuarioCadastroDTO dados, UriComponentsBuilder uriBuilder) throws JsonProcessingException {
+        return avaliacaoUsuarioService.cadastrarAvaliacaoUsuario(dados, uriBuilder);
     }
     @GetMapping("/{id}")
-    public Optional<AvaliacaoUsuario> buscarAvaliacaoUsuario(@PathVariable Long id) {
+    public ResponseEntity buscarAvaliacaoUsuario(@PathVariable Long id) {
         return avaliacaoUsuarioService.buscarAvaliacaoUsuario(id);
     }
     @PutMapping("/{id}")
-    public void atualizarAvaliacaoUsuario(@PathVariable Long id, @RequestBody @Valid AvaliacaoUsuarioAtualizaDTO novosDados) {
-        avaliacaoUsuarioService.atualizarAvaliacaoUsuario(id, novosDados);
+    public ResponseEntity atualizarAvaliacaoUsuario(@PathVariable Long id, @RequestBody @Valid AvaliacaoUsuarioAtualizaDTO novosDados) {
+        return avaliacaoUsuarioService.atualizarAvaliacaoUsuario(id, novosDados);
     }
     @DeleteMapping("/{id}")
-    public void deletarAvaliacaoUsuario(@PathVariable Long id) {
-        avaliacaoUsuarioService.deletarAvaliacaoUsuario(id);
+    public ResponseEntity deletarAvaliacaoUsuario(@PathVariable Long id) {
+        return avaliacaoUsuarioService.deletarAvaliacaoUsuario(id);
     }
 }
