@@ -5,6 +5,10 @@ import br.com.interpreto.model.enums.Especialidade;
 import br.com.interpreto.model.enums.Regiao;
 import br.com.interpreto.model.enums.StatusSolicitacao;
 import br.com.interpreto.model.endereco.Endereco;
+import br.com.interpreto.model.interprete.Interprete;
+import br.com.interpreto.model.surdo.Surdo;
+import br.com.interpreto.model.usuario.Usuario;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 
@@ -42,8 +46,12 @@ public class Solicitacao {
     private Double notaInterprete;
     @Embedded //Indica que a classe Endereço sera mapeada para dentro de Solicitacao
     private Endereco endereco;
-
-    //Falta ligação com surdo e interprete
+    @ManyToOne
+    @JoinColumn(name = "surdo_id")
+    private Surdo surdo;
+    @ManyToOne
+    @JoinColumn(name = "inteprete_id")
+    private Interprete interprete;
 
     @Deprecated //Uso do hibernate
     public Solicitacao(){
@@ -59,6 +67,7 @@ public class Solicitacao {
         this.duracaoAtendimento = dados.duracaoAtendimento();
         this.endereco = dados.endereco();
         this.observacaoSolicitacao = dados.observacaoSolicitacao();
+        this.surdo = dados.surdo();
 
     }
     public void solicitacaoAtualizarDTO(@Valid SolicitacaoAtualizaDTO novosDados) {
@@ -162,5 +171,21 @@ public class Solicitacao {
 
     public void setDataEncontro(LocalDate dataEncontro) {
         this.dataEncontro = dataEncontro;
+    }
+
+    public Surdo getSurdo() {
+        return surdo;
+    }
+
+    public void setSurdo(Surdo surdo) {
+        this.surdo = surdo;
+    }
+
+    public Interprete getInterprete() {
+        return interprete;
+    }
+
+    public void setInterprete(Interprete interprete) {
+        this.interprete = interprete;
     }
 }

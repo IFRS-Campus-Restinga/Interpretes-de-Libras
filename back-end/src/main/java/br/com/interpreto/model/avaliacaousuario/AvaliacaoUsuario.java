@@ -25,10 +25,9 @@ public class AvaliacaoUsuario {
     @Enumerated(EnumType.STRING)
     private StatusAvaliacao statusAvaliacao;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuario_id", nullable = false) // Coluna que faz a associação
+    @JoinColumn(name = "usuario_id") // Coluna que faz a associação
     @JsonBackReference
     private Usuario usuario;
-
     @OneToOne
     @JoinColumn(name = "documento_id")
     private Documento documento;

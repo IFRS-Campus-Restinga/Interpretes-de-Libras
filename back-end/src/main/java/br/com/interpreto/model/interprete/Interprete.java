@@ -2,16 +2,18 @@ package br.com.interpreto.model.interprete;
 
 import br.com.interpreto.model.enums.Especialidade;
 import br.com.interpreto.model.enums.Regiao;
+import br.com.interpreto.model.solicitacao.Solicitacao;
 import br.com.interpreto.model.usuario.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "interprete")
+@DiscriminatorValue("interprete")
 public class Interprete extends Usuario {
 
 	private Double valorHora;
@@ -22,8 +24,8 @@ public class Interprete extends Usuario {
 	@Enumerated(EnumType.STRING)
 	private Set<Regiao> regioes;
 
-	//@Transient //Não cria a coluna no MYSQL
-	//DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	@OneToMany(mappedBy = "interprete", fetch = FetchType.EAGER)
+	private List<Solicitacao> solicitacao;
 
 	public Interprete(@Valid InterpreteCadastroDTO dados) {
 		this.setCpf(dados.cpf());

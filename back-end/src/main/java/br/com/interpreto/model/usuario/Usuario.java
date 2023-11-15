@@ -1,6 +1,7 @@
 package br.com.interpreto.model.usuario;
 
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
+import br.com.interpreto.model.solicitacao.Solicitacao;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -25,10 +26,10 @@ public class Usuario {
     private Boolean ativo;
     private Double nota;
     private Long quantidadeEncontros;
-
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)//Para tornar Bidirecional...
     @JsonManagedReference
     private List<AvaliacaoUsuario> avaliacaoUsuario;
+
     public Usuario() {
 
     }

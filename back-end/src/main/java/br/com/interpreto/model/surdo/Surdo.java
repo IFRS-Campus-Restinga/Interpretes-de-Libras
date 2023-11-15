@@ -1,15 +1,23 @@
 package br.com.interpreto.model.surdo;
 
+import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
+import br.com.interpreto.model.solicitacao.Solicitacao;
 import br.com.interpreto.model.usuario.Usuario;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Entity
-@Table(name = "surdo")
+@DiscriminatorValue("surdo")
 public class Surdo extends Usuario {
+    @OneToMany(mappedBy = "surdo", fetch = FetchType.EAGER)
+    private List<Solicitacao> solicitacao;
 
     //CONSTRUTOR
     public Surdo() {
