@@ -1,10 +1,16 @@
 package br.com.interpreto.service;
 
 import br.com.interpreto.model.avaliacaousuario.*;
+import br.com.interpreto.model.enums.StatusAvaliacao;
+import br.com.interpreto.model.interprete.Interprete;
+import br.com.interpreto.model.interprete.InterpreteCadastroDTO;
 import br.com.interpreto.model.solicitacao.Solicitacao;
 import br.com.interpreto.model.solicitacao.SolicitacaoAtualizaDTO;
 import br.com.interpreto.model.solicitacao.SolicitacaoDetalhamentoDTO;
+import br.com.interpreto.model.usuario.Usuario;
+import br.com.interpreto.model.usuario.UsuarioRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +25,12 @@ import java.util.Optional;
 @Service
 public class AvaliacaoUsuarioService {
     final private AvaliacaoUsuarioRepository avaliacaoUsuarioRepository;
+    final private UsuarioRepository usuarioRepository;
 
     @Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-    public AvaliacaoUsuarioService(AvaliacaoUsuarioRepository avaliacaoUsuarioRepository) {
+    public AvaliacaoUsuarioService(AvaliacaoUsuarioRepository avaliacaoUsuarioRepository, UsuarioRepository usuarioRepository) {
         this.avaliacaoUsuarioRepository = avaliacaoUsuarioRepository;
+        this.usuarioRepository = usuarioRepository;
     }
     @Transactional
     public ResponseEntity cadastrarAvaliacaoUsuario(AvaliacaoUsuarioCadastroDTO dados, UriComponentsBuilder uriBuilder) throws JsonProcessingException {
@@ -53,6 +61,13 @@ public class AvaliacaoUsuarioService {
         avaliacaoUsuario.avaliacaoUsuarioAtualizarDTO(novosDados);
         avaliacaoUsuarioRepository.save(avaliacaoUsuario);
 
+        //Ao administrador mudar para Deferido o statusAvaliacao, o usuário deve ter seus "Acesso liberados"
+        //Surdo pode criar Solicitacao e Interprete pode participar da Solicitacao
+        if (novosDados.statusAvaliacao() == StatusAvaliacao.DEFERIDO){
+            Usuario usuario = avaliacaoUsuario.getUsuario();
+            usuario.setAtivo(true);
+            usuarioRepository.save(usuario);
+        }
         return ResponseEntity.ok(new AvaliacaoUsuarioDetalhamentoDTO(avaliacaoUsuario));
     }
     @Transactional
