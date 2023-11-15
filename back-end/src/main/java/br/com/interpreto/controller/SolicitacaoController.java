@@ -1,12 +1,15 @@
 package br.com.interpreto.controller;
 
-import br.com.interpreto.model.solicitacao.Solicitacao;
 import br.com.interpreto.model.solicitacao.SolicitacaoAtualizaDTO;
 import br.com.interpreto.model.solicitacao.SolicitacaoCadastroDTO;
+import br.com.interpreto.model.solicitacao.SolicitacaoDetalhamentoDTO;
 import br.com.interpreto.service.SolicitacaoService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,23 +25,23 @@ public class SolicitacaoController {
         this.solicitacaoService = solicitacaoService;
     }
     @GetMapping
-    public List<Solicitacao> listarSolicitacao() {
+    public ResponseEntity<List<SolicitacaoDetalhamentoDTO>> listarSolicitacao() {
         return solicitacaoService.listarSolicitacao();
     }
     @PostMapping
-    public void cadastrarSolicitacao(@RequestBody @Valid SolicitacaoCadastroDTO dados) {
-        solicitacaoService.cadastrarSolicitacao(dados);
+    public ResponseEntity cadastrarSolicitacao(@RequestBody @Valid SolicitacaoCadastroDTO dados, UriComponentsBuilder uriBuilder) throws JsonProcessingException{
+        return solicitacaoService.cadastrarSolicitacao(dados, uriBuilder);
     }
     @GetMapping("/{id}")
-    public Optional<Solicitacao> buscarSolicitacao(@PathVariable Long id) {
+    public ResponseEntity buscarSolicitacao(@PathVariable Long id) {
         return solicitacaoService.buscarSolicitacao(id);
     }
     @PutMapping("/{id}")
-    public void atualizarSolicitacao(@PathVariable Long id, @RequestBody @Valid SolicitacaoAtualizaDTO novosDados) {
-        solicitacaoService.atualizarSolicitacao(id, novosDados);
+    public ResponseEntity atualizarSolicitacao(@PathVariable Long id, @RequestBody @Valid SolicitacaoAtualizaDTO novosDados) {
+        return solicitacaoService.atualizarSolicitacao(id, novosDados);
     }
     @DeleteMapping("/{id}")
-    public void deletarSolicitacao(@PathVariable Long id) {
-        solicitacaoService.deletarSolicitacao(id);
+    public ResponseEntity deletarSolicitacao(@PathVariable Long id) {
+        return solicitacaoService.deletarSolicitacao(id);
     }
 }

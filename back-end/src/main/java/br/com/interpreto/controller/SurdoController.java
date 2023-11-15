@@ -2,9 +2,7 @@ package br.com.interpreto.controller;
 
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
 import br.com.interpreto.model.enums.StatusAvaliacao;
-import br.com.interpreto.model.surdo.Surdo;
 import br.com.interpreto.model.surdo.SurdoAtualizaDTO;
-import br.com.interpreto.model.surdo.SurdoCadastroDTO;
 import br.com.interpreto.model.surdo.SurdoDetalhamentoDTO;
 import br.com.interpreto.service.AvaliacaoUsuarioService;
 import br.com.interpreto.service.SurdoService;
@@ -24,7 +22,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class SurdoController {
 	private final SurdoService surdoService;
-	private AvaliacaoUsuarioService avaliacaoUsuarioService;
+	private final AvaliacaoUsuarioService avaliacaoUsuarioService;
 
 	@Autowired // INJECAO DE DEPENDENCIA VIA CONSTRUTOR
 	public SurdoController(SurdoService surdoService, AvaliacaoUsuarioService avaliacaoUsuarioService) {

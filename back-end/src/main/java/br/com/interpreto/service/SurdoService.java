@@ -28,7 +28,6 @@ public class SurdoService {
 		this.avaliacaoUsuarioRepository = avaliacaoUsuarioRepository;
 		this.documentoService = documentoService;
 	}
-
 	@Transactional
 	public ResponseEntity cadastrarSurdo(String dados, MultipartFile arquivo, UriComponentsBuilder uriBuilder) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
@@ -46,7 +45,6 @@ public class SurdoService {
 
 		return ResponseEntity.created(uri).body(new SurdoDetalhamentoDTO(surdo));
 	}
-
 	public ResponseEntity<List<SurdoDetalhamentoDTO>> listarSurdo() {
 		List<Surdo> listagem = surdoRepository.findAll();
 
@@ -57,14 +55,11 @@ public class SurdoService {
 
 		return ResponseEntity.ok(listagemDTO);
 	}
-
 	public ResponseEntity buscarSurdo(Long id) {
 		Surdo surdo = surdoRepository.getReferenceById(id);
 
 		return ResponseEntity.ok(new SurdoDetalhamentoDTO(surdo));
 	}
-
-
 	@Transactional
 	public ResponseEntity atualizarSurdo(Long id, SurdoAtualizaDTO novosDados) {
 		Surdo surdo = surdoRepository.getReferenceById(id);
@@ -73,7 +68,6 @@ public class SurdoService {
 
 		return ResponseEntity.ok(new SurdoDetalhamentoDTO(surdo));
 	}
-	
 	@Transactional
 	public ResponseEntity deletarSurdo(Long id) {
 	    Surdo surdo = surdoRepository.getReferenceById(id);

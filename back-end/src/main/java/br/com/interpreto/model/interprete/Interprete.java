@@ -2,7 +2,6 @@ package br.com.interpreto.model.interprete;
 
 import br.com.interpreto.model.enums.Especialidade;
 import br.com.interpreto.model.enums.Regiao;
-import br.com.interpreto.model.surdo.SurdoAtualizaDTO;
 import br.com.interpreto.model.usuario.Usuario;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;

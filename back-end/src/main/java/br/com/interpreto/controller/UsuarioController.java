@@ -1,8 +1,6 @@
 package br.com.interpreto.controller;
 
-import br.com.interpreto.model.surdo.SurdoDetalhamentoDTO;
 import br.com.interpreto.model.usuario.Usuario;
-import br.com.interpreto.service.SurdoService;
 import br.com.interpreto.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,11 +1,8 @@
 package br.com.interpreto.model.solicitacao;
 
-import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioAtualizaDTO;
-import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioCadastroDTO;
 import br.com.interpreto.model.documento.Documento;
 import br.com.interpreto.model.enums.Especialidade;
 import br.com.interpreto.model.enums.Regiao;
-import br.com.interpreto.model.enums.StatusAvaliacao;
 import br.com.interpreto.model.enums.StatusSolicitacao;
 import br.com.interpreto.model.endereco.Endereco;
 import jakarta.persistence.*;
@@ -61,14 +58,12 @@ public class Solicitacao {
         this.regioes = dados.regioes();
         this.duracaoAtendimento = dados.duracaoAtendimento();
         this.endereco = dados.endereco();
+        this.observacaoSolicitacao = dados.observacaoSolicitacao();
 
     }
     public void solicitacaoAtualizarDTO(@Valid SolicitacaoAtualizaDTO novosDados) {
-        //this.msg = novosDados.msg();
-        //this.dataResposta = LocalDate.now();
-        //this.statusAvaliacao = novosDados.statusAvaliacao();
+        this.duracaoAtendimento = novosDados.duracaoAtendimento();
     }
-
     public Long getId() {
         return id;
     }

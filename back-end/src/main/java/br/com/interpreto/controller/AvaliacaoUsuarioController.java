@@ -1,6 +1,5 @@
 package br.com.interpreto.controller;
 
-
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioAtualizaDTO;
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioCadastroDTO;

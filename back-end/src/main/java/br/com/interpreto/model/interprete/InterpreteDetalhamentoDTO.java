@@ -1,12 +1,10 @@
 package br.com.interpreto.model.interprete;
 
-import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
 import br.com.interpreto.model.enums.Especialidade;
 import br.com.interpreto.model.enums.Regiao;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.Set;
 
 public record InterpreteDetalhamentoDTO(

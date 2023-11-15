@@ -1,14 +1,23 @@
 package br.com.interpreto.service;
 
-import br.com.interpreto.model.solicitacao.Solicitacao;
-import br.com.interpreto.model.solicitacao.SolicitacaoAtualizaDTO;
-import br.com.interpreto.model.solicitacao.SolicitacaoCadastroDTO;
-import br.com.interpreto.model.solicitacao.SolicitacaoRepository;
+import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
+import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioCadastroDTO;
+import br.com.interpreto.model.solicitacao.*;
+import br.com.interpreto.model.surdo.Surdo;
+import br.com.interpreto.model.surdo.SurdoAtualizaDTO;
+import br.com.interpreto.model.surdo.SurdoCadastroDTO;
+import br.com.interpreto.model.surdo.SurdoDetalhamentoDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,31 +30,42 @@ public class SolicitacaoService {
         this.solicitacaoRepository = solicitacaoRepository;
     }
     @Transactional
-    public void cadastrarSolicitacao(SolicitacaoCadastroDTO dados) {
-        solicitacaoRepository.save(new Solicitacao(dados));
+    public ResponseEntity cadastrarSolicitacao(SolicitacaoCadastroDTO dados, UriComponentsBuilder uriBuilder) throws JsonProcessingException{
+        Solicitacao solicitacao = new Solicitacao(dados);
+        solicitacaoRepository.save(solicitacao);
+
+        var uri = uriBuilder.path("/solicitacao/{id}").buildAndExpand(solicitacao.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new SolicitacaoDetalhamentoDTO(solicitacao));
     }
-    public List<Solicitacao> listarSolicitacao() {
-        return solicitacaoRepository.findAll();
+    public ResponseEntity<List<SolicitacaoDetalhamentoDTO>> listarSolicitacao() {
+        List<Solicitacao> listagem = solicitacaoRepository.findAll();
+
+        List<SolicitacaoDetalhamentoDTO> listagemDTO = new ArrayList<>();
+        for (Solicitacao solicitacao: listagem){
+            listagemDTO.add(new SolicitacaoDetalhamentoDTO(solicitacao));
+        }
+        return ResponseEntity.ok(listagemDTO);
     }
-    @GetMapping("/{id}")
-    public Optional<Solicitacao> buscarSolicitacao(Long id) {
-        return solicitacaoRepository.findById(id);
+    public ResponseEntity buscarSolicitacao(Long id) {
+        Solicitacao solicitacao = solicitacaoRepository.getReferenceById(id);
+
+        return ResponseEntity.ok(new SolicitacaoDetalhamentoDTO(solicitacao));
     }
     @Transactional
-    public void atualizarSolicitacao(Long id, SolicitacaoAtualizaDTO novosDados) {
-        Optional<Solicitacao> opcionalSolicitacao = solicitacaoRepository.findById(id);
-        if (opcionalSolicitacao.isPresent()) {
-            Solicitacao solicitacao = opcionalSolicitacao.get();
-            solicitacao.solicitacaoAtualizarDTO(novosDados);
-            solicitacaoRepository.save(solicitacao);
-        }
+    public ResponseEntity atualizarSolicitacao(Long id, SolicitacaoAtualizaDTO novosDados) {
+        Solicitacao solicitacao = solicitacaoRepository.getReferenceById(id);
+        solicitacao.solicitacaoAtualizarDTO(novosDados);
+        solicitacaoRepository.save(solicitacao);
+
+        return ResponseEntity.ok(new SolicitacaoDetalhamentoDTO(solicitacao));
     }
     @Transactional
-    public void deletarSolicitacao(Long id) {
-        Optional<Solicitacao> opcionalSolicitacao = solicitacaoRepository.findById(id);
-        if (opcionalSolicitacao.isPresent()) {
-            solicitacaoRepository.deleteById(id);
-        }
+    public ResponseEntity deletarSolicitacao(Long id) {
+        Solicitacao solicitacao = solicitacaoRepository.getReferenceById(id);
+        solicitacaoRepository.deleteById(id);
+
+        return ResponseEntity.noContent().build();
     }
 }
 

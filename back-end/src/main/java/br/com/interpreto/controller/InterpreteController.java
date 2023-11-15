@@ -2,9 +2,7 @@ package br.com.interpreto.controller;
 
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
 import br.com.interpreto.model.enums.StatusAvaliacao;
-import br.com.interpreto.model.interprete.Interprete;
 import br.com.interpreto.model.interprete.InterpreteAtualizaDTO;
-import br.com.interpreto.model.interprete.InterpreteCadastroDTO;
 import br.com.interpreto.model.interprete.InterpreteDetalhamentoDTO;
 import br.com.interpreto.service.AvaliacaoUsuarioService;
 import br.com.interpreto.service.InterpreteService;

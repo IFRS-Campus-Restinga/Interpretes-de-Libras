@@ -1,11 +1,9 @@
 package br.com.interpreto.service;
 
-import br.com.interpreto.model.surdo.SurdoDetalhamentoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import br.com.interpreto.model.surdo.Surdo;
 import br.com.interpreto.model.usuario.Usuario;
 import br.com.interpreto.model.usuario.UsuarioRepository;
 

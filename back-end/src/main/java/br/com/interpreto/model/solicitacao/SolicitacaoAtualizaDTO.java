@@ -1,4 +1,6 @@
 package br.com.interpreto.model.solicitacao;
 
-public record SolicitacaoAtualizaDTO() {
+public record SolicitacaoAtualizaDTO(
+        int duracaoAtendimento
+) {
 }
