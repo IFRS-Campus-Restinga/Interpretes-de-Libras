@@ -20,6 +20,9 @@ const Header = () => {
         <Link to="/listaSolicitacoes">
           <button id="signUp">Lista Soliciações</button>
         </Link>
+        <Link to="/cadastroSolicitacoes">
+          <button id="signUp">Cadastro Soliciações</button>
+        </Link>
       </div>
     </div>
   );

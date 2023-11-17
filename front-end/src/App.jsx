@@ -8,6 +8,7 @@ import Home from "./pages/home/home";
 import Perfil from "./pages/perfil/perfil";
 import FormularioSurdo from "./pages/cadastro/formulario-surdo/formulario";
 import ListaSolicitacoes from "./pages/listas/lista-solicitacoes-cadastro";
+import FormularioSolicitacao from "./pages/cadastro-solicitacao-de-interprete/cadastro-solicitacao-de-interprete";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/cadastro/formulario/surdo" element={<FormularioSurdo/>}></Route>
         <Route path="/cadastro/formulario/interprete" element={<Formulario tipoUsuario="interprete"/>}></Route>
         <Route path="/listaSolicitacoes" element={<ListaSolicitacoes />}></Route>
+        <Route path="/cadastroSolicitacoes" element={<FormularioSolicitacao />}></Route>
       </Routes>
     </>
   );

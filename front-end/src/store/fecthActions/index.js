@@ -57,6 +57,15 @@ export const getDadosFormInterprete = (id) => {
       .then((response) => {
         console.log("interprete", response)
       })
-    };
+ };   
 }
 
+export const postCadastroSolicitacaoInterprete = (data) => {
+  return () => {
+    api
+      .get('/solicitacao', data)
+      .then((response) => {
+        console.log("solicitacao", response)
+      })
+  };   
+}

@@ -33,7 +33,7 @@
   height: 50px;
   background-color: black;
   border: none;
-  color: #1977cc;
+  color: white;
   font-size: 20px;
   margin-left: 10px;
 }
@@ -43,7 +43,7 @@
   height: 50px;
   background-color: transparent;
   border: 1px solid #000;
-  color: black;
+  color: white;
   font-size: 20px;
 }
 button {
