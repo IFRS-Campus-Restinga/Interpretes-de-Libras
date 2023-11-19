@@ -21,6 +21,7 @@ public record SurdoCadastroDTO(
         String email,
         //@NotBlank
         String senha,
+        String role,
         String dataNascimento
 ) {
 }

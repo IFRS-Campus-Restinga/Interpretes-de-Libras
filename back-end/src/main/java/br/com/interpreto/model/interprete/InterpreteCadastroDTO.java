@@ -24,6 +24,7 @@ public record InterpreteCadastroDTO(
         @NotBlank
         String senha,
         String senhaConfirmation,
+        String role,
         String dataNascimento,
         Set<Especialidade> especialidades,
         Set<Regiao> regioes,

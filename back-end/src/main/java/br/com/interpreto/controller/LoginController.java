@@ -1,32 +1,34 @@
 package br.com.interpreto.controller;
 
+import br.com.interpreto.model.usuario.LoginDTO;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.interpreto.service.UsuarioService;
 
 @RestController
-@Controller
+@RequestMapping("/login")
 @CrossOrigin(origins = "*")
 public class LoginController {
-    private UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
+    private final AuthenticationManager authenticationManager;
 
     @Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-    public LoginController(UsuarioService usuarioService){
+    public LoginController(UsuarioService usuarioService, AuthenticationManager authenticationManager){
         this.usuarioService = usuarioService;
+        this.authenticationManager = authenticationManager;
+    }
+    @PostMapping
+    public ResponseEntity login(@RequestBody @Valid LoginDTO dados) {
+        var usernamePassword = new UsernamePasswordAuthenticationToken(dados.email(), dados.senha());
+        var auth = this.authenticationManager.authenticate(usernamePassword);
+
+        return ResponseEntity.ok().build();
     }
 
-    /*
-    @PostMapping("/login")
-    public String processoLogin(String username, String password) {
-        if (usuarioService.autenticarUsuario(username, password)) {
-            // Lógica para redirecionar o usuário após o login bem-sucedido.
-            return "redirect:/home";
-        } else {
-            // Lógica para lidar com falha na autenticação, por exemplo, exibindo uma mensagem de erro.
-            return "redirect:/login?error";
-        }
-    }*/
 }

@@ -1,6 +1,7 @@
 package br.com.interpreto.model.surdo;
 
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
+import br.com.interpreto.model.enums.TipoUsuario;
 import br.com.interpreto.model.solicitacao.Solicitacao;
 import br.com.interpreto.model.usuario.Usuario;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -38,6 +39,7 @@ public class Surdo extends Usuario {
         } else {
             this.setDataNascimento(null); // Define como null se a data de nascimento for nula
         }
+        this.setRole(TipoUsuario.valueOf(dados.role()));
         this.setAtivo(false);
 
     }

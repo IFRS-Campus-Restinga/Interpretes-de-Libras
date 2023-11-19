@@ -2,6 +2,7 @@ package br.com.interpreto.model.interprete;
 
 import br.com.interpreto.model.enums.Especialidade;
 import br.com.interpreto.model.enums.Regiao;
+import br.com.interpreto.model.enums.TipoUsuario;
 import br.com.interpreto.model.solicitacao.Solicitacao;
 import br.com.interpreto.model.usuario.Usuario;
 import jakarta.persistence.*;
@@ -23,7 +24,6 @@ public class Interprete extends Usuario {
 	@ElementCollection
 	@Enumerated(EnumType.STRING)
 	private Set<Regiao> regioes;
-
 	@OneToMany(mappedBy = "interprete", fetch = FetchType.EAGER)
 	private List<Solicitacao> solicitacao;
 
@@ -42,8 +42,7 @@ public class Interprete extends Usuario {
 		} else {
 			this.setDataNascimento(null); // Define como null se a data de nascimento for nula
 		}
-
-		//this.setDataNascimento(dados.dataNascimento());
+		this.setRole(TipoUsuario.valueOf(dados.role()));
 		this.setAtivo(false);
 		this.valorHora = dados.valorHora();
 		this.especialidade = dados.especialidades();
