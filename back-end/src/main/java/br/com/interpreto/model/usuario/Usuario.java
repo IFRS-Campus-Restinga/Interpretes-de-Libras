@@ -144,11 +144,14 @@ public class Usuario implements UserDetails {
     @Override//Roless
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if(this.role == TipoUsuario.ADMIN) {
+            System.out.println("Sou admin");
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_SURDO"),
                     new SimpleGrantedAuthority("ROLE_INTERPRETE"));
         }else if(this.role == TipoUsuario.SURDO) {
+            System.out.println("Sou surdo");
             return List.of(new SimpleGrantedAuthority("ROLE_SURDO"));
         }else {
+            System.out.println("Sou interprete");
             return List.of(new SimpleGrantedAuthority("ROLE_INTERPRETE"));
         }
     }

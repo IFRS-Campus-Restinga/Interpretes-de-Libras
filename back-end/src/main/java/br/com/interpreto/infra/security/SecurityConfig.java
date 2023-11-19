@@ -29,8 +29,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/interprete").permitAll()
                         .requestMatchers(HttpMethod.POST, "/surdo").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/avaliacaousuario").hasRole("ADMIN")
-                        .anyRequest().permitAll() //permitAll() para testes //authenticated() para aplicacao real
+                        .requestMatchers(HttpMethod.GET, "/avaliacaousuario").hasRole("SURDO")
+                        .anyRequest().authenticated() //permitAll() para testes //authenticated() para aplicacao real
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
