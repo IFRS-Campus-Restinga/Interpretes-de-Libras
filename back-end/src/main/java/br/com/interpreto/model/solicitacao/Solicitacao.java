@@ -71,6 +71,15 @@ public class Solicitacao {
 
     }
     public void solicitacaoAtualizarDTO(@Valid SolicitacaoAtualizaDTO novosDados) {
+        this.interprete = novosDados.interprete();
+        this.regioes = novosDados.regioes();
+        this.especialidade = novosDados.especialidade();
+        this.dataEncontro = novosDados.dataEncontro();
+        this.statusSolicitacao = novosDados.statusSolicitacao();
+        this.observacaoSolicitacao = novosDados.observacaoSolicitacao();
+        this.notaSurdo = novosDados.notaSurdo();
+        this.notaInterprete = novosDados.notaInterprete();
+        this.endereco = novosDados.endereco();
         this.duracaoAtendimento = novosDados.duracaoAtendimento();
     }
     public Long getId() {
