@@ -8,6 +8,7 @@ import br.com.interpreto.model.interprete.Interprete;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Set;
 
 public record SolicitacaoAtualizaDTO(
@@ -16,6 +17,8 @@ public record SolicitacaoAtualizaDTO(
         Set<Especialidade> especialidade,
         @JsonFormat(pattern="yyyy-MM-dd")
         LocalDate dataEncontro,
+        @JsonFormat(pattern="HH:mm")
+        LocalTime horaEncontro,
         int duracaoAtendimento,
         StatusSolicitacao statusSolicitacao,
         String observacaoSolicitacao,

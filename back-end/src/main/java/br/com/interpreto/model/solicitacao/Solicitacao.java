@@ -13,6 +13,7 @@ import jakarta.persistence.*;
 import jakarta.validation.Valid;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Set;
 
@@ -32,6 +33,8 @@ public class Solicitacao {
     private LocalDate dataCriacao;
     @Temporal(TemporalType.DATE)
     private LocalDate dataEncontro;
+    @Temporal(TemporalType.TIME)
+    private LocalTime horaEncontro;
     @Temporal(TemporalType.TIME)
     private LocalTime horaCriacao;
     private int duracaoAtendimento;
@@ -62,12 +65,14 @@ public class Solicitacao {
         this.horaCriacao = LocalTime.now();
         this.statusSolicitacao = StatusSolicitacao.ABERTA;
         this.dataEncontro = dados.dataEncontro();
+        this.horaEncontro = dados.horaEncontro();
         this.especialidade = dados.especialidades();
         this.regioes = dados.regioes();
         this.duracaoAtendimento = dados.duracaoAtendimento();
         this.endereco = dados.endereco();
         this.observacaoSolicitacao = dados.observacaoSolicitacao();
         this.surdo = dados.surdo();
+        this.interprete = dados.interprete();
 
     }
     public void solicitacaoAtualizarDTO(@Valid SolicitacaoAtualizaDTO novosDados) {
@@ -75,12 +80,14 @@ public class Solicitacao {
         this.regioes = novosDados.regioes();
         this.especialidade = novosDados.especialidade();
         this.dataEncontro = novosDados.dataEncontro();
+        this.horaEncontro = novosDados.horaEncontro();
         this.statusSolicitacao = novosDados.statusSolicitacao();
         this.observacaoSolicitacao = novosDados.observacaoSolicitacao();
         this.notaSurdo = novosDados.notaSurdo();
         this.notaInterprete = novosDados.notaInterprete();
         this.endereco = novosDados.endereco();
         this.duracaoAtendimento = novosDados.duracaoAtendimento();
+        this.interprete = novosDados.interprete();
     }
     public Long getId() {
         return id;
@@ -196,5 +203,13 @@ public class Solicitacao {
 
     public void setInterprete(Interprete interprete) {
         this.interprete = interprete;
+    }
+
+    public LocalTime getHoraEncontro() {
+        return horaEncontro;
+    }
+
+    public void setHoraEncontro(LocalTime horaEncontro) {
+        this.horaEncontro = horaEncontro;
     }
 }
