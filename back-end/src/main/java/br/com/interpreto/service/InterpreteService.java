@@ -15,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class InterpreteService {
@@ -82,4 +83,11 @@ public class InterpreteService {
 
 		return ResponseEntity.noContent().build();
 	}
+	
+	// Surdo Visualizar Candidaturas de Interpretes na regiao escolhida.
+		public List<InterpreteCandidatura> ListarCandidaturasInterprete() {
+			List<Interprete> listagem = interpreteRepository.findAll();
+
+			return listagem.stream().map(InterpreteCandidatura::new).collect(Collectors.toList());
+		}
 }

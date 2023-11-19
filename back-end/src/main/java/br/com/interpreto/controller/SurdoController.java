@@ -1,10 +1,14 @@
 package br.com.interpreto.controller;
 
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
+import br.com.interpreto.model.enums.Regiao;
 import br.com.interpreto.model.enums.StatusAvaliacao;
+import br.com.interpreto.model.interprete.InterpreteCandidatura;
 import br.com.interpreto.model.surdo.SurdoAtualizaDTO;
 import br.com.interpreto.model.surdo.SurdoDetalhamentoDTO;
 import br.com.interpreto.service.AvaliacaoUsuarioService;
+import br.com.interpreto.service.InterpreteService;
+import br.com.interpreto.service.SolicitacaoService;
 import br.com.interpreto.service.SurdoService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
@@ -16,6 +20,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/surdo")
@@ -23,11 +29,16 @@ import java.util.Optional;
 public class SurdoController {
 	private final SurdoService surdoService;
 	private final AvaliacaoUsuarioService avaliacaoUsuarioService;
+	private final InterpreteService interpreteService;
+	private final SolicitacaoService solicitacaoService;
 
 	@Autowired // INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-	public SurdoController(SurdoService surdoService, AvaliacaoUsuarioService avaliacaoUsuarioService) {
+	public SurdoController(SurdoService surdoService, AvaliacaoUsuarioService avaliacaoUsuarioService,
+			InterpreteService interpreteService, SolicitacaoService solicitacaoService) {
 		this.surdoService = surdoService;
 		this.avaliacaoUsuarioService = avaliacaoUsuarioService;
+		this.interpreteService = interpreteService;
+		this.solicitacaoService = solicitacaoService;
 	}
 
 	@GetMapping
@@ -76,5 +87,26 @@ public class SurdoController {
 		} else {
 			return ResponseEntity.notFound().build();
 		}
+	}
+
+	// Surdo Visualizar Candidaturas de Interpretes na regiao escolhida.
+	@GetMapping("ListarCandidaturasInterprete")
+	public ResponseEntity<List<InterpreteCandidatura>> ListarCandidaturasInterprete(
+			@RequestParam("solicitacaoId") Long solicitacaoId) {
+		return solicitacaoService.buscarSolicitacaoSurdo(solicitacaoId).map(solicitacao -> {
+			Set<Regiao> regioesSurdo = solicitacao.getRegioes();
+			List<InterpreteCandidatura> candidaturas = interpreteService.ListarCandidaturasInterprete().stream()
+					.filter(interpreteCandidatura -> interpreteCandidatura.regioes().containsAll(regioesSurdo))
+					.collect(Collectors.toList());
+
+			return ResponseEntity.ok(candidaturas);
+		}).orElse(ResponseEntity.notFound().build());
+	}
+
+	// Surdo selecionar intérprete e atualizar status da solicitação: aguardando_aceite
+	@PostMapping("/selecionarCandidaturaInterprete")
+	public ResponseEntity<String> selecionarCandidaturaInterprete(@RequestParam("solicitacaoId") Long solicitacaoId,
+			@RequestParam("interpreteId") Long interpreteId) {
+		return solicitacaoService.selecionarCandidaturaInterprete(solicitacaoId, interpreteId);
 	}
 }

@@ -2,6 +2,9 @@ package br.com.interpreto.service;
 
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioCadastroDTO;
+import br.com.interpreto.model.enums.StatusSolicitacao;
+import br.com.interpreto.model.interprete.Interprete;
+import br.com.interpreto.model.interprete.InterpreteRepository;
 import br.com.interpreto.model.solicitacao.*;
 import br.com.interpreto.model.surdo.Surdo;
 import br.com.interpreto.model.surdo.SurdoAtualizaDTO;
@@ -24,10 +27,12 @@ import java.util.Optional;
 @Service
 public class SolicitacaoService {
     final private SolicitacaoRepository solicitacaoRepository;
+    final private InterpreteRepository interpreteRepository;
 
     @Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-    public SolicitacaoService(SolicitacaoRepository solicitacaoRepository) {
+    public SolicitacaoService(SolicitacaoRepository solicitacaoRepository, InterpreteRepository interpreteRepository) {
         this.solicitacaoRepository = solicitacaoRepository;
+        this.interpreteRepository = interpreteRepository;
     }
     @Transactional
     public ResponseEntity cadastrarSolicitacao(SolicitacaoCadastroDTO dados, UriComponentsBuilder uriBuilder) throws JsonProcessingException{
@@ -67,5 +72,21 @@ public class SolicitacaoService {
 
         return ResponseEntity.noContent().build();
     }
+    
+	public Optional<Solicitacao> buscarSolicitacaoSurdo(Long id) {
+	    return solicitacaoRepository.findById(id);
+	}
+
+	// "Intérprete selecionado com sucesso. Status da solicitação atualizado para aguardando_aceite."
+	@Transactional
+	public ResponseEntity<String> selecionarCandidaturaInterprete(Long solicitacaoId, Long interpreteId) {
+		return solicitacaoRepository.findById(solicitacaoId)
+				.map(solicitacao -> interpreteRepository.findById(interpreteId).map(interprete -> {
+					solicitacao.setInterprete(interprete);
+					solicitacao.setStatusSolicitacao(StatusSolicitacao.AGUARDANDO_ACEITE);
+					solicitacaoRepository.save(solicitacao);
+					return ResponseEntity.ok("Intérprete selecionado com sucesso.");
+				}).orElse(ResponseEntity.notFound().build())).orElse(ResponseEntity.notFound().build());
+	}
 }
 
