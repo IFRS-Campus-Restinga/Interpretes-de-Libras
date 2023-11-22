@@ -10,12 +10,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 import java.util.Set;
 
 public record SolicitacaoDetalhamentoDTO(
         Long solicitacaoId,
         Long surdoId,
-        Long interpreteId,
         @JsonFormat(pattern="yyyy-MM-dd")
         LocalDate dataEncontro,
         @JsonFormat(pattern="HH:mm")
@@ -26,7 +26,7 @@ public record SolicitacaoDetalhamentoDTO(
         Set<Regiao> regioes
 ) {
     public SolicitacaoDetalhamentoDTO(Solicitacao solicitacao){
-        this(solicitacao.getId(), solicitacao.getSurdo().getId(), solicitacao.getInterprete().getId(), solicitacao.getDataEncontro(),
+        this(solicitacao.getId(), solicitacao.getSurdo().getId(), solicitacao.getDataEncontro(),
         solicitacao.getHoraEncontro(), solicitacao.getStatusSolicitacao(), solicitacao.getEndereco(),solicitacao.getEspecialidade(), solicitacao.getRegioes());
     }
 
