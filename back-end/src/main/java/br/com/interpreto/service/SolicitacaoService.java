@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +24,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class SolicitacaoService {
@@ -87,6 +89,27 @@ public class SolicitacaoService {
 					solicitacaoRepository.save(solicitacao);
 					return ResponseEntity.ok("Intérprete selecionado com sucesso.");
 				}).orElse(ResponseEntity.notFound().build())).orElse(ResponseEntity.notFound().build());
+	}
+	
+	// Interprete - listar Solicitacoes Escolhido .
+	public List<SolicitacaoLista> listarSolicitacoesEscolhido(Long interpreteId) {
+		List<SolicitacaoLista> solicitacaoLista = solicitacaoRepository.findByInterpreteId(interpreteId).stream()
+				.map(SolicitacaoLista::new).collect(Collectors.toList());
+
+		return solicitacaoLista;
+	}
+	
+	public ResponseEntity<String> aceitarSolicitacao(Long solicitacaoId, String status) {
+		return solicitacaoRepository.findById(solicitacaoId).map(solicitacao -> {
+			if (solicitacao.getStatusSolicitacao() == StatusSolicitacao.AGUARDANDO_ACEITE) {
+				solicitacao.setStatusSolicitacao(
+						"ACEITAR".equalsIgnoreCase(status) ? StatusSolicitacao.ACEITA : StatusSolicitacao.CANCELADA);
+				solicitacaoRepository.save(solicitacao);
+				return ResponseEntity.ok("Solicitação " + ("ACEITAR".equalsIgnoreCase(status) ? "aceita" : "recusada")
+						+ " com sucesso.");
+			}
+			return ResponseEntity.badRequest().body("A solicitação não está aguardando aceite.");
+		}).orElse((  (BodyBuilder) ResponseEntity.notFound()).body("Solicitação não encontrada."));
 	}
 }
 
