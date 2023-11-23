@@ -4,8 +4,14 @@ import banner from "../../images/banner.png";
 import facebook from "../../images/facebook.png";
 import x from "../../images/twitter.png";
 import instagram from "../../images/instagram.png";
+import { getUserType } from "../../store/usuario";
+import { useDispatch } from "react-redux";
 
 function Home() {
+  const dispatch = useDispatch();
+
+  dispatch(getUserType);
+
   return (
     <>
       <div className="home">

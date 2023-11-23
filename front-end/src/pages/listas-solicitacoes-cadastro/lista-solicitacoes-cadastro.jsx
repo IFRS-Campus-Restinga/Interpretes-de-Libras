@@ -1,10 +1,9 @@
-import CardSolicitacao from "../../components/solicitacoes/card-solicitacoes";
+import CardSolicitacao from "../../components/solicitacoes-cadastro/card-solicitacoes";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-
 import { getAllSocilicitacoesCadastro } from "../../store/fecthActions";
 
-const ListaSolicitacoes = () => {
+const ListaSolicitacoesDeCadastro = () => {
   const solicitacoes = useSelector((state) => state.solicitacoes);
   const dispatch = useDispatch();
 
@@ -31,4 +30,4 @@ const ListaSolicitacoes = () => {
   );
 };
 
-export default ListaSolicitacoes;
+export default ListaSolicitacoesDeCadastro;

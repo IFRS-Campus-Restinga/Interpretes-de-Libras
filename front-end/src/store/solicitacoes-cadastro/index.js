@@ -1,18 +1,30 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 
 const initial_state = [
-  /*{
-    nome: "adrian",
-    endereco: "Rua TANANA, 2020. POA/RS",
+  {
+    id: 1,
+    nome: "Adrian",
+    dataCriacao: "23/05/2023",
     telefone: "51 998765431",
     email: "adrian@restinga.ifrs.edu.br",
+    statusAvaliacao: "DEFERIDO",
   },
   {
-    nome: "pedro",
-    endereco: "Rua TANANA, 2020. POA/RS",
+    id: 2,
+    nome: "Pedro",
+    dataCriacao: "23/05/2023",
     telefone: "51 998765431",
-    email: "pedro@restinga.ifrs.edu.br",
-  },*/
+    email: "adrian@restinga.ifrs.edu.br",
+    statusAvaliacao: "INDEFERIDO",
+  },
+  {
+    id: 3,
+    nome: "Valentine",
+    dataCriacao: "23/05/2023",
+    telefone: "51 998765431",
+    email: "adrian@restinga.ifrs.edu.br",
+    statusAvaliacao: "ANALISANDO",
+  },
 ];
 
 export const getAllSolicitacoesCadastros = createAction(
@@ -31,22 +43,3 @@ export default createReducer(initial_state, {
     action.payload,
   ],
 });
-
-// //reducer
-// export default function reducer(state = initial_state, action) {
-//   if (action.type === "ADD_SOLICITACAO_CADASTRO") {
-//     return [...state, action.solicitacao];
-//   }
-//   return state;
-// }
-
-// //action
-// export const addSolicitacaoCadastro = (solicitacao) => {
-//   return {
-//     type: "ADD_SOLICITACAO_CADASTRO",
-//     //talvez colocar payload: solicitacao,
-//     solicitacao,
-//   };
-// };
-
-//refactor

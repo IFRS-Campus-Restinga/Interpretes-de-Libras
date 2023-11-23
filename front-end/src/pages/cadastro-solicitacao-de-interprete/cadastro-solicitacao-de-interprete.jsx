@@ -3,8 +3,7 @@ import "./formulario.css";
 import { useDispatch } from "react-redux";
 import { postCadastroSolicitacaoInterprete } from "../../store/fecthActions";
 
-
-const FormularioSolicitacao = () => {
+const CadastroDeSolicitacaoDeInteprete = () => {
   const dispatch = useDispatch();
   const {
     register,
@@ -14,7 +13,6 @@ const FormularioSolicitacao = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-
     var regioes = [
       data.sul ? "SUL" : null,
       data.norte ? "NORTE" : null,
@@ -38,7 +36,7 @@ const FormularioSolicitacao = () => {
       data.complemento,
       data.bairro,
       data.observacaoEndereco,
-      data.pontoReferencia
+      data.pontoReferencia,
     ];
 
     delete data.sul;
@@ -63,7 +61,7 @@ const FormularioSolicitacao = () => {
     data["especialidades"] = especialidade;
     data["endereco"] = endereco;
 
-    console.log(data)
+    console.log(data);
     dispatch(postCadastroSolicitacaoInterprete(data));
   };
 
@@ -101,11 +99,7 @@ const FormularioSolicitacao = () => {
             <label>TI</label>
           </div>
           <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="medicina"
-              {...register("medicina")}
-            />
+            <input type="checkbox" name="medicina" {...register("medicina")} />
             <label>Medicina</label>
           </div>
           <div className="checkbox-group">
@@ -212,7 +206,6 @@ const FormularioSolicitacao = () => {
               {...register("complemento", { required: false })}
             />
           </div>
-
         </div>
         <div className="form-container-line-one">
           <div className="form-group">
@@ -240,7 +233,6 @@ const FormularioSolicitacao = () => {
               <p className="error-message">CEP é um campo obrigatório.</p>
             )}
           </div>
-
         </div>
         <div className="form-container-line-one">
           <div className="form-group">
@@ -253,7 +245,6 @@ const FormularioSolicitacao = () => {
             />
           </div>
         </div>
-
 
         <div className="form-container-line-one">
           <div className="form-group">
@@ -269,10 +260,12 @@ const FormularioSolicitacao = () => {
       </div>
 
       <div className="form-group">
-        <button onClick={() => handleSubmit(onSubmit)()}>Criar solicitação!</button>
+        <button onClick={() => handleSubmit(onSubmit)()}>
+          Criar solicitação!
+        </button>
       </div>
     </div>
   );
 };
 
-export default FormularioSolicitacao;
+export default CadastroDeSolicitacaoDeInteprete;

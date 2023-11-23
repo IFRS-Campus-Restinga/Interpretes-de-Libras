@@ -1,35 +1,16 @@
+import { createAction, createReducer } from "@reduxjs/toolkit";
+
 const initial_state = [
   {
-    nome: "adrian",
-    endereco: "Rua TANANA, 2020. POA/RS",
-    telefone: "51 998765431",
-    email: "adrian@restinga.ifrs.edu.br",
-  },
-  {
-    nome: "pedro",
-    endereco: "Rua TANANA, 2020. POA/RS",
-    telefone: "51 998765431",
-    email: "pedro@restinga.ifrs.edu.br",
+    type: "default",
   },
 ];
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default (state = initial_state, action) => {
-  switch (action.type) {
-    case "SHOW_PERFIL":
-      return [...state, action.perfil];
-    default:
-      return state;
-  }
-};
+export const getUserType = createAction("GET_USER_TYPE");
 
-//receber um objeto do backend que passará por um converter e irá renderizar o perfil do usuário.
-export const showPerfil = (perfil) => {
-  return {
-    type: "SHOW_PERFIL",
-    perfil,
-  };
-};
+export default createReducer(initial_state, {
+  [getUserType.type]: (state, action) => [...action.payload],
+});
 
 //fazer uma action para editar o perfil, ele nao pode ser convertida para ui
 //como vamos passar isso para o form? a dúvida é em relacao ao hook do react-form-hook

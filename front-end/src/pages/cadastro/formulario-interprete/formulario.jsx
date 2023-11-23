@@ -57,6 +57,7 @@ const Formulario = ({ tipoUsuario }) => {
     const formData = new FormData();
     formData.append("arquivo", file);
     formData.append("dados", json);
+    console.log("formData", formData);
     const options = {
       method: "POST",
       headers: { "Contnte-Type": "multipart/form-data" },
@@ -74,7 +75,7 @@ const Formulario = ({ tipoUsuario }) => {
         alert("Erro ao cadastrar usuário!");
         console.log(error);
       });
-      console.log(options);
+    console.log(options);
   };
 
   return (
@@ -223,7 +224,9 @@ const Formulario = ({ tipoUsuario }) => {
           )}
 
           {errors?.senha?.type === "minLength" && (
-            <p className="error-message">A senha precisa ter no mínimo 7 caracteres.</p>
+            <p className="error-message">
+              A senha precisa ter no mínimo 7 caracteres.
+            </p>
           )}
         </div>
 
@@ -239,7 +242,9 @@ const Formulario = ({ tipoUsuario }) => {
             })}
           />
           {errors?.senhaConfirmation?.type === "required" && (
-            <p className="error-message">Confirmação de senha é um campo obrigatório.</p>
+            <p className="error-message">
+              Confirmação de senha é um campo obrigatório.
+            </p>
           )}
 
           {errors?.senhaConfirmation?.type === "validate" && (

@@ -7,8 +7,12 @@ const Header = () => {
   return (
     <div className="header">
       <Link className="app" to="/">
-        Interpreto 
-        <img src={logo} alt="Imagem de mãos fazendo sinais" title="Logo no componente header"></img>
+        Interpreto
+        <img
+          src={logo}
+          alt="Imagem de mãos fazendo sinais"
+          title="Logo no componente header"
+        ></img>
       </Link>
       <div className="menu">
         <Link to="/login">

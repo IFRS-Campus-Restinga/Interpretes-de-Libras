@@ -5,9 +5,8 @@ import "./formulario.css";
 import { useDispatch } from "react-redux";
 import { postSocilicitacaoCadastroSurdo } from "../../../store/fecthActions";
 
-
 const FormularioSurdo = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -19,21 +18,19 @@ const FormularioSurdo = () => {
   const [file, setFile] = useState(null);
 
   const onSubmit = (data) => {
-
     delete data.senhaConfirmation;
     delete data.file;
 
     const json = JSON.stringify(data);
-    console.log(json)
-    const formData = new FormData();
-    formData.append("arquivo", file);
-    formData.append("dados", json);
 
-    console.log("data", formData);
+    const formData = new FormData();
+    formData.append("dados", json);
+    formData.append("arquivo", file);
+
+    console.log("data", formData.values);
 
     dispatch(postSocilicitacaoCadastroSurdo(formData));
   };
-
 
   return (
     <div className="form-container">
@@ -145,7 +142,9 @@ const FormularioSurdo = () => {
           )}
 
           {errors?.senha?.type === "minLength" && (
-            <p className="error-message">A senha precisa ter no mínimo 7 caracteres.</p>
+            <p className="error-message">
+              A senha precisa ter no mínimo 7 caracteres.
+            </p>
           )}
         </div>
 
@@ -161,7 +160,9 @@ const FormularioSurdo = () => {
             })}
           />
           {errors?.senhaConfirmation?.type === "required" && (
-            <p className="error-message">Confirmação de senha é um campo obrigatório.</p>
+            <p className="error-message">
+              Confirmação de senha é um campo obrigatório.
+            </p>
           )}
 
           {errors?.senhaConfirmation?.type === "validate" && (
