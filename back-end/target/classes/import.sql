@@ -1,2 +1,1 @@
 --criando um usuario admin toda vez que iniciar a aplicacao
-INSERT INTO usuario (email, nome, senha, role, dtype) VALUES ('admin@admin.com', 'admin', '$2a$10$JbtGFtlV2oikeLQGfDTaKO2Q4/FFgBw/s4eImpyxPW/P3Fq1NyO42', 0, 'admin');
