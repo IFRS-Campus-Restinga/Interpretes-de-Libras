@@ -1,9 +1,17 @@
 import "./card-solicitacoes.css";
+import {useDispatch} from "react-redux";
+import {postCandidaturaSolicitacaoInterprete} from "../../store/fecthActions/index";
 
 const CardSolicitacaoPublica = ({ surdoNome, dataEncontro, hora, local }) => {
+  
+  const dispatch = useDispatch();
+  
   const candidatar = () => {
-    console.log("implementar canditadura");
+    const candidatura = [surdoNome, dataEncontro, hora, local];
+    dispatch(postCandidaturaSolicitacaoInterprete(candidatura));
+    console.log("implementando canditadura");
   };
+
   return (
     <div className="card">
       <div className="card-left">

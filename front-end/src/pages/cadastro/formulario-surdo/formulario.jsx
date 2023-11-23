@@ -19,17 +19,19 @@ const FormularioSurdo = () => {
 
   const onSubmit = (data) => {
     delete data.senhaConfirmation;
-    delete data.file;
+      delete data.file;
+      data.role = "SURDO";
 
-    const json = JSON.stringify(data);
+      const json = JSON.stringify(data);
 
-    const formData = new FormData();
-    formData.append("dados", json);
-    formData.append("arquivo", file);
+      const formData = new FormData();
+      formData.append("dados", json);
+      formData.append("arquivo", file);
 
-    console.log("data", formData.values);
+      console.log("data", formData.values);
 
-    dispatch(postSocilicitacaoCadastroSurdo(formData));
+      dispatch(postSocilicitacaoCadastroSurdo(formData));
+
   };
 
   return (

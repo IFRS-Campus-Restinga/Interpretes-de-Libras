@@ -42,3 +42,13 @@
 .loginButton {
   width: 100%;
 }
+
+.login-group .input-error {
+  outline: 1px solid rgb(255, 72, 72);
+}
+
+.login-group .error-message {
+  color: rgb(255, 72, 72);
+  font-size: 0.75rem;
+  margin-top: 8px;
+}

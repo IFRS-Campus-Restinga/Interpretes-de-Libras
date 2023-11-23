@@ -38,6 +38,21 @@ export const postSocilicitacaoCadastroSurdo = (solcitacao) => {
       .post("/surdo", solcitacao)
       .then((response) => {
         dispatch(addSolicitacaoCadastro(response.data));
+        window.location.href = "/perfil";
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+        alert(err.response.data);
+      });
+  };
+};
+
+export const postCandidaturaSolicitacaoInterprete = (candidatura) => {
+  return (dispatch) => {
+    api
+      .post("/solicitacao", candidatura)
+      .then((response) => {
+        console.log(response.data);
       })
       .catch(console.log);
   };
@@ -71,6 +86,41 @@ export const getDadosFormInterprete = (id) => {
     api.get(`/interprete/${id}`).then((response) => {
       console.log("interprete", response);
     });
+  };
+};
+
+export const getDadosFormSurdos = (cpf) => {
+  return () => {
+    api.get("/surdo").then((response) => {
+      const surdos = response.data;
+      surdos.forEach((element) => {
+        if (element.cpf === cpf) {
+          console.log(element);
+        }
+      });
+    });
+  };
+};
+
+export const getDadosFormSurdo = (id) => {
+  return (dispatch) => {
+    api.get(`/surdo/${id}`).then((response) => {
+      console.log("surdo", response.data);
+    });
+  };
+};
+
+export const putDadosFormSurdo = (id, surdo) => {
+  return (dispatch) => {
+    console.log(surdo);
+    api
+      .put(`/surdo/${id}`, surdo)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };
 

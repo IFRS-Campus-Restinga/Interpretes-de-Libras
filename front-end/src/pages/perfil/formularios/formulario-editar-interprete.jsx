@@ -3,7 +3,7 @@ import { isEmail } from "validator";
 import { useState, useEffect } from "react";
 import "./formulario.css";
 import { useDispatch } from "react-redux";
-import { postSocilicitacaoCadastroSurdo, getDadosFormInterprete } from "../../../store/fecthActions";
+import { postSocilicitacaoCadastroSurdo, getDadosFormSurdo } from "../../../store/fecthActions";
 
 const FormularioEditarInterprete = () => {
     
@@ -12,7 +12,7 @@ const FormularioEditarInterprete = () => {
     const dispatch = useDispatch();
     const id = '2';
     useEffect(() => {
-      dispatch(getDadosFormInterprete(id));
+      dispatch(getDadosFormSurdo(id));
     }, [dispatch]);
 
    const {

@@ -1,21 +1,21 @@
 import "./Perfil.css";
-import FormularioEditarInterprete from "./formularios/formulario-editar-interprete";
+import FormularioEditarSurdo from "./formularios/formulario-editar-surdo";
 
-import interprete from "../../images/interprete.png";
+import surdo from "../../images/surdo.png";
 
-const Perfil = () => {
+const Perfil = (email) => {
   return (
     <div className="perfil">
       <div className="fotoPerfil">
-        <img src={interprete} alt="Foto de perfil do usuário" />
-        <h1>Sou interprete</h1>
-        <p>@interprete_2023</p>
+        <img src={surdo} alt="Foto de perfil do usuário" />
+        <h1>Sou SURDO</h1>
+        <p>@surdo_123</p>
       </div>
       <div className="editarPerfil">
         <h1>
             Configuração do perfil
         </h1>
-        <FormularioEditarInterprete />
+        <FormularioEditarSurdo id={email}/>
       </div>
     </div>
   );

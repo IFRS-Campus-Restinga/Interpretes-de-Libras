@@ -1,13 +1,15 @@
 import { useForm } from "react-hook-form";
 import { isEmail } from "validator";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import api from "../../../services/api";
 import "./formulario.css";
 import { useDispatch } from "react-redux";
-import { postSocilicitacaoCadastroSurdo } from "../../../store/fecthActions";
+import {
+  putDadosFormSurdo,
+} from "../../../store/fecthActions";
 
-
-const FormularioEditarSurdo = () => {
-    const dispatch = useDispatch();
+const FormularioEditarSurdo = ({recuperarUsuarioSemId}) => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -17,23 +19,59 @@ const FormularioEditarSurdo = () => {
 
   const watchPassword = watch("senha");
   const [file, setFile] = useState(null);
+  const [nome, setNome] = useState("");
+  const [sobrenome, setSobrenome] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [nascimento, setNascimento] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefone, setTelefone] = useState("");
 
-  const onSubmit = (data) => {
-
-    delete data.senhaConfirmation;
-    delete data.file;
-
-    const json = JSON.stringify(data);
-    console.log(json)
-    const formData = new FormData();
-    formData.append("arquivo", file);
-    formData.append("dados", json);
-
-    console.log("data", formData);
-
-    dispatch(postSocilicitacaoCadastroSurdo(formData));
+  const getDadosFormSurdoId = (id) => {
+    return (dispatch) => {
+      api.get(`/surdo/${id}`).then((response) => {
+        const string = JSON.stringify(response.data);
+        const surdo = JSON.parse(string);
+        setNome(surdo.nome);
+        setSobrenome(surdo.sobrenome);
+        setCpf(surdo.cpf);
+        setTelefone(surdo.telefone);
+        setNascimento(surdo.dataNascimento);
+        setEmail(surdo.email);
+        console.log(surdo);
+      });
+    };
   };
 
+  const getDadosFormSurdos = (username) => {
+  return () => {
+    api.get("/surdo").then((response) => {
+      const surdos = response.data;
+      surdos.forEach((element) => {
+        if (element.email === username) {
+          console.log(element.id);
+        }
+      });
+    });
+  };
+};
+
+  useEffect(() => {
+    dispatch(getDadosFormSurdoId(5));
+  }, []);
+
+  const onSubmit = (data) => {
+    const payload = [
+      data.cpf,
+      data.nome,
+      data.nome,
+      data.sobrenome,
+      data.telefone,
+      data.email,
+      data.senha,
+    ];
+    console.log(payload);
+    dispatch(putDadosFormSurdo(4, payload));
+  };
 
   return (
     <div className="form-container">
@@ -41,10 +79,16 @@ const FormularioEditarSurdo = () => {
         <div className="form-group">
           <label>Nome</label>
           <input
+            value={nome}
             className={errors?.nome && "input-error"}
             type="text"
             placeholder="Escreva seu nome"
-            {...register("nome", { required: true })}
+            {...register("nome", {
+              onChange: (e) => {
+                setNome(e.target.value);
+              },
+              required: true,
+            })}
           />
           {errors?.nome?.type === "required" && (
             <p className="error-message">Nome é um campo obrigatório.</p>
@@ -54,10 +98,16 @@ const FormularioEditarSurdo = () => {
         <div className="form-group">
           <label>Sobrenome</label>
           <input
+            value={sobrenome}
             className={errors?.sobrenome && "input-error"}
             type="text"
             placeholder="Escreva seu sobrenome"
-            {...register("sobrenome", { required: true })}
+            {...register("sobrenome", {
+              onChange: (e) => {
+                setSobrenome(e.target.value);
+              },
+              required: true,
+            })}
           />
           {errors?.sobrenome?.type === "required" && (
             <p className="error-message">Sobrenome é um campo obrigatório.</p>
@@ -69,10 +119,16 @@ const FormularioEditarSurdo = () => {
         <div className="form-group">
           <label>CPF</label>
           <input
+            value={cpf}
             className={errors?.cpf && "input-error"}
             type="text"
             placeholder="Escreva seu CPF"
-            {...register("cpf", { required: true })}
+            {...register("cpf", {
+              onChange: (e) => {
+                setCpf(e.target.value);
+              },
+              required: true,
+            })}
           />
           {errors?.cpf?.type === "required" && (
             <p className="error-message">CPF é um campo obrigatório.</p>
@@ -82,10 +138,16 @@ const FormularioEditarSurdo = () => {
         <div className="form-group">
           <label>Data de Nascimento</label>
           <input
+            value={nascimento}
             className={errors?.dataNascimento && "input-error"}
             type="date"
             placeholder="Escreva sua Data de Nascimento"
-            {...register("dataNascimento", { required: true })}
+            {...register("dataNascimento", {
+              onChange: (e) => {
+                setNascimento(e.target.value);
+              },
+              required: true,
+            })}
           />
           {errors?.dataNascimento?.type === "required" && (
             <p className="error-message">
@@ -99,12 +161,15 @@ const FormularioEditarSurdo = () => {
         <div className="form-group">
           <label>E-mail</label>
           <input
+            value={email}
             className={errors?.email && "input-error"}
             type="email"
             placeholder="seuemail@mail.com"
             {...register("email", {
+              onChange: (e) => {
+                setEmail(e.target.value);
+              },
               required: true,
-              validate: (value) => isEmail(value),
             })}
           />
           {errors?.email?.type === "required" && (
@@ -119,10 +184,16 @@ const FormularioEditarSurdo = () => {
         <div className="form-group">
           <label>Telefone</label>
           <input
+            value={telefone}
             className={errors?.telefone && "input-error"}
             type="text"
             placeholder="Escreva seu Telefone"
-            {...register("telefone", { required: true })}
+            {...register("telefone", {
+              onChange: (e) => {
+                setTelefone(e.target.value);
+              },
+              required: true,
+            })}
           />
           {errors?.telefone?.type === "required" && (
             <p className="error-message">Telefone é um campo obrigatório.</p>
@@ -137,7 +208,9 @@ const FormularioEditarSurdo = () => {
             className={errors?.senha && "input-error"}
             type="password"
             placeholder="Digite sua senha"
-            {...register("senha", { required: true, minLength: 7 })}
+            {...register("senha", {
+              required: true,
+            })}
           />
 
           {errors?.senha?.type === "required" && (
@@ -145,7 +218,9 @@ const FormularioEditarSurdo = () => {
           )}
 
           {errors?.senha?.type === "minLength" && (
-            <p className="error-message">A senha precisa ter no mínimo 7 caracteres.</p>
+            <p className="error-message">
+              A senha precisa ter no mínimo 7 caracteres.
+            </p>
           )}
         </div>
 
@@ -155,13 +230,14 @@ const FormularioEditarSurdo = () => {
             className={errors?.senhaConfirmation && "input-error"}
             type="password"
             placeholder="Repita sua senha"
-            {...register("senhaConfirmation", {
+            {...register("confirmaSenha", {
               required: true,
-              validate: (value) => value === watchPassword,
             })}
           />
           {errors?.senhaConfirmation?.type === "required" && (
-            <p className="error-message">Confirmação de senha é um campo obrigatório.</p>
+            <p className="error-message">
+              Confirmação de senha é um campo obrigatório.
+            </p>
           )}
 
           {errors?.senhaConfirmation?.type === "validate" && (
