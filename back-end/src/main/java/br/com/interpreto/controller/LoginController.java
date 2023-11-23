@@ -35,7 +35,7 @@ public class LoginController {
 
         var token = tokenService.gerarToken((Usuario) auth.getPrincipal());
 
-        return ResponseEntity.ok(new LoginRespostaDTO(token, ((Usuario) auth.getPrincipal()).getRole().toString()));
+        return ResponseEntity.ok(new LoginRespostaDTO(token));
     }
 
 }

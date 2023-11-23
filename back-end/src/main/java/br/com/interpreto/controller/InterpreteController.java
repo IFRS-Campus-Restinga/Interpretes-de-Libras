@@ -4,11 +4,8 @@ import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
 import br.com.interpreto.model.enums.StatusAvaliacao;
 import br.com.interpreto.model.interprete.InterpreteAtualizaDTO;
 import br.com.interpreto.model.interprete.InterpreteDetalhamentoDTO;
-import br.com.interpreto.model.solicitacao.SolicitacaoLista;
 import br.com.interpreto.service.AvaliacaoUsuarioService;
 import br.com.interpreto.service.InterpreteService;
-import br.com.interpreto.service.SolicitacaoService;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +23,11 @@ import java.util.Optional;
 public class InterpreteController {
 	private final InterpreteService interpreteService;
 	private AvaliacaoUsuarioService avaliacaoUsuarioService;
-	private final SolicitacaoService solicitacaoService;
 
 	@Autowired // INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-	public InterpreteController(InterpreteService interpreteService, AvaliacaoUsuarioService avaliacaoUsuarioService, SolicitacaoService solicitacaoService) {
+	public InterpreteController(InterpreteService interpreteService, AvaliacaoUsuarioService avaliacaoUsuarioService) {
 		this.interpreteService = interpreteService;
 		this.avaliacaoUsuarioService = avaliacaoUsuarioService;
-		this.solicitacaoService = solicitacaoService;
 	}
 
 	@GetMapping
@@ -83,21 +78,6 @@ public class InterpreteController {
 		} else {
 			return ResponseEntity.notFound().build();
 		}
-	}
-
-	// Interprete - listar Solicitacoes Escolhido .
-	@GetMapping("/listarSolicitacoesEscolhido")
-	public ResponseEntity<List<SolicitacaoLista>> listarSolicitacoesEscolhido(
-			@RequestParam("interpreteId") Long interpreteId) {
-		List<SolicitacaoLista> solicitacaoLista = solicitacaoService.listarSolicitacoesEscolhido(interpreteId);
-		return ResponseEntity.ok(solicitacaoLista);
-	}
-
-	// Interprete - aceitarSolicitacao
-	@PostMapping("/aceitarSolicitacao")
-	public ResponseEntity<String> aceitarOuRecusarSolicitacao(@RequestParam("solicitacaoId") Long solicitacaoId,
-			@RequestParam("status") String status) {
-		return solicitacaoService.aceitarSolicitacao(solicitacaoId, status);
 	}
 
 }
