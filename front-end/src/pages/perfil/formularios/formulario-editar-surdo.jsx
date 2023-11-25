@@ -56,21 +56,19 @@ const FormularioEditarSurdo = ({recuperarUsuarioSemId}) => {
 };
 
   useEffect(() => {
-    dispatch(getDadosFormSurdoId(5));
+    dispatch(getDadosFormSurdoId(2));
   }, []);
 
   const onSubmit = (data) => {
     const payload = [
-      data.cpf,
-      data.nome,
       data.nome,
       data.sobrenome,
+      data.dataNascimento,
       data.telefone,
-      data.email,
       data.senha,
     ];
     console.log(payload);
-    dispatch(putDadosFormSurdo(4, payload));
+    dispatch(putDadosFormSurdo(3, payload));
   };
 
   return (

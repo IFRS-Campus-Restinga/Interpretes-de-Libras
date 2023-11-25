@@ -8,7 +8,7 @@ const Perfil = (email) => {
     <div className="perfil">
       <div className="fotoPerfil">
         <img src={surdo} alt="Foto de perfil do usuário" />
-        <h1>Sou SURDO</h1>
+        <h1>SURDO</h1>
         <p>@surdo_123</p>
       </div>
       <div className="editarPerfil">

@@ -52,7 +52,7 @@ const Formulario = ({ tipoUsuario }) => {
     delete data.humanas;
     data["regioes"] = regioes;
     data["especialidades"] = especialidade;
-    data["senha"] = data.senha;
+    data["role"] = "INTERPRETE";
     const json = JSON.stringify(data);
     const formData = new FormData();
     formData.append("arquivo", file);
