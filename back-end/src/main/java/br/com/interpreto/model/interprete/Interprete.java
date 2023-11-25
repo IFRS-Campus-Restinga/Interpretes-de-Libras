@@ -50,13 +50,11 @@ public class Interprete extends Usuario {
 	}
 	
 	public void interpreteAtualizarDTO(InterpreteAtualizaDTO novosDados) {
-		this.setCpf(novosDados.cpf());
 		this.setNome(novosDados.nome());
 		this.setSobrenome(novosDados.sobrenome());
-		this.setTelefone(novosDados.telefone());
-		this.setEmail(novosDados.email());
-		this.setSenha(novosDados.senha());
 		this.setDataNascimento(novosDados.dataNascimento());
+		this.setTelefone(novosDados.telefone());
+		this.setSenha(novosDados.senha());
 		this.valorHora = novosDados.valorHora();
 		this.especialidade = novosDados.especialidades();
 		this.regioes = novosDados.regioes();

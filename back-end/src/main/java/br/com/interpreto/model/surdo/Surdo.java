@@ -44,14 +44,10 @@ public class Surdo extends Usuario {
 
     }
 	public void surdoAtualizarDTO(SurdoAtualizaDTO novosDados) {
-		this.setCpf(novosDados.cpf()); //dados são do tipo SurdoDTO que possuem GETTER, dados.cpf é como se usar esse GETTER
         this.setNome(novosDados.nome());
         this.setSobrenome(novosDados.sobrenome());
-        this.setTelefone(novosDados.telefone());
-        this.setEmail(novosDados.email());
-        this.setSenha(novosDados.senha());
         this.setDataNascimento(novosDados.dataNascimento());
-        this.setAtivo(false);
+        this.setTelefone(novosDados.telefone());
+        this.setSenha(novosDados.senha());
 	}
-
 }
