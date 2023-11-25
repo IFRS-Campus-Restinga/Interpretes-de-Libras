@@ -6,6 +6,7 @@ import br.com.interpreto.model.interprete.InterpreteAtualizaDTO;
 import br.com.interpreto.model.interprete.InterpreteDetalhamentoDTO;
 import br.com.interpreto.model.solicitacao.SolicitacaoLista;
 import br.com.interpreto.service.AvaliacaoUsuarioService;
+import br.com.interpreto.service.CandidaturaService;
 import br.com.interpreto.service.InterpreteService;
 import br.com.interpreto.service.SolicitacaoService;
 
@@ -27,12 +28,14 @@ public class InterpreteController {
 	private final InterpreteService interpreteService;
 	private AvaliacaoUsuarioService avaliacaoUsuarioService;
 	private final SolicitacaoService solicitacaoService;
+	private final CandidaturaService candidaturaService;
 
 	@Autowired // INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-	public InterpreteController(InterpreteService interpreteService, AvaliacaoUsuarioService avaliacaoUsuarioService, SolicitacaoService solicitacaoService) {
+	public InterpreteController(InterpreteService interpreteService, AvaliacaoUsuarioService avaliacaoUsuarioService, SolicitacaoService solicitacaoService, CandidaturaService candidaturaService) {
 		this.interpreteService = interpreteService;
 		this.avaliacaoUsuarioService = avaliacaoUsuarioService;
 		this.solicitacaoService = solicitacaoService;
+		this.candidaturaService = candidaturaService;
 	}
 
 	@GetMapping
@@ -99,5 +102,13 @@ public class InterpreteController {
 			@RequestParam("status") String status) {
 		return solicitacaoService.aceitarSolicitacao(solicitacaoId, status);
 	}
+	
+	@PostMapping("/{interpreteId}/candidatar/{solicitacaoId}")
+    public ResponseEntity<String> candidatarSolicitacao(
+    		@PathVariable Long interpreteId,
+            @PathVariable Long solicitacaoId,
+            @RequestBody Double novoValorHora) {
+        return candidaturaService.candidatarSolicitacao(solicitacaoId, interpreteId, novoValorHora);
+    }
 
 }
