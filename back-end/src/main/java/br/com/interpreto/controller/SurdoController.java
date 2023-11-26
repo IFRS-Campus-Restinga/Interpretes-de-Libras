@@ -4,12 +4,10 @@ import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
 import br.com.interpreto.model.enums.Regiao;
 import br.com.interpreto.model.enums.StatusAvaliacao;
 import br.com.interpreto.model.interprete.InterpreteCandidatura;
+import br.com.interpreto.model.interprete.InterpreteDetalhamentoDTO;
 import br.com.interpreto.model.surdo.SurdoAtualizaDTO;
 import br.com.interpreto.model.surdo.SurdoDetalhamentoDTO;
-import br.com.interpreto.service.AvaliacaoUsuarioService;
-import br.com.interpreto.service.InterpreteService;
-import br.com.interpreto.service.SolicitacaoService;
-import br.com.interpreto.service.SurdoService;
+import br.com.interpreto.service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +29,16 @@ public class SurdoController {
 	private final AvaliacaoUsuarioService avaliacaoUsuarioService;
 	private final InterpreteService interpreteService;
 	private final SolicitacaoService solicitacaoService;
+	private final CandidaturaService candidaturaService;
 
 	@Autowired // INJECAO DE DEPENDENCIA VIA CONSTRUTOR
 	public SurdoController(SurdoService surdoService, AvaliacaoUsuarioService avaliacaoUsuarioService,
-			InterpreteService interpreteService, SolicitacaoService solicitacaoService) {
+			InterpreteService interpreteService, SolicitacaoService solicitacaoService, CandidaturaService candidaturaService) {
 		this.surdoService = surdoService;
 		this.avaliacaoUsuarioService = avaliacaoUsuarioService;
 		this.interpreteService = interpreteService;
 		this.solicitacaoService = solicitacaoService;
+		this.candidaturaService = candidaturaService;
 	}
 
 	@GetMapping
@@ -108,5 +108,11 @@ public class SurdoController {
 	public ResponseEntity<String> selecionarCandidaturaInterprete(@RequestParam("solicitacaoId") Long solicitacaoId,
 			@RequestParam("interpreteId") Long interpreteId) {
 		return solicitacaoService.selecionarCandidaturaInterprete(solicitacaoId, interpreteId);
+	}
+
+	//Listar candidaturas de interprete para solicitações públicas feitas pelo Surdo
+	@GetMapping("listarCandidaturasInterprete/{solicitacaoId}")
+	public ResponseEntity<List<InterpreteDetalhamentoDTO>> listarCandidaturasInterprete(@PathVariable("solicitacaoId") Long solicitacaoId){
+		return candidaturaService.listarCandidaturasInterprete(solicitacaoId);
 	}
 }

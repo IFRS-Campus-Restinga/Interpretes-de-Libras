@@ -1,8 +1,10 @@
 package br.com.interpreto.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.interpreto.model.interprete.InterpreteDetalhamentoDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -87,6 +89,21 @@ public class CandidaturaService {
 	public Candidatura salvarCandidatura(Candidatura candidatura) {
 		return candidaturaRepository.save(candidatura);
 	}
+
+	//Lista candidaturas de interpretes a uma solitação
+	public ResponseEntity<List<InterpreteDetalhamentoDTO>> listarCandidaturasInterprete(Long solicitacaoId) {
+
+		List<Candidatura> candidaturas = candidaturaRepository.findAll();
+		List<InterpreteDetalhamentoDTO> listagemDTO = new ArrayList<>();
+
+		for (Candidatura candidatura: candidaturas) {
+			if(candidatura.getSolicitacao().getId().equals(solicitacaoId)){
+				listagemDTO.add(new InterpreteDetalhamentoDTO(candidatura.getInterprete()));
+			}
+		}
+		return ResponseEntity.ok(listagemDTO);
+	}
+
 
 	// Adicione outros métodos conforme necessário para atender aos requisitos do
 	// seu aplicativo
