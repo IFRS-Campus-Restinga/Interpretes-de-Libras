@@ -1,2 +1,4 @@
---criando um usuario admin toda vez que iniciar a aplicacao
+-- Criando um usuario de cada tipo ao subir a aplicacao, a senha para login é: senha
 INSERT INTO usuario (email, nome, senha, role, dtype) VALUES ('admin@admin.com', 'admin', '$2a$10$JbtGFtlV2oikeLQGfDTaKO2Q4/FFgBw/s4eImpyxPW/P3Fq1NyO42', 0, 'admin');
+INSERT INTO usuario (email, nome, senha, role, dtype) VALUES ('surdo@surdo.com', 'surdo', '$2a$10$JbtGFtlV2oikeLQGfDTaKO2Q4/FFgBw/s4eImpyxPW/P3Fq1NyO42', 1, 'surdo');
+INSERT INTO usuario (email, nome, senha, role, dtype) VALUES ('interprete@interprete.com', 'interprete', '$2a$10$JbtGFtlV2oikeLQGfDTaKO2Q4/FFgBw/s4eImpyxPW/P3Fq1NyO42', 2, 'interprete');
