@@ -38,7 +38,7 @@ export const postSocilicitacaoCadastroSurdo = (solcitacao) => {
       .post("/surdo", solcitacao)
       .then((response) => {
         dispatch(addSolicitacaoCadastro(response.data));
-        window.location.href = "/perfil";
+        alert("Cadastro realizado com sucesso!");
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -108,7 +108,12 @@ export const putDadosFormSurdo = (id, surdo) => {
     api
       .put(`/surdo/${id}`, surdo)
       .then((response) => {
-        console.log(response.data);
+        if (response.data.id != null) {
+          alert("Perfil do usuário atualizado com sucesso!");
+        } else {
+          alert("Erro ao atualizar perfil!");
+        }
+        console.log(response);
       })
       .catch((err) => {
         console.log(err);
@@ -121,7 +126,12 @@ export const putEditarPerfilInterprete = (id, interprete) => {
     api
       .put(`/interprete/${id}`, interprete)
       .then((response) => {
-        console.log(response.data);
+        if (response.data.id != null) {
+          alert("Perfil do usuário atualizado com sucesso!");
+        } else {
+          alert("Erro ao atualizar perfil!");
+        }
+        console.log(response);
       })
       .catch((err) => {
         console.log(err);

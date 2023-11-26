@@ -6,6 +6,7 @@ import x from "../../images/twitter.png";
 import instagram from "../../images/instagram.png";
 import { getUserType } from "../../store/usuario";
 import { useDispatch } from "react-redux";
+import Header from "../../components/header/header";
 
 function Home() {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ function Home() {
 
   return (
     <>
+      <Header />
       <div className="home">
         <div className="conteudoPrincipal">
           <div className="banner">

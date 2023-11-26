@@ -6,7 +6,7 @@ import "./formulario.css";
 import { useDispatch } from "react-redux";
 import { putDadosFormSurdo } from "../../../store/fecthActions";
 
-const FormularioEditarSurdo = ({ recuperarUsuarioSemId }) => {
+const FormularioEditarSurdo = () => {
   const dispatch = useDispatch();
   const {
     register,
@@ -41,7 +41,7 @@ const FormularioEditarSurdo = ({ recuperarUsuarioSemId }) => {
   };
 
   const getUserId = () => {
-    return localStorage.getItem("id");
+    return localStorage.getItem("idSurdo");
   };
 
   const getDadosFormSurdos = (username) => {
@@ -62,15 +62,18 @@ const FormularioEditarSurdo = ({ recuperarUsuarioSemId }) => {
   }, []);
 
   const onSubmit = (data) => {
-    const payload = [
-      data.nome,
-      data.sobrenome,
-      data.dataNascimento,
-      data.telefone,
-      data.senha,
-    ];
+    const payload = {
+      cpf: data.cpf,
+      nome: data.nome,
+      sobrenome: data.sobrenome,
+      dataNascimento: data.dataNascimento,
+      role: "SURDO",
+      telefone: data.telefone,
+      email: data.email,
+      senha: data.senha,
+    };
     console.log(payload);
-    dispatch(putDadosFormSurdo(3, payload));
+    dispatch(putDadosFormSurdo(getUserId(), payload));
   };
 
   return (
@@ -87,7 +90,7 @@ const FormularioEditarSurdo = ({ recuperarUsuarioSemId }) => {
               onChange: (e) => {
                 setNome(e.target.value);
               },
-              required: true,
+              required: false,
             })}
           />
           {errors?.nome?.type === "required" && (
@@ -106,7 +109,7 @@ const FormularioEditarSurdo = ({ recuperarUsuarioSemId }) => {
               onChange: (e) => {
                 setSobrenome(e.target.value);
               },
-              required: true,
+              required: false,
             })}
           />
           {errors?.sobrenome?.type === "required" && (
@@ -119,6 +122,7 @@ const FormularioEditarSurdo = ({ recuperarUsuarioSemId }) => {
         <div className="form-group">
           <label>CPF</label>
           <input
+            disabled
             value={cpf}
             className={errors?.cpf && "input-error"}
             type="text"
@@ -127,7 +131,7 @@ const FormularioEditarSurdo = ({ recuperarUsuarioSemId }) => {
               onChange: (e) => {
                 setCpf(e.target.value);
               },
-              required: true,
+              required: false,
             })}
           />
           {errors?.cpf?.type === "required" && (
@@ -146,7 +150,7 @@ const FormularioEditarSurdo = ({ recuperarUsuarioSemId }) => {
               onChange: (e) => {
                 setNascimento(e.target.value);
               },
-              required: true,
+              required: false,
             })}
           />
           {errors?.dataNascimento?.type === "required" && (
@@ -161,6 +165,7 @@ const FormularioEditarSurdo = ({ recuperarUsuarioSemId }) => {
         <div className="form-group">
           <label>E-mail</label>
           <input
+            disabled
             value={email}
             className={errors?.email && "input-error"}
             type="email"
@@ -169,7 +174,7 @@ const FormularioEditarSurdo = ({ recuperarUsuarioSemId }) => {
               onChange: (e) => {
                 setEmail(e.target.value);
               },
-              required: true,
+              required: false,
             })}
           />
           {errors?.email?.type === "required" && (
@@ -192,7 +197,7 @@ const FormularioEditarSurdo = ({ recuperarUsuarioSemId }) => {
               onChange: (e) => {
                 setTelefone(e.target.value);
               },
-              required: true,
+              required: false,
             })}
           />
           {errors?.telefone?.type === "required" && (
@@ -209,7 +214,7 @@ const FormularioEditarSurdo = ({ recuperarUsuarioSemId }) => {
             type="password"
             placeholder="Digite sua senha"
             {...register("senha", {
-              required: true,
+              required: false,
             })}
           />
 
@@ -231,7 +236,7 @@ const FormularioEditarSurdo = ({ recuperarUsuarioSemId }) => {
             type="password"
             placeholder="Repita sua senha"
             {...register("confirmaSenha", {
-              required: true,
+              required: false,
             })}
           />
           {errors?.senhaConfirmation?.type === "required" && (
@@ -250,13 +255,14 @@ const FormularioEditarSurdo = ({ recuperarUsuarioSemId }) => {
         <div className="form-group">
           <label>Documento</label>
           <input
+            disabled
             className={errors?.documento && "input-error"}
             type="file"
             {...register("file", {
               onChange: (e) => {
                 setFile(e.target.files[0]);
               },
-              required: true,
+              required: false,
             })}
           />
           {errors?.documento?.type === "required" && (
@@ -266,7 +272,9 @@ const FormularioEditarSurdo = ({ recuperarUsuarioSemId }) => {
       </div>
 
       <div className="form-group">
-        <button onClick={() => handleSubmit(onSubmit)()}>Criar conta</button>
+        <button onClick={() => handleSubmit(onSubmit)()}>
+          Atualizar dados
+        </button>
       </div>
     </div>
   );

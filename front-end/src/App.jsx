@@ -1,6 +1,5 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Header from "./components/header/header";
 import Login from "./pages/login/login";
 import Cadastro from "./pages/cadastro/cadastro";
 import Formulario from "./pages/cadastro/formulario-interprete/formulario";
@@ -18,6 +17,7 @@ import HeaderSurdo from "./components/header-surdo/header-surdo";
 import ListaSolicitacoesIntepretes from "./pages/lista-solicitacoes-interpretes/lista-solicitacoes-interpretes";
 import ListaInterpretes from "./pages/lista-interpretes/lista-interpretes";
 import PerfilInterprete from "./pages/perfil/usuarios/interprete/perfil_interprete";
+import PerfilSurdo from "./pages/perfil/usuarios/surdo/perfil_surdo";
 
 function App({ userType }) {
   const renderAdminPages = () => {
@@ -77,7 +77,6 @@ function App({ userType }) {
   const renderDefaultPages = () => {
     return (
       <>
-        <Header />
         <Routes>
           <Route path="/" exact element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
@@ -85,6 +84,10 @@ function App({ userType }) {
           <Route
             path="/perfil/interprete"
             element={<PerfilInterprete />}
+          ></Route>
+          <Route
+            path="/perfil/surdo"
+            element={<PerfilSurdo />}
           ></Route>
           <Route
             path="/cadastro/formulario/surdo"

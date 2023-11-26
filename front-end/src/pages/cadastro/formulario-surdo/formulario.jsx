@@ -4,6 +4,7 @@ import { useState } from "react";
 import "./formulario.css";
 import { useDispatch } from "react-redux";
 import { postSocilicitacaoCadastroSurdo } from "../../../store/fecthActions";
+import Header from "../../../components/header/header";
 
 const FormularioSurdo = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,8 @@ const FormularioSurdo = () => {
   };
 
   return (
+    <>
+    <Header />
     <div className="form-container">
       <div className="form-container-line">
         <div className="form-group">
@@ -196,6 +199,7 @@ const FormularioSurdo = () => {
         <button onClick={() => handleSubmit(onSubmit)()}>Criar conta</button>
       </div>
     </div>
+    </>
   );
 };
 

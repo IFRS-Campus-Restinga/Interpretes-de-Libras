@@ -48,8 +48,7 @@ const FormularioEditarInterprete = () => {
         setDataNascimento(interprete.dataNascimento);
         setValorHora(interprete.valorHora);
         setRegioes(interprete.regioes);
-        var myArray = toString(interprete.especialidades).split(",");
-        setEspecialidade(myArray);
+        setEspecialidade(interprete.especialidades);
         console.log(interprete);
       });
     };
@@ -58,12 +57,14 @@ const FormularioEditarInterprete = () => {
   const watchPassword = watch("senha");
 
   const onSubmit = (data) => {
+    console.log(data);
+    const formData = new FormData();
     var regioes = [
       data.sul ? "SUL" : null,
       data.norte ? "NORTE" : null,
-      data.oeste ? "OESTE" : null,
-      data.leste ? "LESTE" : null,
       data.centro ? "CENTRO" : null,
+      data.leste ? "LESTE" : null,
+      data.oeste ? "OESTE" : null,
     ];
     var especialidade = [
       data.ti ? "TI" : null,
@@ -84,6 +85,7 @@ const FormularioEditarInterprete = () => {
       especialidades: especialidade,
       regioes: regioes,
     };
+    console.log(payload);
     dispatch(putEditarPerfilInterprete(getUserId(), payload));
   };
 
@@ -101,7 +103,7 @@ const FormularioEditarInterprete = () => {
               onChange: (e) => {
                 setNome(e.target.value);
               },
-              required: true,
+              required: false,
             })}
           />
           {errors?.nome?.type === "required" && (
@@ -120,7 +122,7 @@ const FormularioEditarInterprete = () => {
               onChange: (e) => {
                 setSobrenome(e.target.value);
               },
-              required: true,
+              required: false,
             })}
           />
           {errors?.sobrenome?.type === "required" && (
@@ -134,15 +136,9 @@ const FormularioEditarInterprete = () => {
           <label>CPF</label>
           <input
             disabled
-            value={cpf}
             type="text"
-            placeholder="Escreva seu CPF"
-            {...register("cpf", {
-              onChange: (e) => {
-                setCpf(e.target.value);
-              },
-              required: false,
-            })}
+            value={cpf}
+            placeholder="Ex: 000.000.000-00"
           />
         </div>
 
@@ -157,7 +153,7 @@ const FormularioEditarInterprete = () => {
               onChange: (e) => {
                 setDataNascimento(e.target.value);
               },
-              required: true,
+              required: false,
             })}
           />
           {errors?.dataNascimento?.type === "required" && (
@@ -190,7 +186,7 @@ const FormularioEditarInterprete = () => {
               onChange: (e) => {
                 setTelefone(e.target.value);
               },
-              required: true,
+              required: false,
             })}
           />
           {errors?.telefone?.type === "required" && (
@@ -207,9 +203,13 @@ const FormularioEditarInterprete = () => {
             type="password"
             value={senha}
             placeholder="Digite sua senha"
-            {...register("senha", { onChange: (e) => {
+            {...register("senha", {
+              onChange: (e) => {
                 setSenha(e.target.value);
-              },required: true, minLength: 7 })}
+              },
+              required: false,
+              minLength: 7,
+            })}
           />
 
           {errors?.senha?.type === "required" && (
@@ -230,7 +230,7 @@ const FormularioEditarInterprete = () => {
             type="password"
             placeholder="Repita sua senha"
             {...register("senhaConfirmation", {
-              required: true,
+              required: false,
               validate: (value) => value === watchPassword,
             })}
           />
@@ -258,7 +258,7 @@ const FormularioEditarInterprete = () => {
               onChange: (e) => {
                 setValorHora(e.target.value);
               },
-              required: true,
+              required: false,
             })}
           />
           {errors?.valorHora?.type === "required" && (
@@ -277,7 +277,7 @@ const FormularioEditarInterprete = () => {
             className={errors?.documento && "input-error"}
             type="file"
             {...register("file", {
-              required: true,
+              required: false,
             })}
           />
           {errors?.documento?.type === "required" && (
@@ -290,34 +290,62 @@ const FormularioEditarInterprete = () => {
         <div className="form-group">
           <label>Região</label>
           <div className="checkbox-group">
-            <input type="checkbox"  name="sul" {...register("sul")} />
+            <input
+              type="checkbox"
+              name="sul"
+              {...register("sul")}
+            />
             <label>Sul</label>
           </div>
           <div className="checkbox-group">
-            <input type="checkbox" name="norte" {...register("norte")} />
+            <input
+              type="checkbox"
+              name="norte"
+              {...register("norte")}
+            />
             <label>Norte</label>
           </div>
           <div className="checkbox-group">
-            <input type="checkbox" name="leste" {...register("leste")} />
+            <input
+              type="checkbox"
+              name="leste"
+              {...register("leste")}
+            />
             <label>Leste</label>
           </div>
           <div className="checkbox-group">
-            <input type="checkbox" name="oeste" {...register("oeste")} />
+            <input
+              type="checkbox"
+              name="oeste"
+              {...register("oeste")}
+            />
             <label>Oeste</label>
           </div>
           <div className="checkbox-group">
-            <input type="checkbox" name="centro" {...register("centro")} />
+            <input
+              type="checkbox"
+              name="centro"
+              {...register("centro")}
+            />
             <label>Centro</label>
           </div>
         </div>
         <div className="form-group">
           <label>Especialidades</label>
           <div className="checkbox-group">
-            <input type="checkbox" name="ti" {...register("ti")} />
+            <input
+              type="checkbox"
+              name="ti"
+              {...register("ti")}
+            />
             <label>TI</label>
           </div>
           <div className="checkbox-group">
-            <input type="checkbox" name="medicina" {...register("medicina")} />
+            <input
+              type="checkbox"
+              name="medicina"
+              {...register("medicina")}
+            />
             <label>Medicina</label>
           </div>
           <div className="checkbox-group">
@@ -337,14 +365,20 @@ const FormularioEditarInterprete = () => {
             <label>Engenharia</label>
           </div>
           <div className="checkbox-group">
-            <input type="checkbox" name="humanas" {...register("humanas")} />
+            <input
+              type="checkbox"
+              name="humanas"
+              {...register("humanas")}
+            />
             <label>Humanas</label>
           </div>
         </div>
       </div>
 
       <div className="form-group">
-        <button onClick={(data) => onSubmit(data)}>Atualizar dados</button>
+        <button onClick={() => handleSubmit(onSubmit)()}>
+          Atualizar dados
+        </button>
       </div>
     </div>
   );

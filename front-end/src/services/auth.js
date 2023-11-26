@@ -28,8 +28,12 @@ const loginUser = async (data, dispatch) => {
 
 const saveTokenLocally = (data) => {
   localStorage.setItem("token", data.token);
-  localStorage.setItem("id", data.id);
   localStorage.setItem("tipoUsuario", data.tipoUsuario);
+  if (data.tipoUsuario === "INTERPRETE") {
+    localStorage.setItem("idInterprete", data.id);
+  } else if (data.tipoUsuario === "SURDO") {
+    localStorage.setItem("idSurdo", data.id);
+  }
 };
 
 const getToken = () => {
