@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { loginUser } from "../../services/auth";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import "./login.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -20,7 +22,7 @@ const Login = () => {
         email: username,
         senha: password,
       };
-      const token = await loginUser({ payload });
+      const token = await loginUser({ payload }, dispatch);
       console.log("Token obtido:", token);
       if (getUserType() === "SURDO") {
         window.location.href = "/perfil/surdo";

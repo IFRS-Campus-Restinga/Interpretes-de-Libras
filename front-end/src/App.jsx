@@ -82,7 +82,10 @@ function App({ userType }) {
           <Route path="/" exact element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/cadastro" element={<Cadastro />}></Route>
-          <Route path="/perfil/interprete" element={<PerfilInterprete />}></Route>
+          <Route
+            path="/perfil/interprete"
+            element={<PerfilInterprete />}
+          ></Route>
           <Route
             path="/cadastro/formulario/surdo"
             element={<FormularioSurdo />}
@@ -92,7 +95,7 @@ function App({ userType }) {
             element={<Formulario tipoUsuario="interprete" />}
           ></Route>
           <Route
-            path="/listaSolicitacoes"
+            path="/listaCadastroUsuario"
             element={<ListaSolicitacoesDeCadastro />}
           ></Route>
           <Route

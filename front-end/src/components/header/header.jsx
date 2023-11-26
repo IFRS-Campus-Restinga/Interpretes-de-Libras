@@ -21,8 +21,8 @@ const Header = () => {
         <Link to="/cadastro">
           <button id="signUp">Cadastrar-se</button>
         </Link>
-        <Link to="/listaSolicitacoes">
-          <button id="signUp">Lista Soliciações</button>
+        <Link to="/listaCadastroUsuario">
+          <button id="signUp">Lista Cadastro</button>
         </Link>
         <Link to="/cadastroSolicitacoes">
           <button id="signUp">Cadastro Soliciações</button>

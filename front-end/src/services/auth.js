@@ -1,19 +1,23 @@
+import React from "react";
 import api from "./api";
+import { setUserType } from "../store/usuario";
+import { useDispatch } from "react-redux";
 
-const loginUser = async (data) => {
+const loginUser = async (data, dispatch) => {
+  //const dispatch = useDispatch();
   const login = JSON.stringify(data);
   const loginString = JSON.parse(login);
   const payloadString = loginString["payload"];
+
   console.log(payloadString);
+
   try {
     const response = await api.post("/login", payloadString);
-    console.log(response);
+    console.log("response", response);
+
     const token = response.data.token;
-    const id = response.data.id;
-    const type = response.data.tipoUsuario;
-    saveTokenLocally(token);
-    saveTypeLocally(type);
-    saveIdLocally(id, type);
+    saveTokenLocally(response.data);
+    dispatch(setUserType(response.data));
 
     return token;
   } catch (error) {
@@ -22,20 +26,10 @@ const loginUser = async (data) => {
   }
 };
 
-const saveTokenLocally = (token) => {
-  localStorage.setItem("token", token);
-};
-
-const saveIdLocally = (id, type) => {
-  if (type === "SURDO") {
-    localStorage.setItem("idSurdo", id);
-  } else if (type === "INTERPRETE") {
-    localStorage.setItem("idInterprete", id);
-  }
-};
-
-const saveTypeLocally = (type) => {
-  localStorage.setItem("type", type);
+const saveTokenLocally = (data) => {
+  localStorage.setItem("token", data.token);
+  localStorage.setItem("id", data.id);
+  localStorage.setItem("tipoUsuario", data.tipoUsuario);
 };
 
 const getToken = () => {
