@@ -4,6 +4,8 @@ import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioCadastroDTO;
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioRepository;
 import br.com.interpreto.model.interprete.*;
+import br.com.interpreto.model.surdo.Surdo;
+import br.com.interpreto.model.surdo.SurdoDetalhamentoDTO;
 import br.com.interpreto.model.usuario.UsuarioRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -82,8 +84,13 @@ public class InterpreteService {
 	@Transactional
 	public ResponseEntity atualizarInterprete(Long id, InterpreteAtualizaDTO novosDados) {
 		Interprete interprete = interpreteRepository.getReferenceById(id);
-			interprete.interpreteAtualizarDTO(novosDados);
-			interpreteRepository.save(interprete);
+
+		//Encriptando a senha do usuário
+		String senhaEncriptada = new BCryptPasswordEncoder().encode(novosDados.senha());
+
+		interprete.interpreteAtualizarDTO(novosDados);
+		interprete.setSenha(senhaEncriptada);
+		interpreteRepository.save(interprete);
 
 		return ResponseEntity.ok(new InterpreteDetalhamentoDTO(interprete));
 	}

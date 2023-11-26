@@ -76,7 +76,12 @@ public class SurdoService {
 	@Transactional
 	public ResponseEntity atualizarSurdo(Long id, SurdoAtualizaDTO novosDados) {
 		Surdo surdo = surdoRepository.getReferenceById(id);
+
+		//Encriptando a senha do usuário
+		String senhaEncriptada = new BCryptPasswordEncoder().encode(novosDados.senha());
+
 		surdo.surdoAtualizarDTO(novosDados);
+		surdo.setSenha(senhaEncriptada);
 		surdoRepository.save(surdo);
 
 		return ResponseEntity.ok(new SurdoDetalhamentoDTO(surdo));
