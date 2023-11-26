@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { loginUser } from "../../services/auth";
-import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Perfil from "../perfil/perfil";
 import "./login.css";
 
 const Login = () => {
@@ -19,16 +17,24 @@ const Login = () => {
   const handleLogin = async () => {
     try {
       const payload = {
-        "email": username,
-        "senha": password
-      }
+        email: username,
+        senha: password,
+      };
       const token = await loginUser({ payload });
       console.log("Token obtido:", token);
-      window.location.href = "/perfil";
+      if (getUserType() === "SURDO") {
+        window.location.href = "/perfil/surdo";
+      } else if (getUserType() === "INTERPRETE") {
+        window.location.href = "/perfil/interprete";
+      }
     } catch (error) {
       alert("E-mail ou senha inválidos!");
       console.error("Erro durante o login:", error);
     }
+  };
+
+  const getUserType = () => {
+    return localStorage.getItem("type");
   };
 
   return (
@@ -42,11 +48,11 @@ const Login = () => {
           type="text"
           placeholder="Escreva seu e-mail"
           {...register("email", {
-              onChange: (e) => {
-                setUsername(e.target.value);
-              },
-              required: true,
-            })}
+            onChange: (e) => {
+              setUsername(e.target.value);
+            },
+            required: true,
+          })}
         />
         {errors?.email?.type === "required" && (
           <p className="error-message">E-mail é um campo obrigatório.</p>
@@ -60,11 +66,11 @@ const Login = () => {
           type="password"
           placeholder="Escreva sua senha"
           {...register("senha", {
-              onChange: (e) => {
-                setPassword(e.target.value);
-              },
-              required: true,
-            })}
+            onChange: (e) => {
+              setPassword(e.target.value);
+            },
+            required: true,
+          })}
         />
         {errors?.senha?.type === "required" && (
           <p className="error-message">Senha é um campo obrigatório.</p>

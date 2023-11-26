@@ -4,11 +4,9 @@ import { useEffect, useState } from "react";
 import api from "../../../services/api";
 import "./formulario.css";
 import { useDispatch } from "react-redux";
-import {
-  putDadosFormSurdo,
-} from "../../../store/fecthActions";
+import { putDadosFormSurdo } from "../../../store/fecthActions";
 
-const FormularioEditarSurdo = ({recuperarUsuarioSemId}) => {
+const FormularioEditarSurdo = ({ recuperarUsuarioSemId }) => {
   const dispatch = useDispatch();
   const {
     register,
@@ -42,21 +40,25 @@ const FormularioEditarSurdo = ({recuperarUsuarioSemId}) => {
     };
   };
 
-  const getDadosFormSurdos = (username) => {
-  return () => {
-    api.get("/surdo").then((response) => {
-      const surdos = response.data;
-      surdos.forEach((element) => {
-        if (element.email === username) {
-          console.log(element.id);
-        }
-      });
-    });
+  const getUserId = () => {
+    return localStorage.getItem("id");
   };
-};
+
+  const getDadosFormSurdos = (username) => {
+    return () => {
+      api.get("/surdo").then((response) => {
+        const surdos = response.data;
+        surdos.forEach((element) => {
+          if (element.email === username) {
+            console.log(element.id);
+          }
+        });
+      });
+    };
+  };
 
   useEffect(() => {
-    dispatch(getDadosFormSurdoId(2));
+    dispatch(getDadosFormSurdoId(getUserId()));
   }, []);
 
   const onSubmit = (data) => {

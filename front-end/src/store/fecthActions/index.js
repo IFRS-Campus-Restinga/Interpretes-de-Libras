@@ -81,14 +81,6 @@ export const aprovarCadastroPut = (data, id) => {
   };
 };
 
-export const getDadosFormInterprete = (id) => {
-  return () => {
-    api.get(`/interprete/${id}`).then((response) => {
-      console.log("interprete", response);
-    });
-  };
-};
-
 export const getDadosFormSurdos = (cpf) => {
   return () => {
     api.get("/surdo").then((response) => {
@@ -115,6 +107,19 @@ export const putDadosFormSurdo = (id, surdo) => {
     console.log(surdo);
     api
       .put(`/surdo/${id}`, surdo)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+export const putEditarPerfilInterprete = (id, interprete) => {
+  return (dispatch) => {
+    api
+      .put(`/interprete/${id}`, interprete)
       .then((response) => {
         console.log(response.data);
       })

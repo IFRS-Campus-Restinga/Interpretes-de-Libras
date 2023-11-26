@@ -39,7 +39,6 @@ const Formulario = ({ tipoUsuario }) => {
     delete data.oeste;
     delete data.leste;
     delete data.centro;
-    delete data.dataNascimento;
     delete data.password;
     delete data.passwordConfirmation;
     delete data.estado;
@@ -72,8 +71,8 @@ const Formulario = ({ tipoUsuario }) => {
         alert("Cadastro realizado com sucesso!");
       })
       .catch(function (error) {
-        alert("Erro ao cadastrar usuário!");
-        console.log(error);
+        alert(error.response.data);
+        console.log(error.response.data);
       });
     console.log(options);
   };
@@ -169,42 +168,6 @@ const Formulario = ({ tipoUsuario }) => {
           />
           {errors?.telefone?.type === "required" && (
             <p className="error-message">Telefone é um campo obrigatório.</p>
-          )}
-        </div>
-      </div>
-
-      <div className="form-container-line">
-        <div className="form-group">
-          <label>Estado</label>
-          <select
-            className={errors?.estado && "input-error"}
-            defaultValue="0"
-            {...register("estado", { validate: (value) => value !== "0" })}
-          >
-            <option value="0">Selecione seu estado</option>
-            <option value="RS">Rio Grande do Sul</option>
-            <option value="OUTRO">Outro</option>
-          </select>
-
-          {errors?.estado?.type === "validate" && (
-            <p className="error-message">Estado é um campo obrigatório.</p>
-          )}
-        </div>
-
-        <div className="form-group">
-          <label>Cidade</label>
-          <select
-            className={errors?.cidade && "input-error"}
-            defaultValue="0"
-            {...register("cidade", { validate: (value) => value !== "0" })}
-          >
-            <option value="0">Selecione sua cidade</option>
-            <option value="RS">Porto Alegre</option>
-            <option value="OUTRO">Outro</option>
-          </select>
-
-          {errors?.cidade?.type === "validate" && (
-            <p className="error-message">Cidade é um campo obrigatório.</p>
           )}
         </div>
       </div>

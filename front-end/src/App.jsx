@@ -5,7 +5,6 @@ import Login from "./pages/login/login";
 import Cadastro from "./pages/cadastro/cadastro";
 import Formulario from "./pages/cadastro/formulario-interprete/formulario";
 import Home from "./pages/home/home";
-import Perfil from "./pages/perfil/perfil";
 import FormularioSurdo from "./pages/cadastro/formulario-surdo/formulario";
 import ListaSolicitacoesDeCadastro from "./pages/listas-solicitacoes-cadastro/lista-solicitacoes-cadastro";
 import CadastroDeSolicitacaoDeInteprete from "./pages/cadastro-solicitacao-de-interprete/cadastro-solicitacao-de-interprete";
@@ -18,6 +17,7 @@ import ListaSolicitacoesAprovadas from "./pages/lista-solicitacoes-aprovadas/lis
 import HeaderSurdo from "./components/header-surdo/header-surdo";
 import ListaSolicitacoesIntepretes from "./pages/lista-solicitacoes-interpretes/lista-solicitacoes-interpretes";
 import ListaInterpretes from "./pages/lista-interpretes/lista-interpretes";
+import PerfilInterprete from "./pages/perfil/usuarios/interprete/perfil_interprete";
 
 function App({ userType }) {
   const renderAdminPages = () => {
@@ -82,7 +82,7 @@ function App({ userType }) {
           <Route path="/" exact element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/cadastro" element={<Cadastro />}></Route>
-          <Route path="/perfil" element={<Perfil />}></Route>
+          <Route path="/perfil/interprete" element={<PerfilInterprete />}></Route>
           <Route
             path="/cadastro/formulario/surdo"
             element={<FormularioSurdo />}
