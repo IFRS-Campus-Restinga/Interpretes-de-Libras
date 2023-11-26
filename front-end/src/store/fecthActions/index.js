@@ -24,9 +24,9 @@ export const getAllSocilicitacoesCadastro = () => {
     }
 
     api
-      .get("/avaliacaousuario")
+      .get("/solicitacao")
       .then((response) => {
-        dispatch(getAllSolicitacoesCadastros(response.data));
+        console.log(response.data);
       })
       .catch(console.log);
   };

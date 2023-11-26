@@ -1,7 +1,7 @@
 import { createAction, createReducer } from "@reduxjs/toolkit";
 
 const initial_state = [
-  {
+  /*{
     id: 1,
     nome: "Adrian",
     dataCriacao: "23/05/2023",
@@ -24,7 +24,7 @@ const initial_state = [
     telefone: "51 998765431",
     email: "adrian@restinga.ifrs.edu.br",
     statusAvaliacao: "ANALISANDO",
-  },
+  },*/
 ];
 
 export const getAllSolicitacoesCadastros = createAction(

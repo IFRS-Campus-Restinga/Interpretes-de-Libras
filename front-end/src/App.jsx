@@ -19,6 +19,7 @@ import ListaInterpretes from "./pages/lista-interpretes/lista-interpretes";
 import PerfilInterprete from "./pages/perfil/usuarios/interprete/perfil_interprete";
 import PerfilSurdo from "./pages/perfil/usuarios/surdo/perfil_surdo";
 
+
 function App({ userType }) {
   const renderAdminPages = () => {
     return (
@@ -114,7 +115,7 @@ function App({ userType }) {
       {userType === "ADMIN" && renderAdminPages()}
       {userType === "INTERPRETE" && renderInterpretePages()}
       {userType === "SURDO" && renderSurdoPages()}
-      {userType === "default" && renderDefaultPages()}
+      {userType === "default" && renderAdminPages()}
     </>
   );
 }

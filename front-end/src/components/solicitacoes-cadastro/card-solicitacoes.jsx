@@ -14,6 +14,7 @@ const CardSolicitacao = ({
   telefone,
   email,
   status,
+  tipoUsuario,
 }) => {
   const [stateSolicitacao, setStateSolicitacao] = useState(status);
   const [msg, setMsg] = useState("");
@@ -47,6 +48,7 @@ const CardSolicitacao = ({
         <div>Data criacao: {dataCriacao}</div>
         <div>Telefone: {telefone} </div>
         <div>E-mail: {email} </div>
+        <div>Tipo de usuário: {tipoUsuario = "SURDO "} </div>
       </div>
       <div className="card-rigth">
         <div className={classStatus}>{stateSolicitacao}</div>
