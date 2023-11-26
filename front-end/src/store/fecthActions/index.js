@@ -131,7 +131,7 @@ export const putEditarPerfilInterprete = (id, interprete) => {
 
 export const postCadastroSolicitacaoInterprete = (data) => {
   return () => {
-    api.get("/solicitacao", data).then((response) => {
+    api.post("/solicitacao", data).then((response) => {
       console.log("solicitacao", response);
     });
   };

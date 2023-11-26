@@ -12,6 +12,11 @@ const CadastroDeSolicitacaoDeInteprete = () => {
   } = useForm();
 
   const onSubmit = (data) => {
+    //ajustar depois
+    var surdo = {
+      id: 4,
+    };
+
     var regioes = [
       data.sul ? "SUL" : null,
       data.norte ? "NORTE" : null,
@@ -60,6 +65,7 @@ const CadastroDeSolicitacaoDeInteprete = () => {
     data["regioes"] = regioes;
     data["especialidades"] = especialidades;
     data["endereco"] = endereco;
+    data["surdo"] = surdo;
 
     console.log(data);
     dispatch(postCadastroSolicitacaoInterprete(data));
@@ -144,12 +150,12 @@ const CadastroDeSolicitacaoDeInteprete = () => {
         <div className="form-group">
           <label>Hora do Encontro</label>
           <input
-            className={errors?.hora && "input-error"}
+            className={errors?.horaEncontro && "input-error"}
             type="time"
             placeholder="Escreva a hora do encontro"
-            {...register("hora", { required: true })}
+            {...register("horaEncontro", { required: true })}
           />
-          {errors?.hora?.type === "required" && (
+          {errors?.horaEncontro?.type === "required" && (
             <p className="error-message">
               Hora de encontro é um campo obrigatório.
             </p>
@@ -160,7 +166,7 @@ const CadastroDeSolicitacaoDeInteprete = () => {
           <label>Duração do Encontro</label>
           <input
             className={errors?.duracaoAtendimento && "input-error"}
-            type="time"
+            type="number"
             placeholder="Escreva a hora do encontro"
             {...register("duracaoAtendimento", { required: true })}
           />
