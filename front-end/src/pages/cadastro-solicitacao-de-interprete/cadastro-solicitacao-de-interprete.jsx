@@ -8,7 +8,6 @@ const CadastroDeSolicitacaoDeInteprete = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
@@ -21,7 +20,7 @@ const CadastroDeSolicitacaoDeInteprete = () => {
       data.centro ? "CENTRO" : null,
     ];
 
-    var especialidade = [
+    var especialidades = [
       data.ti ? "TI" : null,
       data.medicina ? "MEDICINA" : null,
       data.literatura ? "LITERATURA" : null,
@@ -29,15 +28,16 @@ const CadastroDeSolicitacaoDeInteprete = () => {
       data.humanas ? "HUMANAS" : null,
     ];
 
-    var endereco = [
-      data.rua,
-      data.numero,
-      data.cep,
-      data.complemento,
-      data.bairro,
-      data.observacaoEndereco,
-      data.pontoReferencia,
-    ];
+    var endereco = {
+      rua: data.rua ?? null,
+      cidade: data.cidade ?? null,
+      numero: data.numero ?? null,
+      complemento: data.complemento ?? null,
+      bairro: data.bairro ?? null,
+      cep: data.cep ?? null,
+      observacaoEndereco: data.observacaoEndereco ?? null,
+      pontoReferencia: data.pontoReferencia ?? null,
+    };
 
     delete data.sul;
     delete data.norte;
@@ -58,7 +58,7 @@ const CadastroDeSolicitacaoDeInteprete = () => {
     delete data.pontoReferencia;
 
     data["regioes"] = regioes;
-    data["especialidades"] = especialidade;
+    data["especialidades"] = especialidades;
     data["endereco"] = endereco;
 
     console.log(data);
@@ -155,6 +155,21 @@ const CadastroDeSolicitacaoDeInteprete = () => {
             </p>
           )}
         </div>
+
+        <div className="form-group">
+          <label>Duração do Encontro</label>
+          <input
+            className={errors?.duracaoAtendimento && "input-error"}
+            type="time"
+            placeholder="Escreva a hora do encontro"
+            {...register("duracaoAtendimento", { required: true })}
+          />
+          {errors?.duracaoAtendimento?.type === "required" && (
+            <p className="error-message">
+              Duração de encontro é um campo obrigatório.
+            </p>
+          )}
+        </div>
       </div>
 
       <div className="form-container-line-one">
@@ -231,6 +246,18 @@ const CadastroDeSolicitacaoDeInteprete = () => {
             />
             {errors?.cep?.type === "required" && (
               <p className="error-message">CEP é um campo obrigatório.</p>
+            )}
+          </div>
+          <div className="form-group">
+            <label>Cidade</label>
+            <input
+              className={errors?.cidade && "input-error"}
+              type="text"
+              placeholder="Escreva o CEP"
+              {...register("cidade", { required: true })}
+            />
+            {errors?.cidade?.type === "required" && (
+              <p className="error-message">Cidade é um campo obrigatório.</p>
             )}
           </div>
         </div>
