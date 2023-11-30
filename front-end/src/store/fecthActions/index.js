@@ -24,7 +24,7 @@ export const getAllSocilicitacoesCadastro = () => {
     }
 
     api
-      .get("/solicitacao")
+      .get("/avaliacaousuario")
       .then((response) => {
         console.log(response.data);
       })
@@ -98,6 +98,19 @@ export const getDadosFormSurdo = (id) => {
   return (dispatch) => {
     api.get(`/surdo/${id}`).then((response) => {
       console.log("surdo", response.data);
+    });
+  };
+};
+
+export const putAvaliacaoUsuario = (id, status) => {
+  console.log(status);
+  const payload = {
+    msg: "Parabens, seu cadastro foi aprovado",
+    statusAvaliacao: status,
+  };
+  return (dispatch) => {
+    api.put(`/avaliacaousuario/${id}`, payload).then((response) => {
+      console.log(response.data);
     });
   };
 };

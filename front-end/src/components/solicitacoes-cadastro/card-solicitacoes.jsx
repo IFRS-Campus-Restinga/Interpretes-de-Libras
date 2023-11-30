@@ -2,7 +2,7 @@ import "./card-solicitacoes.css";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
-  putSocilicitacaoCadastro,
+  putAvaliacaoUsuario,
   aprovarCadastroPut,
 } from "../../store/fecthActions";
 import classNames from "classnames";
@@ -18,9 +18,9 @@ const CardSolicitacao = ({
 }) => {
   const [stateSolicitacao, setStateSolicitacao] = useState(status);
   const [msg, setMsg] = useState("");
-  const [statusAvaliacao, setStatusAvaliacao] = useState("");
+  const [statusAvaliacao, setStatusAvaliacao] = useState(status);
   const dispatch = useDispatch();
-  const classStatus = classNames("card-status", status);
+  const classStatus = classNames("card-status", statusAvaliacao);
 
   useEffect(() => {
     console.log(stateSolicitacao);
@@ -33,13 +33,21 @@ const CardSolicitacao = ({
     setMsg("não deve estar em branco");
     setStatusAvaliacao("DEFERIDO");
     setStateSolicitacao("DEFERIDO");
+    dispatch(putAvaliacaoUsuario(id, statusAvaliacao));
+    localStorage.setItem("statusAvaliacao", statusAvaliacao);
   };
 
   const reprovarCadastro = () => {
     setMsg("não deve estar em branco");
     setStatusAvaliacao("INDEFERIDO");
     setStateSolicitacao("INDEFERIDO");
+    dispatch(putAvaliacaoUsuario(id, statusAvaliacao));
+    localStorage.setItem("statusAvaliacao", statusAvaliacao);
   };
+
+  const getAvaliacaoCadastro = () => {
+    return localStorage.getItem("statusAvaliacao");
+  }
 
   return (
     <div className="card">
@@ -51,7 +59,7 @@ const CardSolicitacao = ({
         <div>Tipo de usuário: {tipoUsuario = "SURDO "} </div>
       </div>
       <div className="card-rigth">
-        <div className={classStatus}>{stateSolicitacao}</div>
+        <div className={classStatus}>{statusAvaliacao}</div>
         <div class="card-container-button">
           <button class="card-button" onClick={() => aprovarCadastro()}>
             Aprovar Cadastro
