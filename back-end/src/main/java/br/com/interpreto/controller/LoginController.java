@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.*;
 
 import br.com.interpreto.service.UsuarioService;
@@ -37,5 +36,4 @@ public class LoginController {
 
         return ResponseEntity.ok(new LoginRespostaDTO(token, ((Usuario) auth.getPrincipal()).getRole().toString(), ((Usuario) auth.getPrincipal()).getId().toString()));
     }
-
 }
