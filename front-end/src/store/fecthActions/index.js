@@ -5,6 +5,17 @@ import {
   changeStatusSolicitacaoCadastro,
 } from "../solicitacoes-cadastro";
 
+import { setSolicitacoesInterpretes } from "../solicitacoes-interpretes";
+
+export const getSolicitacoesInterprete = () => {
+  return (dispatch) => {
+    api.get("/solicitacao").then((response) => {
+      console.log("solicitacao", response);
+      dispatch(setSolicitacoesInterpretes(response.data));
+    });
+  };
+};
+
 // export const getAllSocilicitacoesCadastro = () => {
 //   return (dispatch) => {
 //     api
