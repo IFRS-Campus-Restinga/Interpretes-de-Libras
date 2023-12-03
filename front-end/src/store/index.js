@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import thunk from "redux-thunk"; // Importe o middleware thunk
 import solicitacoesReducer from "./solicitacoes-cadastro";
 import perfil from "./usuario";
 import solicitacoesPublicas from "./solicitacoes-publicas";
@@ -13,4 +14,5 @@ export default configureStore({
     solicitacoesAprovadas: solicitacoesAprovadas,
     socicitacoesInterpretes: socicitacoesInterpretes,
   },
+  middleware: [thunk],
 });

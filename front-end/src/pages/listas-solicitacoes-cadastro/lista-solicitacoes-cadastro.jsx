@@ -9,21 +9,21 @@ const ListaSolicitacoesDeCadastro = () => {
   const dispatch = useDispatch();
 
   const getAllSocilicitacoesCadastro = () => {
-  return (dispatch) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    }
+    return (dispatch) => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      }
 
-    api
-      .get("/avaliacaousuario")
-      .then((response) => {
-        console.log(response.data);
-        setAvaliacaoUsuario(Object.values(response.data));
-      })
-      .catch(console.log);
+      api
+        .get("/avaliacaousuario")
+        .then((response) => {
+          console.log(response.data);
+          setAvaliacaoUsuario(Object.values(response.data));
+        })
+        .catch(console.log);
+    };
   };
-};
 
   useEffect(() => {
     dispatch(getAllSocilicitacoesCadastro());

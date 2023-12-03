@@ -1,12 +1,10 @@
-import interprete from "../../../../images/interprete.png";
-import "../../usuarios/interprete/Perfil_interprete.css";
-import FormularioEditarInterprete from "../../formularios/formulario-editar-interprete";
-import HeaderInterprete from "../../../../components/header-interprete/header-interprete";
+import interprete from "../../../images/interprete.png";
+import "./Perfil_interprete.css";
+import FormularioEditarInterprete from "../../perfil/formularios/formulario-editar-interprete";
 
-const PerfilInterprete = () => {
+const InterpreteHomePage = () => {
   return (
     <>
-      <HeaderInterprete />
       <div className="perfil">
         <div className="fotoPerfil">
           <img src={interprete} alt="Foto de perfil do usuário" />
@@ -22,4 +20,4 @@ const PerfilInterprete = () => {
   );
 };
 
-export default PerfilInterprete;
+export default InterpreteHomePage;

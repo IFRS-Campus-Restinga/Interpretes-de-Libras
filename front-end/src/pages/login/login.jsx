@@ -2,18 +2,19 @@ import { useState } from "react";
 import { loginUser } from "../../services/auth";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import  Header  from "../../components/header/header"
+import Header from "../../components/header/header";
 import "./login.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
@@ -23,21 +24,21 @@ const Login = () => {
         email: username,
         senha: password,
       };
-      const token = await loginUser({ payload }, dispatch);
-      console.log("Token obtido:", token);
-      if (getUserType() === "SURDO") {
-        window.location.href = "/perfil/surdo";
-      } else if (getUserType() === "INTERPRETE") {
-        window.location.href = "/perfil/interprete";
+
+      await loginUser({ payload }, dispatch);
+
+      if (localStorage.getItem("tipoUsuario") === "SURDO") {
+        navigate("/surdo/perfil");
+      } else if (localStorage.getItem("tipoUsuario") === "INTERPRETE") {
+        navigate("/inteprete/perfil");
+      } else if (localStorage.getItem("tipoUsuario") === "ADMIN") {
+        navigate("/admin");
       }
     } catch (error) {
+      //TODO:modal alerta
       alert("E-mail ou senha inválidos!");
       console.error("Erro durante o login:", error);
     }
-  };
-
-  const getUserType = () => {
-    return localStorage.getItem("tipoUsuario");
   };
 
   return (

@@ -16,16 +16,10 @@ const Header = () => {
       </Link>
       <div className="menu">
         <Link to="/login">
-          <button id="login">Fazer Login</button>
+          <button id="login">Login</button>
         </Link>
         <Link to="/cadastro">
           <button id="signUp">Cadastrar-se</button>
-        </Link>
-        <Link to="/listaCadastroUsuario">
-          <button id="signUp">Lista Cadastro</button>
-        </Link>
-        <Link to="/cadastroSolicitacoes">
-          <button id="signUp">Cadastro Soliciações</button>
         </Link>
       </div>
     </div>

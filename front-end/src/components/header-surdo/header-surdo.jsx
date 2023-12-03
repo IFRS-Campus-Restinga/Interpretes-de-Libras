@@ -6,7 +6,7 @@ import logo from "../../images/logo.png";
 const HeaderSurdo = () => {
   return (
     <div className="header">
-      <Link className="app" to="/">
+      <Link className="app" to="/surdo/perfil">
         Interpreto
         <img
           src={logo}
@@ -16,12 +16,12 @@ const HeaderSurdo = () => {
       </Link>
       <div className="app-button">
         <div className="menu">
-          <Link to="/cadastrar-solicitacao-interprete">
+          <Link to="/surdo/cadastrar-solicitacao-interprete">
             <button id="signUp">Cadastrar Solicitação</button>
           </Link>
         </div>
         <div className="menu">
-          <Link to="/minhas-solicitacoes">
+          <Link to="/surdo/minhas-solicitacoes">
             <button id="signUp">Minhas Solicitações</button>
           </Link>
         </div>

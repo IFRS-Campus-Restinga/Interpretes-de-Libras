@@ -6,7 +6,7 @@ import logo from "../../images/logo.png";
 const HeaderInterprete = () => {
   return (
     <div className="header">
-      <Link className="app" to="/">
+      <Link className="app" to="/inteprete/perfil">
         Interpreto
         <img
           src={logo}
@@ -16,12 +16,12 @@ const HeaderInterprete = () => {
       </Link>
       <div className="app-button">
         <div className="menu">
-          <Link to="/lista-solicitacoes-publicas">
+          <Link to="/inteprete/lista-solicitacoes-publicas">
             <button id="signUp">Solicitações Públicas</button>
           </Link>
         </div>
         <div className="menu">
-          <Link to="/lista-solicitacoes-aprovadas">
+          <Link to="/inteprete/lista-solicitacoes-aprovadas">
             <button id="signUp">Solicitações Aprovadas</button>
           </Link>
         </div>
