@@ -1,7 +1,7 @@
 import CardSolicitacao from "../../components/solicitacoes-cadastro/card-solicitacoes";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getAllSocilicitacoesCadastro } from "../../store/fecthActions";
+import { getAllSocilicitacoesCadastro } from "../../store/fecthActions/index";
 
 const ListaSolicitacoesDeCadastro = () => {
   const solicitacoes = useSelector((state) => state.solicitacoes);
@@ -13,16 +13,16 @@ const ListaSolicitacoesDeCadastro = () => {
 
   return (
     <div>
-      {solicitacoes.map((solicitacao, index) => {
+      {Array.from(Array(5), (element, index) => {
         return (
           <CardSolicitacao
-            key={index}
-            id={solicitacao.id}
-            dataCriacao={solicitacao.dataCriacao}
-            nome={solicitacao.nome}
-            telefone={solicitacao.telefone}
-            email={solicitacao.email}
-            status={solicitacao.statusAvaliacao}
+            key={"0"}
+            id={"0"}
+            dataCriacao={"1998"}
+            nome={"122313"}
+            telefone={"455"}
+            email={"123"}
+            status={"231"}
           />
         );
       })}

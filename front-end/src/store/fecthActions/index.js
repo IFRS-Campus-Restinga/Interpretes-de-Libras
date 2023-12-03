@@ -16,22 +16,6 @@ import {
 //   };
 // };
 
-export const getAllSocilicitacoesCadastro = () => {
-  return (dispatch) => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    }
-
-    api
-      .get("/solicitacao")
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch(console.log);
-  };
-};
-
 export const postSocilicitacaoCadastroSurdo = (solcitacao) => {
   return (dispatch) => {
     api
@@ -44,6 +28,22 @@ export const postSocilicitacaoCadastroSurdo = (solcitacao) => {
         console.log(err.response.data);
         alert(err.response.data);
       });
+  };
+};
+
+export const getAllSocilicitacoesCadastro = () => {
+  return (dispatch) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
+
+    api
+      .get("/avaliacaousuario")
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(console.log);
   };
 };
 
