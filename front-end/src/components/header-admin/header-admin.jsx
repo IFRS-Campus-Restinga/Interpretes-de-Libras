@@ -15,7 +15,7 @@ const HeaderAdmin = () => {
         ></img>
       </Link>
       <div className="menu">
-        <Link to="/lista-solicitacoes-cadastro">
+        <Link to="/admin/lista-solicitacoes-cadastro">
           <button id="signUp">Solicitações de Casdastro</button>
         </Link>
       </div>

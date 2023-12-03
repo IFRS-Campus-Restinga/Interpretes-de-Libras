@@ -1,6 +1,6 @@
 .card {
   display: flex;
-  height: 200px;;
+  height: 200px;
   justify-content: space-between;
   background: white;
   border-radius: 10px;
@@ -24,6 +24,7 @@
 }
 
 .card-status.DEFERIDO {
+  color: #fff;
   display: flex;
   justify-content: center;
   width: 100px;
@@ -36,6 +37,7 @@
 }
 
 .card-status.INDEFERIDO {
+  color: #fff;
   display: flex;
   justify-content: center;
   width: 100px;
@@ -46,7 +48,7 @@
   background-color: #cc5145;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-.card-left{
+.card-left {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

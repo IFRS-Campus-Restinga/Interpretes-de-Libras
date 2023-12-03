@@ -16,6 +16,22 @@ import {
 //   };
 // };
 
+export const getAllSocilicitacoesCadastro = () => {
+  return (dispatch) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
+
+    api
+      .get("/avaliacaousuario")
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(console.log);
+  };
+};
+
 export const postSocilicitacaoCadastroSurdo = (solcitacao) => {
   return (dispatch) => {
     api
@@ -31,7 +47,7 @@ export const postSocilicitacaoCadastroSurdo = (solcitacao) => {
   };
 };
 
-export const getAllSocilicitacoesCadastro = () => {
+/*export const getAllSocilicitacoesCadastro = () => {
   return (dispatch) => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -45,7 +61,7 @@ export const getAllSocilicitacoesCadastro = () => {
       })
       .catch(console.log);
   };
-};
+};*/
 
 export const postCandidaturaSolicitacaoInterprete = (candidatura) => {
   return (dispatch) => {
@@ -98,6 +114,19 @@ export const getDadosFormSurdo = (id) => {
   return (dispatch) => {
     api.get(`/surdo/${id}`).then((response) => {
       console.log("surdo", response.data);
+    });
+  };
+};
+
+export const putAvaliacaoUsuario = (id, status) => {
+  console.log(status);
+  const payload = {
+    msg: "Parabens, seu cadastro foi aprovado",
+    statusAvaliacao: status,
+  };
+  return (dispatch) => {
+    api.put(`/avaliacaousuario/${id}`, payload).then((response) => {
+      console.log(response.data);
     });
   };
 };

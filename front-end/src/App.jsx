@@ -5,127 +5,29 @@ import Cadastro from "./pages/cadastro/cadastro";
 import Formulario from "./pages/cadastro/formulario-interprete/formulario";
 import Home from "./pages/home/home";
 import FormularioSurdo from "./pages/cadastro/formulario-surdo/formulario";
-import ListaSolicitacoesDeCadastro from "./pages/listas-solicitacoes-cadastro/lista-solicitacoes-cadastro";
-import CadastroDeSolicitacaoDeInteprete from "./pages/cadastro-solicitacao-de-interprete/cadastro-solicitacao-de-interprete";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import HeaderAdmin from "./components/header-admin/header-admin";
-import HeaderInterprete from "./components/header-interprete/header-interprete";
-import ListaSolicitacoesPublicas from "./pages/lista-solicitacoes-publicas/lsita-solicitacoes-publicas";
-import ListaSolicitacoesAprovadas from "./pages/lista-solicitacoes-aprovadas/lista-solicitacoes-aprovadas";
-import HeaderSurdo from "./components/header-surdo/header-surdo";
-import ListaSolicitacoesIntepretes from "./pages/lista-solicitacoes-interpretes/lista-solicitacoes-interpretes";
-import ListaInterpretes from "./pages/lista-interpretes/lista-interpretes";
-import PerfilInterprete from "./pages/perfil/usuarios/interprete/perfil_interprete";
-import PerfilSurdo from "./pages/perfil/usuarios/surdo/perfil_surdo";
+import PerfilAdmin from "../src/pages/usuarios/admin/perfil-admin";
+import PerfilInterprete from "../src/pages/usuarios/interprete/perfil_interprete";
+import PerfilSurdo from "../src/pages/usuarios/surdo/perfil_surdo.jsx";
 
-
-function App({ userType }) {
-  const renderAdminPages = () => {
-    return (
-      <>
-        <HeaderAdmin />
-        <Routes>
-          <Route
-            path="/lista-solicitacoes-cadastro"
-            element={<ListaSolicitacoesDeCadastro />}
-          ></Route>
-        </Routes>
-      </>
-    );
-  };
-
-  const renderInterpretePages = () => {
-    return (
-      <>
-        <HeaderInterprete />
-        <Routes>
-          <Route
-            path="/lista-solicitacoes-publicas"
-            element={<ListaSolicitacoesPublicas />}
-          ></Route>
-          <Route
-            path="/lista-solicitacoes-aprovadas"
-            element={<ListaSolicitacoesAprovadas />}
-          ></Route>
-        </Routes>
-      </>
-    );
-  };
-
-  const renderSurdoPages = () => {
-    return (
-      <>
-        <HeaderSurdo />
-        <Routes>
-          <Route
-            path="/cadastrar-solicitacao-interprete"
-            element={<CadastroDeSolicitacaoDeInteprete />}
-          ></Route>
-          <Route
-            path="/minhas-solicitacoes"
-            element={<ListaSolicitacoesIntepretes />}
-          ></Route>
-          <Route
-            path="/candidatura-solicitacao"
-            element={<ListaInterpretes />}
-          ></Route>
-        </Routes>
-      </>
-    );
-  };
-
-  const renderDefaultPages = () => {
-    return (
-      <>
-        <Routes>
-          <Route path="/" exact element={<Home />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/cadastro" element={<Cadastro />}></Route>
-          <Route
-            path="/perfil/interprete"
-            element={<PerfilInterprete />}
-          ></Route>
-          <Route
-            path="/perfil/surdo"
-            element={<PerfilSurdo />}
-          ></Route>
-          <Route
-            path="/cadastro/formulario/surdo"
-            element={<FormularioSurdo />}
-          ></Route>
-          <Route
-            path="/cadastro/formulario/interprete"
-            element={<Formulario tipoUsuario="interprete" />}
-          ></Route>
-          <Route
-            path="/listaCadastroUsuario"
-            element={<ListaSolicitacoesDeCadastro />}
-          ></Route>
-          <Route
-            path="/cadastroSolicitacoes"
-            element={<CadastroDeSolicitacaoDeInteprete />}
-          ></Route>
-        </Routes>
-      </>
-    );
-  };
+function App() {
   return (
-    <>
-      {userType === "ADMIN" && renderAdminPages()}
-      {userType === "INTERPRETE" && renderInterpretePages()}
-      {userType === "SURDO" && renderSurdoPages()}
-      {userType === "default" && renderAdminPages()}
-    </>
+    <Routes>
+      <Route path="/" exact element={<Home />}></Route>
+      <Route path="/login" element={<Login />}></Route>
+      <Route path="/cadastro" element={<Cadastro />}></Route>
+      <Route
+        path="/cadastro/formulario/surdo"
+        element={<FormularioSurdo />}
+      ></Route>
+      <Route
+        path="/cadastro/formulario/interprete"
+        element={<Formulario />}
+      ></Route>
+      <Route path="/admin/*" element={<PerfilAdmin />} />
+      <Route path="/inteprete/*" element={<PerfilInterprete />}></Route>
+      <Route path="/surdo/*" element={<PerfilSurdo />}></Route>
+    </Routes>
   );
 }
 
-App.propTypes = {
-  userType: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  userType: state.perfil[0].type,
-});
-
-export default connect(mapStateToProps)(App);
+export default App;

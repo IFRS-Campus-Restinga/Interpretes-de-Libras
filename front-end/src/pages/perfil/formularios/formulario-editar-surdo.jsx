@@ -5,8 +5,10 @@ import api from "../../../services/api";
 import "./formulario.css";
 import { useDispatch } from "react-redux";
 import { putDadosFormSurdo } from "../../../store/fecthActions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-const FormularioEditarSurdo = () => {
+const FormularioEditarSurdo = ({ id }) => {
   const dispatch = useDispatch();
   const {
     register,
@@ -41,7 +43,7 @@ const FormularioEditarSurdo = () => {
   };
 
   const getUserId = () => {
-    return localStorage.getItem("idSurdo");
+    return id;
   };
 
   const getDadosFormSurdos = (username) => {
@@ -280,4 +282,12 @@ const FormularioEditarSurdo = () => {
   );
 };
 
-export default FormularioEditarSurdo;
+FormularioEditarSurdo.propTypes = {
+  id: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  id: state.perfil[0].id,
+});
+
+export default connect(mapStateToProps)(FormularioEditarSurdo);

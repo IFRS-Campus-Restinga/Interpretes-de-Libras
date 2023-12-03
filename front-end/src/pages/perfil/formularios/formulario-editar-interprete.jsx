@@ -5,8 +5,10 @@ import api from "../../../services/api";
 import "./formulario.css";
 import { useDispatch } from "react-redux";
 import { putEditarPerfilInterprete } from "../../../store/fecthActions";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-const FormularioEditarInterprete = () => {
+const FormularioEditarInterprete = ({ id }) => {
   const { registro, setValue } = useForm();
   const [cpf, setCpf] = useState("");
   const [nome, setNome] = useState("");
@@ -25,7 +27,7 @@ const FormularioEditarInterprete = () => {
   }, [dispatch]);
 
   const getUserId = () => {
-    return localStorage.getItem("idInterprete");
+    return id;
   };
 
   const {
@@ -290,62 +292,34 @@ const FormularioEditarInterprete = () => {
         <div className="form-group">
           <label>Região</label>
           <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="sul"
-              {...register("sul")}
-            />
+            <input type="checkbox" name="sul" {...register("sul")} />
             <label>Sul</label>
           </div>
           <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="norte"
-              {...register("norte")}
-            />
+            <input type="checkbox" name="norte" {...register("norte")} />
             <label>Norte</label>
           </div>
           <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="leste"
-              {...register("leste")}
-            />
+            <input type="checkbox" name="leste" {...register("leste")} />
             <label>Leste</label>
           </div>
           <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="oeste"
-              {...register("oeste")}
-            />
+            <input type="checkbox" name="oeste" {...register("oeste")} />
             <label>Oeste</label>
           </div>
           <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="centro"
-              {...register("centro")}
-            />
+            <input type="checkbox" name="centro" {...register("centro")} />
             <label>Centro</label>
           </div>
         </div>
         <div className="form-group">
           <label>Especialidades</label>
           <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="ti"
-              {...register("ti")}
-            />
+            <input type="checkbox" name="ti" {...register("ti")} />
             <label>TI</label>
           </div>
           <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="medicina"
-              {...register("medicina")}
-            />
+            <input type="checkbox" name="medicina" {...register("medicina")} />
             <label>Medicina</label>
           </div>
           <div className="checkbox-group">
@@ -365,11 +339,7 @@ const FormularioEditarInterprete = () => {
             <label>Engenharia</label>
           </div>
           <div className="checkbox-group">
-            <input
-              type="checkbox"
-              name="humanas"
-              {...register("humanas")}
-            />
+            <input type="checkbox" name="humanas" {...register("humanas")} />
             <label>Humanas</label>
           </div>
         </div>
@@ -384,4 +354,12 @@ const FormularioEditarInterprete = () => {
   );
 };
 
-export default FormularioEditarInterprete;
+FormularioEditarInterprete.propTypes = {
+  id: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  id: state.perfil[0].id,
+});
+
+export default connect(mapStateToProps)(FormularioEditarInterprete);

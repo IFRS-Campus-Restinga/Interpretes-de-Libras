@@ -5,7 +5,7 @@ import axios from "axios";
 import "./formulario.css";
 import Header from "../../../components/header/header";
 
-const Formulario = ({ tipoUsuario }) => {
+const Formulario = () => {
   const {
     register,
     handleSubmit,
@@ -62,10 +62,7 @@ const Formulario = ({ tipoUsuario }) => {
       method: "POST",
       headers: { "Contnte-Type": "multipart/form-data" },
       data: formData,
-      url:
-        tipoUsuario === "surdo"
-          ? "http://localhost:8080/surdo"
-          : "http://localhost:8080/interprete",
+      url: "http://localhost:8080/interprete",
     };
     axios(options)
       .then(function () {
@@ -219,24 +216,22 @@ const Formulario = ({ tipoUsuario }) => {
           </div>
         </div>
 
-        {tipoUsuario === "interprete" && (
-          <div className="form-container-line-one">
-            <div className="form-group">
-              <label>Valor da Hora</label>
-              <input
-                className={errors?.valorHora && "input-error"}
-                type="text"
-                placeholder="Escreva o valor do seu atendimento por hora."
-                {...register("valorHora", { required: true })}
-              />
-              {errors?.valorHora?.type === "required" && (
-                <p className="error-message">
-                  Valor da hora é um campo obrigatório.
-                </p>
-              )}
-            </div>
+        <div className="form-container-line-one">
+          <div className="form-group">
+            <label>Valor da Hora</label>
+            <input
+              className={errors?.valorHora && "input-error"}
+              type="text"
+              placeholder="Escreva o valor do seu atendimento por hora."
+              {...register("valorHora", { required: true })}
+            />
+            {errors?.valorHora?.type === "required" && (
+              <p className="error-message">
+                Valor da hora é um campo obrigatório.
+              </p>
+            )}
           </div>
-        )}
+        </div>
 
         <div className="form-container-line-one">
           <div className="form-group">
@@ -257,73 +252,67 @@ const Formulario = ({ tipoUsuario }) => {
           </div>
         </div>
 
-        {tipoUsuario === "interprete" && (
-          <div className="form-container-line-one">
-            <div className="form-group">
-              <label>Região</label>
-              <div className="checkbox-group">
-                <input type="checkbox" name="sul" {...register("sul")} />
-                <label>Sul</label>
-              </div>
-              <div className="checkbox-group">
-                <input type="checkbox" name="norte" {...register("norte")} />
-                <label>Norte</label>
-              </div>
-              <div className="checkbox-group">
-                <input type="checkbox" name="leste" {...register("leste")} />
-                <label>Leste</label>
-              </div>
-              <div className="checkbox-group">
-                <input type="checkbox" name="oeste" {...register("oeste")} />
-                <label>Oeste</label>
-              </div>
-              <div className="checkbox-group">
-                <input type="checkbox" name="centro" {...register("centro")} />
-                <label>Centro</label>
-              </div>
+        <div className="form-container-line-one">
+          <div className="form-group">
+            <label>Região</label>
+            <div className="checkbox-group">
+              <input type="checkbox" name="sul" {...register("sul")} />
+              <label>Sul</label>
             </div>
-
-            <div className="form-group">
-              <label>Especialidades</label>
-              <div className="checkbox-group">
-                <input type="checkbox" name="ti" {...register("ti")} />
-                <label>TI</label>
-              </div>
-              <div className="checkbox-group">
-                <input
-                  type="checkbox"
-                  name="medicina"
-                  {...register("medicina")}
-                />
-                <label>Medicina</label>
-              </div>
-              <div className="checkbox-group">
-                <input
-                  type="checkbox"
-                  name="literatura"
-                  {...register("literatura")}
-                />
-                <label>Literatura</label>
-              </div>
-              <div className="checkbox-group">
-                <input
-                  type="checkbox"
-                  name="engenharia"
-                  {...register("engenharia")}
-                />
-                <label>Engenharia</label>
-              </div>
-              <div className="checkbox-group">
-                <input
-                  type="checkbox"
-                  name="humanas"
-                  {...register("humanas")}
-                />
-                <label>Humanas</label>
-              </div>
+            <div className="checkbox-group">
+              <input type="checkbox" name="norte" {...register("norte")} />
+              <label>Norte</label>
+            </div>
+            <div className="checkbox-group">
+              <input type="checkbox" name="leste" {...register("leste")} />
+              <label>Leste</label>
+            </div>
+            <div className="checkbox-group">
+              <input type="checkbox" name="oeste" {...register("oeste")} />
+              <label>Oeste</label>
+            </div>
+            <div className="checkbox-group">
+              <input type="checkbox" name="centro" {...register("centro")} />
+              <label>Centro</label>
             </div>
           </div>
-        )}
+
+          <div className="form-group">
+            <label>Especialidades</label>
+            <div className="checkbox-group">
+              <input type="checkbox" name="ti" {...register("ti")} />
+              <label>TI</label>
+            </div>
+            <div className="checkbox-group">
+              <input
+                type="checkbox"
+                name="medicina"
+                {...register("medicina")}
+              />
+              <label>Medicina</label>
+            </div>
+            <div className="checkbox-group">
+              <input
+                type="checkbox"
+                name="literatura"
+                {...register("literatura")}
+              />
+              <label>Literatura</label>
+            </div>
+            <div className="checkbox-group">
+              <input
+                type="checkbox"
+                name="engenharia"
+                {...register("engenharia")}
+              />
+              <label>Engenharia</label>
+            </div>
+            <div className="checkbox-group">
+              <input type="checkbox" name="humanas" {...register("humanas")} />
+              <label>Humanas</label>
+            </div>
+          </div>
+        </div>
 
         <div className="form-group">
           <button onClick={() => handleSubmit(onSubmit)()}>Criar conta</button>
