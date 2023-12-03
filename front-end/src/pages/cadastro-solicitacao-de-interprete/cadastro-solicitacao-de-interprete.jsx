@@ -2,8 +2,10 @@ import { useForm } from "react-hook-form";
 import "./formulario.css";
 import { useDispatch } from "react-redux";
 import { postCadastroSolicitacaoInterprete } from "../../store/fecthActions";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-const CadastroDeSolicitacaoDeInteprete = () => {
+const CadastroDeSolicitacaoDeInteprete = ({ id }) => {
   const dispatch = useDispatch();
   const {
     register,
@@ -12,9 +14,8 @@ const CadastroDeSolicitacaoDeInteprete = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    //ajustar depois
     var surdo = {
-      id: 4,
+      id: localStorage.getItem("id"),
     };
 
     var regioes = [
@@ -301,4 +302,12 @@ const CadastroDeSolicitacaoDeInteprete = () => {
   );
 };
 
-export default CadastroDeSolicitacaoDeInteprete;
+CadastroDeSolicitacaoDeInteprete.propTypes = {
+  id: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  id: state.perfil[0].id,
+});
+
+export default connect(mapStateToProps)(CadastroDeSolicitacaoDeInteprete);

@@ -3,12 +3,13 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { getSolicitacoesInterprete } from "../../store/fecthActions";
 
-const ListaSolicitacoesIntepretes = ({ solicitacoes }) => {
+const ListaSolicitacoesIntepretes = ({ solicitacoes, id }) => {
   const dispatch = useDispatch();
-
+  console.log("ListaSolicitacoesIntepretes", id);
   useEffect(() => {
-    //dispatch(getAllSocilicitacoesPublicas());
+    dispatch(getSolicitacoesInterprete());
   }, [dispatch]);
 
   return (
@@ -30,10 +31,12 @@ const ListaSolicitacoesIntepretes = ({ solicitacoes }) => {
 
 ListaSolicitacoesIntepretes.propTypes = {
   solicitacoes: PropTypes.array.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   solicitacoes: state.socicitacoesInterpretes,
+  id: state.perfil[0].id,
 });
 
 export default connect(mapStateToProps)(ListaSolicitacoesIntepretes);
