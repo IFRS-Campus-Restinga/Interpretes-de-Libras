@@ -1,4 +1,4 @@
 -- Criando um usuario de cada tipo ao subir a aplicacao, a senha para login é: senha
-INSERT INTO usuario (email, nome, senha, role, dtype, nota) VALUES ('admin@admin.com', 'admin', '$2a$10$JbtGFtlV2oikeLQGfDTaKO2Q4/FFgBw/s4eImpyxPW/P3Fq1NyO42', 0, 'admin', 5);
-INSERT INTO usuario (email, nome, senha, role, dtype, nota) VALUES ('surdo@surdo.com', 'surdo', '$2a$10$JbtGFtlV2oikeLQGfDTaKO2Q4/FFgBw/s4eImpyxPW/P3Fq1NyO42', 1, 'surdo', 5);
-INSERT INTO usuario (email, nome, senha, role, dtype, nota) VALUES ('interprete@interprete.com', 'interprete', '$2a$10$JbtGFtlV2oikeLQGfDTaKO2Q4/FFgBw/s4eImpyxPW/P3Fq1NyO42', 2, 'interprete', 5);
+INSERT INTO usuario (email, nome, senha, role, dtype, nota, telefone) VALUES ('admin@admin.com', 'admin', '$2a$10$JbtGFtlV2oikeLQGfDTaKO2Q4/FFgBw/s4eImpyxPW/P3Fq1NyO42', 0, 'admin', 5 , 51911112222);
+INSERT INTO usuario (email, nome, senha, role, dtype, nota, telefone) VALUES ('surdo@surdo.com', 'surdo', '$2a$10$JbtGFtlV2oikeLQGfDTaKO2Q4/FFgBw/s4eImpyxPW/P3Fq1NyO42', 1, 'surdo', 5 , 51922223333);
+INSERT INTO usuario (email, nome, senha, role, dtype, nota, telefone) VALUES ('interprete@interprete.com', 'interprete', '$2a$10$JbtGFtlV2oikeLQGfDTaKO2Q4/FFgBw/s4eImpyxPW/P3Fq1NyO42', 2, 'interprete', 5 ,  51933334444);

@@ -16,30 +16,47 @@ import java.util.List;
 @RequestMapping("/usuario")
 @CrossOrigin(origins = "*")
 public class UsuarioController {
-    private final UsuarioService usuarioService;
+	private final UsuarioService usuarioService;
 
-    @Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-    public UsuarioController(UsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
-    }
-    @GetMapping
-    public ResponseEntity<List<Usuario>> listarUsuario() {
-        return usuarioService.listarUsuario();
-    }
-    @PostMapping("/recuperarsenha")
-    public ResponseEntity recuperarSenha(@RequestBody @Valid UsuarioRecuperarSenhaDTO dados){
-        return usuarioService.recuperarSenha(dados);
-    }
-    @PutMapping("/recuperarsenha")
-    public ResponseEntity trocarSenha(@RequestBody @Valid UsuarioTrocarSenhaDTO dados){
-        return usuarioService.trocarSenha(dados);
-    }
-    
+	@Autowired // INJECAO DE DEPENDENCIA VIA CONSTRUTOR
+	public UsuarioController(UsuarioService usuarioService) {
+		this.usuarioService = usuarioService;
+	}
+
+	@GetMapping
+	public ResponseEntity<List<Usuario>> listarUsuario() {
+		return usuarioService.listarUsuario();
+	}
+
+	@PostMapping("/recuperarsenha")
+	public ResponseEntity recuperarSenha(@RequestBody @Valid UsuarioRecuperarSenhaDTO dados) {
+		return usuarioService.recuperarSenha(dados);
+	}
+
+	@PutMapping("/recuperarsenha")
+	public ResponseEntity trocarSenha(@RequestBody @Valid UsuarioTrocarSenhaDTO dados) {
+		return usuarioService.trocarSenha(dados);
+	}
+
 	@GetMapping("/nota")
-	public ResponseEntity<List<UsuarioNota>> FeedbackNotaPorId(
-			@RequestParam("id") Long id) {
+	public ResponseEntity<List<UsuarioNota>> FeedbackNotaPorId(@RequestParam("id") Long id) {
 		List<UsuarioNota> usuarioNota = usuarioService.FeedbackNotaPorId(id);
 		return ResponseEntity.ok(usuarioNota);
+	}
+
+	@GetMapping("/{id}/link-whatsapp")
+	public ResponseEntity<String> gerarLinkWhatsapp(@PathVariable Long id) {
+		Usuario usuario = usuarioService.findById(id);
+
+		if (usuario != null) {
+			String linkWhatsapp = usuario.gerarLinkWhatsapp();
+
+			if (linkWhatsapp != null) {
+				return ResponseEntity.ok(linkWhatsapp);
+			}
+		}
+
+		return ResponseEntity.notFound().build();
 	}
 
 }

@@ -53,4 +53,8 @@ public class UsuarioService {
 
 		return usuarioNota;
 	}
+    
+    public Usuario findById(Long id) {
+        return usuarioRepository.findById(id).orElse(null);
+    }
 }
