@@ -2,6 +2,7 @@ package br.com.interpreto.model.usuario;
 
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
 import br.com.interpreto.model.enums.TipoUsuario;
+import br.com.interpreto.model.feedback.Feedback;
 import br.com.interpreto.model.solicitacao.Solicitacao;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -35,8 +36,22 @@ public class Usuario implements UserDetails {
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)//Para tornar Bidirecional...
     @JsonManagedReference
     private List<AvaliacaoUsuario> avaliacaoUsuario;
+    
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Feedback> feedback;
+    
+    public Double calcularMediaNotas() {
+        if (feedback == null || feedback.isEmpty()) {
+            return nota;
+        } else {
+            double totalNotas = feedback.stream().mapToDouble(Feedback::getNota).sum();
+            return (totalNotas + nota) / (feedback.size() + 1);
+        }
+    }
 
     public Usuario() {
+    	
+    	this.nota = 5.0;
 
     }
     //GETTERS AND SETTERS

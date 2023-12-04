@@ -2,6 +2,7 @@ package br.com.interpreto.controller;
 
 import br.com.interpreto.model.usuario.UsuarioRecuperarSenhaDTO;
 import br.com.interpreto.model.usuario.Usuario;
+import br.com.interpreto.model.usuario.UsuarioNota;
 import br.com.interpreto.model.usuario.UsuarioTrocarSenhaDTO;
 import br.com.interpreto.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -33,5 +34,12 @@ public class UsuarioController {
     public ResponseEntity trocarSenha(@RequestBody @Valid UsuarioTrocarSenhaDTO dados){
         return usuarioService.trocarSenha(dados);
     }
+    
+	@GetMapping("/nota")
+	public ResponseEntity<List<UsuarioNota>> FeedbackNotaPorId(
+			@RequestParam("id") Long id) {
+		List<UsuarioNota> usuarioNota = usuarioService.FeedbackNotaPorId(id);
+		return ResponseEntity.ok(usuarioNota);
+	}
 
 }

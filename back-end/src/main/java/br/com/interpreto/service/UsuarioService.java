@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
@@ -45,4 +46,11 @@ public class UsuarioService {
 
         return ResponseEntity.ok().body("Troca de senha efetuada com sucesso!");
     }
+    
+    public List<UsuarioNota> FeedbackNotaPorId(Long id) {
+		List<UsuarioNota> usuarioNota = usuarioRepository.findById(id).stream()
+				.map(UsuarioNota::new).collect(Collectors.toList());
+
+		return usuarioNota;
+	}
 }
