@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 public record AvaliacaoUsuarioDetalhamentoDTO(
         Long id,
+        Long documentoId,
         String msg,
         @JsonFormat(pattern="yyyy-MM-dd")
         LocalDate dataCriacao,
@@ -19,7 +20,7 @@ public record AvaliacaoUsuarioDetalhamentoDTO(
         String tipoUsuario
 ) {
     public AvaliacaoUsuarioDetalhamentoDTO(AvaliacaoUsuario avaliacaoUsuario){
-        this(avaliacaoUsuario.getId(), avaliacaoUsuario.getMsg(), avaliacaoUsuario.getDataCriacao(), avaliacaoUsuario.getDataResposta(),
+        this(avaliacaoUsuario.getId(), avaliacaoUsuario.getDocumento().getId(), avaliacaoUsuario.getMsg(), avaliacaoUsuario.getDataCriacao(), avaliacaoUsuario.getDataResposta(),
                 avaliacaoUsuario.getStatusAvaliacao(), avaliacaoUsuario.getUsuario().getNome(), avaliacaoUsuario.getUsuario().getTelefone(),
                     avaliacaoUsuario.getUsuario().getEmail(), avaliacaoUsuario.getUsuario().getRole().toString());
     }

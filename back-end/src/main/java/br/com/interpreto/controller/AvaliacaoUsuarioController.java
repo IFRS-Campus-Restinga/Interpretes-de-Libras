@@ -4,9 +4,11 @@ import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioAtualizaDTO;
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioCadastroDTO;
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioDetalhamentoDTO;
 import br.com.interpreto.service.AvaliacaoUsuarioService;
+import br.com.interpreto.service.DocumentoService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -19,10 +21,12 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class AvaliacaoUsuarioController {
     private final AvaliacaoUsuarioService avaliacaoUsuarioService;
+    private final DocumentoService documentoService;
 
     @Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-    public AvaliacaoUsuarioController(AvaliacaoUsuarioService avaliacaoUsuarioService) {
+    public AvaliacaoUsuarioController(AvaliacaoUsuarioService avaliacaoUsuarioService, DocumentoService documentoService) {
         this.avaliacaoUsuarioService = avaliacaoUsuarioService;
+        this.documentoService = documentoService;
     }
     @GetMapping
     public ResponseEntity<List<AvaliacaoUsuarioDetalhamentoDTO>> listarAvaliacaoUsuario() {
@@ -43,5 +47,10 @@ public class AvaliacaoUsuarioController {
     @DeleteMapping("/{id}")
     public ResponseEntity deletarAvaliacaoUsuario(@PathVariable Long id) {
         return avaliacaoUsuarioService.deletarAvaliacaoUsuario(id);
+    }
+
+    @GetMapping("/download/avaliacaoId/{id}")
+    public ResponseEntity fazerDownload(@PathVariable Long id){
+        return documentoService.fazerDownload(id);
     }
 }
