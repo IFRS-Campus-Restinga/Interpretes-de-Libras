@@ -8,6 +8,7 @@ import FormularioSurdo from "./pages/cadastro/formulario-surdo/formulario";
 import PerfilAdmin from "../src/pages/usuarios/admin/perfil-admin";
 import PerfilInterprete from "../src/pages/usuarios/interprete/perfil_interprete";
 import PerfilSurdo from "../src/pages/usuarios/surdo/perfil_surdo.jsx";
+import ForgotPassword from "../src/pages/login/forgotPassword/recupera_senha.jsx";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Route path="/" exact element={<Home />}></Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/cadastro" element={<Cadastro />}></Route>
+      <Route path="/login/forgotPassword" element={<ForgotPassword />}></Route>
       <Route
         path="/cadastro/formulario/surdo"
         element={<FormularioSurdo />}

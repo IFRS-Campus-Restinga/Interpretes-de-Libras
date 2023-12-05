@@ -2,8 +2,11 @@ import Header from "../../../components/header/header";
 import "../login.css";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import api from "../../../services/api";
 
-const RecuperaSenha = () => {
+const ForgotPassword = () => {
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -11,9 +14,46 @@ const RecuperaSenha = () => {
   } = useForm();
   const [email, setEmail] = useState("");
   const [cpf, setCpf] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const handleLogin = () => {
-    
-  }
+    dispatch(postAtualizaSenha());
+  };
+  const postAtualizaSenha = (dispacth) => {
+    return (dispatch) => {
+      const payload = {
+        email: email,
+        cpf: cpf,
+      };
+      api
+        .post("/usuario/recuperarsenha", payload)
+        .then((response) => {
+          console.log(response.data);
+          dispatch(putAtualizaSenha(response.data.id));
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+          alert(err.response.data);
+        });
+    };
+  };
+  const putAtualizaSenha = (id) => {
+    return (dispatch) => {
+      const payload = {
+        id: id,
+        senha: newPassword,
+      };
+      api
+        .put("/usuario/recuperarsenha", payload)
+        .then((response) => {
+          console.log(response.data);
+          alert(response.data);
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+          alert(err.response.data);
+        });
+    };
+  };
   return (
     <>
       <Header />
@@ -55,11 +95,34 @@ const RecuperaSenha = () => {
           )}
         </div>
         <div className="login-group">
-          <button className="loginButton" onClick={() => handleSubmit(handleLogin)()}>Recuperar senha</button>
+          <label>Nova senha</label>
+          <input
+            className={errors?.newPassword && "input-error"}
+            value={newPassword}
+            type="password"
+            placeholder="Escreva a sua nova senha"
+            {...register("newPassword", {
+              onChange: (e) => {
+                setNewPassword(e.target.value);
+              },
+              required: true,
+            })}
+          />
+          {errors?.newPassword?.type === "required" && (
+            <p className="error-message">Nova senha é um campo obrigatório.</p>
+          )}
+        </div>
+        <div className="login-group">
+          <button
+            className="loginButton"
+            onClick={() => handleSubmit(handleLogin)()}
+          >
+            Recuperar senha
+          </button>
         </div>
       </div>
     </>
   );
 };
 
-export default RecuperaSenha;
+export default ForgotPassword;

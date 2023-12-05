@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import Header from "../../components/header/header";
 import "./login.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -81,6 +81,13 @@ const Login = () => {
           {errors?.senha?.type === "required" && (
             <p className="error-message">Senha é um campo obrigatório.</p>
           )}
+        </div>
+        <div className="login-group">
+          <Link className="forgotPassword" to="/login/forgotPassword">
+            <p>
+              Esqueceu a sua senha? Clique aqui!
+            </p>
+          </Link>
         </div>
         <div className="login-group">
           <button

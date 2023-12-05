@@ -52,3 +52,7 @@
   font-size: 0.75rem;
   margin-top: 8px;
 }
+.forgotPassword {
+  text-decoration: none;
+  color: cornflowerblue;
+}
