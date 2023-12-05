@@ -42,6 +42,7 @@ const ListaSolicitacoesDeCadastro = () => {
             telefone={solicitacao.telefoneUsuario}
             email={solicitacao.emailUsuario}
             status={solicitacao.statusAvaliacao}
+            tipoUsuario={solicitacao.tipoUsuario}
           />
         );
       })}

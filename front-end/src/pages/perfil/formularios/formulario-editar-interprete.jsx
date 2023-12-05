@@ -278,6 +278,7 @@ const FormularioEditarInterprete = ({ id }) => {
             disabled
             className={errors?.documento && "input-error"}
             type="file"
+            accept="application/pdf"
             {...register("file", {
               required: false,
             })}

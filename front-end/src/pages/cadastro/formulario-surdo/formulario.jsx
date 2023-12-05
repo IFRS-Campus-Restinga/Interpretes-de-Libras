@@ -182,6 +182,7 @@ const FormularioSurdo = () => {
           <input
             className={errors?.documento && "input-error"}
             type="file"
+            accept="application/pdf"
             {...register("file", {
               onChange: (e) => {
                 setFile(e.target.files[0]);
