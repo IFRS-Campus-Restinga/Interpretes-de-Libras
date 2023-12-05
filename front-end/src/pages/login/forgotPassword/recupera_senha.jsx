@@ -117,7 +117,7 @@ const ForgotPassword = () => {
             className="loginButton"
             onClick={() => handleSubmit(handleLogin)()}
           >
-            Recuperar senha
+            Alterar senha
           </button>
         </div>
       </div>
