@@ -26,6 +26,11 @@ const HeaderSurdo = () => {
           </Link>
         </div>
         <div className="menu">
+          <Link to="/surdo/encontros">
+            <button id="signUp">Meus Encontros</button>
+          </Link>
+        </div>
+        <div className="menu">
           <Link to="/">
             <button id="signUp">Sair</button>
           </Link>

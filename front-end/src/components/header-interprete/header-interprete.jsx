@@ -26,6 +26,11 @@ const HeaderInterprete = () => {
           </Link>
         </div>
         <div className="menu">
+          <Link to="/interprete/encontros">
+            <button id="signUp">Meus Encontros</button>
+          </Link>
+        </div>
+        <div className="menu">
           <Link to="/">
             <button id="signUp">Sair</button>
           </Link>

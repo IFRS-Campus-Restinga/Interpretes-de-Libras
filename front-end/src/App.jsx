@@ -9,6 +9,8 @@ import PerfilAdmin from "../src/pages/usuarios/admin/perfil-admin";
 import PerfilInterprete from "../src/pages/usuarios/interprete/perfil_interprete";
 import PerfilSurdo from "../src/pages/usuarios/surdo/perfil_surdo.jsx";
 import ForgotPassword from "../src/pages/login/forgotPassword/recupera_senha.jsx";
+import MeusEncontros from "../src/pages/usuarios/surdo-encontros/meus_encontros.jsx";
+import MeusEncontrosInterprete from "../../front-end/src/pages/usuarios/interprete-encontros/meus_encontros.jsx"
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
       <Route path="/login" element={<Login />}></Route>
       <Route path="/cadastro" element={<Cadastro />}></Route>
       <Route path="/login/forgotPassword" element={<ForgotPassword />}></Route>
+      <Route path="/surdo/encontros" element={<MeusEncontros />}></Route>
+      <Route path="/interprete/encontros" element={<MeusEncontrosInterprete />}></Route>
       <Route
         path="/cadastro/formulario/surdo"
         element={<FormularioSurdo />}
