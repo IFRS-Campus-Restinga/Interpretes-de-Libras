@@ -17,6 +17,7 @@ const Formulario = () => {
   const [file, setFile] = useState(null);
 
   const onSubmit = (data) => {
+    console.log(data);
     if (!file) {
       console.log("No files selected");
       return;
@@ -201,7 +202,7 @@ const Formulario = () => {
               placeholder="Repita sua senha"
               {...register("senhaConfirmation", {
                 required: true,
-                validate: (value) => value === watchPassword,
+                validate: (value) => value !== watchPassword,
               })}
             />
             {errors?.senhaConfirmation?.type === "required" && (

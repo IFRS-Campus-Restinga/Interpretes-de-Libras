@@ -25,6 +25,11 @@ const HeaderInterprete = () => {
             <button id="signUp">Solicitações Aprovadas</button>
           </Link>
         </div>
+        <div className="menu">
+          <Link to="/">
+            <button id="signUp">Sair</button>
+          </Link>
+        </div>
       </div>
     </div>
   );

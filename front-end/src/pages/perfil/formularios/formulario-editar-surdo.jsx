@@ -43,7 +43,7 @@ const FormularioEditarSurdo = ({ id }) => {
   };
 
   const getUserId = () => {
-    return id;
+    return localStorage.getItem("id");
   };
 
   const getDadosFormSurdos = (username) => {
@@ -288,7 +288,7 @@ FormularioEditarSurdo.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  id: state.perfil[0].id,
+  id: state?.perfil[0]?.id,
 });
 
 export default connect(mapStateToProps)(FormularioEditarSurdo);

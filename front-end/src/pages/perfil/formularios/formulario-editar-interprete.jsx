@@ -8,7 +8,7 @@ import { putEditarPerfilInterprete } from "../../../store/fecthActions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-const FormularioEditarInterprete = ({ id }) => {
+const FormularioEditarInterprete = () => {
   const { registro, setValue } = useForm();
   const [cpf, setCpf] = useState("");
   const [nome, setNome] = useState("");
@@ -27,7 +27,7 @@ const FormularioEditarInterprete = ({ id }) => {
   }, [dispatch]);
 
   const getUserId = () => {
-    return id;
+    return localStorage.getItem("id");
   };
 
   const {
@@ -38,8 +38,9 @@ const FormularioEditarInterprete = ({ id }) => {
   } = useForm();
 
   const getDadosFormInterprete = (id) => {
+    const idInt = parseInt(id);
     return (dispatch) => {
-      api.get(`/interprete/${id}`).then((response) => {
+      api.get(`/interprete/${idInt}`).then((response) => {
         const string = JSON.stringify(response.data);
         const interprete = JSON.parse(string);
         setCpf(interprete.cpf);
@@ -360,7 +361,7 @@ FormularioEditarInterprete.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  id: state.perfil[0].id,
+  id: state?.perfil[0]?.id,
 });
 
 export default connect(mapStateToProps)(FormularioEditarInterprete);

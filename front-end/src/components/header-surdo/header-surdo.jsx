@@ -25,6 +25,11 @@ const HeaderSurdo = () => {
             <button id="signUp">Minhas Solicitações</button>
           </Link>
         </div>
+        <div className="menu">
+          <Link to="/">
+            <button id="signUp">Sair</button>
+          </Link>
+        </div>
       </div>
     </div>
   );
