@@ -115,4 +115,10 @@ public class SurdoController {
 	public ResponseEntity<List<InterpreteDetalhamentoDTO>> listarCandidaturasInterprete(@PathVariable("solicitacaoId") Long solicitacaoId){
 		return candidaturaService.listarCandidaturasInterprete(solicitacaoId);
 	}
+	//Método para listar as Solicitacoes criadas por determinado Surdo
+	@GetMapping("/MinhasSolicitacoes/{surdoId}")
+	//Ideia é usar o id que está armazenado no front e passa como parametro
+	public ResponseEntity buscarSolicitacoes(@PathVariable("surdoId") Long id) {
+		return surdoService.buscarMinhasSolicitacoes(id);
+	}
 }

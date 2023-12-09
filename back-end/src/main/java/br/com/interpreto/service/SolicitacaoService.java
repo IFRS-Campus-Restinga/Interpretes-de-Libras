@@ -74,6 +74,15 @@ public class SolicitacaoService {
 
         return ResponseEntity.noContent().build();
     }
+    public ResponseEntity<List<SolicitacaoDetalhamentoDTO>> buscarSolicitacoes (Long id){
+        List<Solicitacao> listagem = solicitacaoRepository.findBySurdoId(id);
+
+        List<SolicitacaoDetalhamentoDTO> listagemDTO = new ArrayList<>();
+        for (Solicitacao solicitacao: listagem){
+            listagemDTO.add(new SolicitacaoDetalhamentoDTO(solicitacao));
+        }
+        return ResponseEntity.ok(listagemDTO);
+    }
     
 	public Optional<Solicitacao> buscarSolicitacaoSurdo(Long id) {
 	    return solicitacaoRepository.findById(id);

@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> {
 	List<Solicitacao> findByInterpreteId(Long interpreteId);
+	//Usado para recuperar as Solicitacoes criadas por um Surdo
+	List<Solicitacao> findBySurdoId(Long surdoId);
+
 }

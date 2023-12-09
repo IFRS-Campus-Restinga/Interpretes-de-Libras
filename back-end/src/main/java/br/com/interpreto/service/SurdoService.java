@@ -20,19 +20,17 @@ import java.util.List;
 
 @Service
 public class SurdoService {
-	final private SurdoRepository surdoRepository;
-	final private AvaliacaoUsuarioRepository avaliacaoUsuarioRepository;
-	final private DocumentoService documentoService;
-	final private UsuarioRepository usuarioRepository;
+	@Autowired
+	private SurdoRepository surdoRepository;
+	@Autowired
+	private AvaliacaoUsuarioRepository avaliacaoUsuarioRepository;
+	@Autowired
+	private DocumentoService documentoService;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	@Autowired
+	private SolicitacaoService solicitacaoService;
 
-	@Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-	public SurdoService(SurdoRepository surdoRepository, AvaliacaoUsuarioRepository avaliacaoUsuarioRepository,
-						DocumentoService documentoService, UsuarioRepository usuarioRepository) {
-		this.surdoRepository = surdoRepository;
-		this.avaliacaoUsuarioRepository = avaliacaoUsuarioRepository;
-		this.documentoService = documentoService;
-		this.usuarioRepository = usuarioRepository;
-	}
 	@Transactional
 	public ResponseEntity cadastrarSurdo(String dados, MultipartFile arquivo, UriComponentsBuilder uriBuilder) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
@@ -89,8 +87,12 @@ public class SurdoService {
 	@Transactional
 	public ResponseEntity deletarSurdo(Long id) {
 	    Surdo surdo = surdoRepository.getReferenceById(id);
+		surdoRepository.deleteById(id);
 
-	        surdoRepository.deleteById(id);
 	    return ResponseEntity.noContent().build();
 	}
+
+    public ResponseEntity buscarMinhasSolicitacoes(Long id) {
+		return solicitacaoService.buscarSolicitacoes(id);
+    }
 }
