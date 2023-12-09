@@ -120,5 +120,20 @@ public class SolicitacaoService {
 			return ResponseEntity.badRequest().body("A solicitação não está aguardando aceite.");
 		}).orElse((  (BodyBuilder) ResponseEntity.notFound()).body("Solicitação não encontrada."));
 	}
+	
+	public ResponseEntity<String> cancelarSolicitacao(Long id) {
+        return solicitacaoRepository.findById(id)
+                .map(solicitacao -> {
+                    if (solicitacao.getStatusSolicitacao() != StatusSolicitacao.ABERTA &&
+                            solicitacao.getStatusSolicitacao() != StatusSolicitacao.AGUARDANDO_ACEITE) {
+                        return ResponseEntity.badRequest().body("Solicitação não pode ser cancelada no estado atual");
+                    }
+
+                    solicitacao.setStatusSolicitacao(StatusSolicitacao.CANCELADA);
+                    solicitacaoRepository.save(solicitacao);
+                    return ResponseEntity.ok("Solicitação cancelada com sucesso");
+                })
+                .orElse(((BodyBuilder) ResponseEntity.notFound()).body("Solicitação não encontrada"));
+    }
 }
 

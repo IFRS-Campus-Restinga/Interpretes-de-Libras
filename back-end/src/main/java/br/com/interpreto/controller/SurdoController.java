@@ -121,4 +121,9 @@ public class SurdoController {
 	public ResponseEntity buscarSolicitacoes(@PathVariable("surdoId") Long id) {
 		return surdoService.buscarMinhasSolicitacoes(id);
 	}
+	
+    @PutMapping("/{id}/cancelar")
+    public ResponseEntity<?> cancelarSolicitacao(@PathVariable Long id) {
+        return solicitacaoService.cancelarSolicitacao(id);
+    }
 }
