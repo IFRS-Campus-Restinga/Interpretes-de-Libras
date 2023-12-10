@@ -22,13 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/feedback")
 public class FeedbackController {
-
-	private final FeedbackService feedbackService;
-
 	@Autowired
-	public FeedbackController(FeedbackService feedbackService) {
-		this.feedbackService = feedbackService;
-	}
+	private FeedbackService feedbackService;
 
 	@PostMapping("/criarFeedback")
 	public ResponseEntity<String> criarFeedback(@RequestBody Map<String, Object> requestBody) {

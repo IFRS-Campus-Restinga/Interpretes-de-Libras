@@ -17,15 +17,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class FeedbackService {
-
-	private final FeedbackRepository feedbackRepository;
-	private final UsuarioRepository usuarioRepository;
-
 	@Autowired
-	public FeedbackService(FeedbackRepository feedbackRepository, UsuarioRepository usuarioRepository) {
-		this.feedbackRepository = feedbackRepository;
-		this.usuarioRepository = usuarioRepository;
-	}
+	private FeedbackRepository feedbackRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 
 	public ResponseEntity<String> criarFeedback(Long avaliador, Long avaliado, Double nota, String resenha) {
 

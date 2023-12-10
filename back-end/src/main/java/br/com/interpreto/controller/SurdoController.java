@@ -25,21 +25,16 @@ import java.util.stream.Collectors;
 @RequestMapping("/surdo")
 @CrossOrigin(origins = "*")
 public class SurdoController {
-	private final SurdoService surdoService;
-	private final AvaliacaoUsuarioService avaliacaoUsuarioService;
-	private final InterpreteService interpreteService;
-	private final SolicitacaoService solicitacaoService;
-	private final CandidaturaService candidaturaService;
-
-	@Autowired // INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-	public SurdoController(SurdoService surdoService, AvaliacaoUsuarioService avaliacaoUsuarioService,
-			InterpreteService interpreteService, SolicitacaoService solicitacaoService, CandidaturaService candidaturaService) {
-		this.surdoService = surdoService;
-		this.avaliacaoUsuarioService = avaliacaoUsuarioService;
-		this.interpreteService = interpreteService;
-		this.solicitacaoService = solicitacaoService;
-		this.candidaturaService = candidaturaService;
-	}
+	@Autowired
+	private SurdoService surdoService;
+	@Autowired
+	private AvaliacaoUsuarioService avaliacaoUsuarioService;
+	@Autowired
+	private InterpreteService interpreteService;
+	@Autowired
+	private SolicitacaoService solicitacaoService;
+	@Autowired
+	private CandidaturaService candidaturaService;
 
 	@GetMapping
 	public ResponseEntity<List<SurdoDetalhamentoDTO>> listarSurdo() {

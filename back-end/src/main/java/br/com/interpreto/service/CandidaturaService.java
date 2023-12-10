@@ -19,13 +19,10 @@ import br.com.interpreto.model.solicitacao.SolicitacaoRepository;
 
 @Service
 public class CandidaturaService {
-
 	@Autowired
 	private SolicitacaoRepository solicitacaoRepository;
-
 	@Autowired
 	private InterpreteRepository interpreteRepository;
-
 	@Autowired
 	private CandidaturaRepository candidaturaRepository;
 

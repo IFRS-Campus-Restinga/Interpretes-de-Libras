@@ -20,14 +20,11 @@ import java.util.List;
 //Questão de CORS, uso de portas dentro dos navegadores!
 @CrossOrigin(origins = "*")
 public class AvaliacaoUsuarioController {
-    private final AvaliacaoUsuarioService avaliacaoUsuarioService;
-    private final DocumentoService documentoService;
+    @Autowired
+    private AvaliacaoUsuarioService avaliacaoUsuarioService;
+    @Autowired
+    private DocumentoService documentoService;
 
-    @Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-    public AvaliacaoUsuarioController(AvaliacaoUsuarioService avaliacaoUsuarioService, DocumentoService documentoService) {
-        this.avaliacaoUsuarioService = avaliacaoUsuarioService;
-        this.documentoService = documentoService;
-    }
     @GetMapping
     public ResponseEntity<List<AvaliacaoUsuarioDetalhamentoDTO>> listarAvaliacaoUsuario() {
         return avaliacaoUsuarioService.listarAvaliacaoUsuario();

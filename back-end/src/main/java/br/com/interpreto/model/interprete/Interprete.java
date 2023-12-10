@@ -20,7 +20,7 @@ public class Interprete extends Usuario {
 	private Double valorHora;
 	@ElementCollection
 	@Enumerated(EnumType.STRING)
-	private Set<Especialidade> especialidade;
+	private Set<Especialidade> especialidades;
 	@ElementCollection
 	@Enumerated(EnumType.STRING)
 	private Set<Regiao> regioes;
@@ -45,7 +45,7 @@ public class Interprete extends Usuario {
 		this.setRole(TipoUsuario.valueOf(dados.role()));
 		this.setAtivo(false);
 		this.valorHora = dados.valorHora();
-		this.especialidade = dados.especialidades();
+		this.especialidades = dados.especialidades();
 		this.regioes = dados.regioes();
 	}
 	
@@ -56,7 +56,7 @@ public class Interprete extends Usuario {
 		this.setTelefone(novosDados.telefone());
 		this.setSenha(novosDados.senha());
 		this.valorHora = novosDados.valorHora();
-		this.especialidade = novosDados.especialidades();
+		this.especialidades = novosDados.especialidades();
 		this.regioes = novosDados.regioes();
 	}
 
@@ -73,11 +73,11 @@ public class Interprete extends Usuario {
 	}
 
 	public Set<Especialidade> getEspecialidade() {
-		return especialidade;
+		return especialidades;
 	}
 
 	public void setEspecialidade(Set<Especialidade> especialidade) {
-		this.especialidade = especialidade;
+		this.especialidades = especialidade;
 	}
 
 	public Set<Regiao> getRegioes() {

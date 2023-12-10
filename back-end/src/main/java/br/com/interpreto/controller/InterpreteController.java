@@ -25,18 +25,14 @@ import java.util.Optional;
 @RequestMapping("/interprete")
 @CrossOrigin(origins = "*")
 public class InterpreteController {
-	private final InterpreteService interpreteService;
+	@Autowired
+	private InterpreteService interpreteService;
+	@Autowired
 	private AvaliacaoUsuarioService avaliacaoUsuarioService;
-	private final SolicitacaoService solicitacaoService;
-	private final CandidaturaService candidaturaService;
-
-	@Autowired // INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-	public InterpreteController(InterpreteService interpreteService, AvaliacaoUsuarioService avaliacaoUsuarioService, SolicitacaoService solicitacaoService, CandidaturaService candidaturaService) {
-		this.interpreteService = interpreteService;
-		this.avaliacaoUsuarioService = avaliacaoUsuarioService;
-		this.solicitacaoService = solicitacaoService;
-		this.candidaturaService = candidaturaService;
-	}
+	@Autowired
+	private SolicitacaoService solicitacaoService;
+	@Autowired
+	private CandidaturaService candidaturaService;
 
 	@GetMapping
 	public ResponseEntity<List<InterpreteDetalhamentoDTO>> listarInterprete() {
