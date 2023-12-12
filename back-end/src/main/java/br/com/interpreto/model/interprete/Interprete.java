@@ -52,7 +52,10 @@ public class Interprete extends Usuario {
 	public void interpreteAtualizarDTO(InterpreteAtualizaDTO novosDados) {
 		this.setNome(novosDados.nome());
 		this.setSobrenome(novosDados.sobrenome());
-		this.setDataNascimento(novosDados.dataNascimento());
+		// Converte a data de nascimento da String para LocalDate
+		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate dataNascimento = LocalDate.parse(novosDados.dataNascimento(), inputFormatter);
+		this.setDataNascimento(dataNascimento);
 		this.setTelefone(novosDados.telefone());
 		this.setSenha(novosDados.senha());
 		this.valorHora = novosDados.valorHora();
