@@ -107,6 +107,7 @@ public class InterpreteService {
 	}
 	// Metodo usado para listar Interpretes com Especialidades/Regioes que a Solicitacao possui, é usado para o Surdo escolher um Interprete
 	// ao criar a Solicitacao
+	/* Correcao, ainda trabalhando na funcionalidade!
 
 	public List<InterpreteDetalhamentoDTO> listarInterpretesSolicitacao (Set<Regiao> regioes, Set<Especialidade> especialidades){
 		List<Interprete> listagem = interpreteRepository.findByRegioesAndEspecialidades(regioes, especialidades);
@@ -116,5 +117,5 @@ public class InterpreteService {
 			listagemDTO.add(new InterpreteDetalhamentoDTO(interprete));
 		}
 		return listagemDTO;
-	}
+	}*/
 }
