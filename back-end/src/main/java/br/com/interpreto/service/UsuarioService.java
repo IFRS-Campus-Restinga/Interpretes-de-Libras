@@ -15,12 +15,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class UsuarioService {
-    private final UsuarioRepository usuarioRepository;
-
-    @Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-    UsuarioService(UsuarioRepository usuarioRepository){
-        this.usuarioRepository = usuarioRepository;
-    }
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     public ResponseEntity<List<Usuario>> listarUsuario() {
         return ResponseEntity.ok(usuarioRepository.findAll());

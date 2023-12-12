@@ -17,16 +17,13 @@ import br.com.interpreto.service.UsuarioService;
 @RequestMapping("/login")
 @CrossOrigin(origins = "*")
 public class LoginController {
-    private final UsuarioService usuarioService;
-    private final AuthenticationManager authenticationManager;
-    private final TokenService tokenService;
+    @Autowired
+    private UsuarioService usuarioService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    @Autowired
+    private TokenService tokenService;
 
-    @Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-    public LoginController(UsuarioService usuarioService, AuthenticationManager authenticationManager, TokenService tokenService){
-        this.usuarioService = usuarioService;
-        this.authenticationManager = authenticationManager;
-        this.tokenService = tokenService;
-    }
     @PostMapping
     public ResponseEntity login(@RequestBody @Valid LoginDTO dados) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(dados.email(), dados.senha());

@@ -24,14 +24,11 @@ import java.util.Optional;
 
 @Service
 public class AvaliacaoUsuarioService {
-    final private AvaliacaoUsuarioRepository avaliacaoUsuarioRepository;
-    final private UsuarioRepository usuarioRepository;
+    @Autowired
+    private AvaliacaoUsuarioRepository avaliacaoUsuarioRepository;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
-    @Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-    public AvaliacaoUsuarioService(AvaliacaoUsuarioRepository avaliacaoUsuarioRepository, UsuarioRepository usuarioRepository) {
-        this.avaliacaoUsuarioRepository = avaliacaoUsuarioRepository;
-        this.usuarioRepository = usuarioRepository;
-    }
     @Transactional
     public ResponseEntity cadastrarAvaliacaoUsuario(AvaliacaoUsuarioCadastroDTO dados, UriComponentsBuilder uriBuilder) throws JsonProcessingException {
         AvaliacaoUsuario avaliacaoUsuario = new AvaliacaoUsuario(dados);

@@ -19,17 +19,16 @@ import java.util.Optional;
 //Questão de CORS, uso de portas dentro dos navegadores!
 @CrossOrigin(origins = "*")
 public class SolicitacaoController {
-    private final SolicitacaoService solicitacaoService;
-    @Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-    public SolicitacaoController(SolicitacaoService solicitacaoService) {
-        this.solicitacaoService = solicitacaoService;
-    }
+    @Autowired
+    private SolicitacaoService solicitacaoService;
+
     @GetMapping
     public ResponseEntity<List<SolicitacaoDetalhamentoDTO>> listarSolicitacao() {
         return solicitacaoService.listarSolicitacao();
     }
     @PostMapping
-    public ResponseEntity cadastrarSolicitacao(@RequestBody @Valid SolicitacaoCadastroDTO dados, UriComponentsBuilder uriBuilder) throws JsonProcessingException{
+    public ResponseEntity cadastrarSolicitacao(@RequestBody @Valid SolicitacaoCadastroDTO dados, UriComponentsBuilder uriBuilder)
+            throws JsonProcessingException{
         return solicitacaoService.cadastrarSolicitacao(dados, uriBuilder);
     }
     @GetMapping("/{id}")

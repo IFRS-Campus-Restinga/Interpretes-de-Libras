@@ -3,7 +3,11 @@ package br.com.interpreto.service;
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioCadastroDTO;
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioRepository;
+import br.com.interpreto.model.enums.Especialidade;
+import br.com.interpreto.model.enums.Regiao;
 import br.com.interpreto.model.interprete.*;
+import br.com.interpreto.model.solicitacao.Solicitacao;
+import br.com.interpreto.model.solicitacao.SolicitacaoDetalhamentoDTO;
 import br.com.interpreto.model.surdo.Surdo;
 import br.com.interpreto.model.surdo.SurdoDetalhamentoDTO;
 import br.com.interpreto.model.usuario.UsuarioRepository;
@@ -22,23 +26,20 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @Validated
 public class InterpreteService {
-	final private InterpreteRepository interpreteRepository;
-	final private UsuarioRepository usuarioRepository;
-	final private AvaliacaoUsuarioRepository avaliacaoUsuarioRepository;
-	final private DocumentoService documentoService;
-	@Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-	public InterpreteService(InterpreteRepository interpreteRepository, AvaliacaoUsuarioRepository avaliacaoUsuarioRepository,
-							 DocumentoService documentoService, UsuarioRepository usuarioRepository) {
-		this.interpreteRepository = interpreteRepository;
-		this.avaliacaoUsuarioRepository = avaliacaoUsuarioRepository;
-		this.documentoService = documentoService;
-		this.usuarioRepository = usuarioRepository;
-	}
+	@Autowired
+	private InterpreteRepository interpreteRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	@Autowired
+	private AvaliacaoUsuarioRepository avaliacaoUsuarioRepository;
+	@Autowired
+	private DocumentoService documentoService;
 
 	@Transactional
 	public ResponseEntity cadastrarInterprete(@Valid InterpreteCadastroDTO modelDTO, MultipartFile arquivo, UriComponentsBuilder uriBuilder) throws JsonProcessingException {
@@ -62,7 +63,6 @@ public class InterpreteService {
 
 		return ResponseEntity.created(uri).body(new InterpreteDetalhamentoDTO(interprete));
 	}
-
 	public ResponseEntity<List<InterpreteDetalhamentoDTO>> listarInterprete() {
 		List<Interprete> listagem = interpreteRepository.findAll();
 
@@ -73,14 +73,11 @@ public class InterpreteService {
 
 		return ResponseEntity.ok(listagemDTO);
 	}
-
 	public ResponseEntity buscarInterprete(Long id) {
 		Interprete interprete = interpreteRepository.getReferenceById(id);
 
 		return ResponseEntity.ok(new InterpreteDetalhamentoDTO(interprete));
 	}
-
-
 	@Transactional
 	public ResponseEntity atualizarInterprete(Long id, InterpreteAtualizaDTO novosDados) {
 		Interprete interprete = interpreteRepository.getReferenceById(id);
@@ -94,8 +91,6 @@ public class InterpreteService {
 
 		return ResponseEntity.ok(new InterpreteDetalhamentoDTO(interprete));
 	}
-
-
 	@Transactional
 	public ResponseEntity deletarInterprete(Long id) {
 		Interprete interprete = interpreteRepository.getReferenceById(id);
@@ -104,11 +99,23 @@ public class InterpreteService {
 
 		return ResponseEntity.noContent().build();
 	}
-	
 	// Surdo Visualizar Candidaturas de Interpretes na regiao escolhida.
-		public List<InterpreteCandidatura> ListarCandidaturasInterprete() {
-			List<Interprete> listagem = interpreteRepository.findAll();
+	public List<InterpreteCandidatura> ListarCandidaturasInterprete() {
+		List<Interprete> listagem = interpreteRepository.findAll();
 
-			return listagem.stream().map(InterpreteCandidatura::new).collect(Collectors.toList());
+		return listagem.stream().map(InterpreteCandidatura::new).collect(Collectors.toList());
+	}
+	// Metodo usado para listar Interpretes com Especialidades/Regioes que a Solicitacao possui, é usado para o Surdo escolher um Interprete
+	// ao criar a Solicitacao
+	/* Correcao, ainda trabalhando na funcionalidade!
+
+	public List<InterpreteDetalhamentoDTO> listarInterpretesSolicitacao (Set<Regiao> regioes, Set<Especialidade> especialidades){
+		List<Interprete> listagem = interpreteRepository.findByRegioesAndEspecialidades(regioes, especialidades);
+
+		List<InterpreteDetalhamentoDTO> listagemDTO = new ArrayList<>();
+		for (Interprete interprete: listagem){
+			listagemDTO.add(new InterpreteDetalhamentoDTO(interprete));
 		}
+		return listagemDTO;
+	}*/
 }

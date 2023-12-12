@@ -1,24 +1,15 @@
 package br.com.interpreto.service;
 
-import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
-import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioCadastroDTO;
 import br.com.interpreto.model.enums.StatusSolicitacao;
-import br.com.interpreto.model.interprete.Interprete;
+import br.com.interpreto.model.interprete.InterpreteDetalhamentoDTO;
 import br.com.interpreto.model.interprete.InterpreteRepository;
 import br.com.interpreto.model.solicitacao.*;
-import br.com.interpreto.model.surdo.Surdo;
-import br.com.interpreto.model.surdo.SurdoAtualizaDTO;
-import br.com.interpreto.model.surdo.SurdoCadastroDTO;
-import br.com.interpreto.model.surdo.SurdoDetalhamentoDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
@@ -28,16 +19,22 @@ import java.util.stream.Collectors;
 
 @Service
 public class SolicitacaoService {
-    final private SolicitacaoRepository solicitacaoRepository;
-    final private InterpreteRepository interpreteRepository;
+    @Autowired
+    private SolicitacaoRepository solicitacaoRepository;
+    @Autowired
+    private InterpreteRepository interpreteRepository;
+    @Autowired
+    private InterpreteService interpreteService;
 
-    @Autowired //INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-    public SolicitacaoService(SolicitacaoRepository solicitacaoRepository, InterpreteRepository interpreteRepository) {
-        this.solicitacaoRepository = solicitacaoRepository;
-        this.interpreteRepository = interpreteRepository;
-    }
     @Transactional
-    public ResponseEntity cadastrarSolicitacao(SolicitacaoCadastroDTO dados, UriComponentsBuilder uriBuilder) throws JsonProcessingException{
+    public ResponseEntity cadastrarSolicitacao(SolicitacaoCadastroDTO dados, UriComponentsBuilder uriBuilder) throws
+            JsonProcessingException{
+        //A magica deve ocorrer aqui!
+        //System.out.println(interpreteService.listarInterpretesSolicitacao(dados.regioes(), dados.especialidades()));
+        //List<InterpreteDetalhamentoDTO> interpretes = interpreteService.listarInterpretesSolicitacao(dados.regioes(), dados.especialidades());
+        //System.out.println(interpretes);
+
+
         Solicitacao solicitacao = new Solicitacao(dados);
         solicitacaoRepository.save(solicitacao);
 
@@ -74,6 +71,7 @@ public class SolicitacaoService {
 
         return ResponseEntity.noContent().build();
     }
+    //Metodo usado por SurdoService para buscar Solicitacoes vinculadas a um determinado Surdo
     public ResponseEntity<List<SolicitacaoDetalhamentoDTO>> buscarSolicitacoes (Long id){
         List<Solicitacao> listagem = solicitacaoRepository.findBySurdoId(id);
 
@@ -120,5 +118,20 @@ public class SolicitacaoService {
 			return ResponseEntity.badRequest().body("A solicitação não está aguardando aceite.");
 		}).orElse((  (BodyBuilder) ResponseEntity.notFound()).body("Solicitação não encontrada."));
 	}
+	
+	public ResponseEntity<String> cancelarSolicitacao(Long id) {
+        return solicitacaoRepository.findById(id)
+                .map(solicitacao -> {
+                    if (solicitacao.getStatusSolicitacao() != StatusSolicitacao.ABERTA &&
+                            solicitacao.getStatusSolicitacao() != StatusSolicitacao.AGUARDANDO_ACEITE) {
+                        return ResponseEntity.badRequest().body("Solicitação não pode ser cancelada no estado atual");
+                    }
+
+                    solicitacao.setStatusSolicitacao(StatusSolicitacao.CANCELADA);
+                    solicitacaoRepository.save(solicitacao);
+                    return ResponseEntity.ok("Solicitação cancelada com sucesso");
+                })
+                .orElse(((BodyBuilder) ResponseEntity.notFound()).body("Solicitação não encontrada"));
+    }
 }
 

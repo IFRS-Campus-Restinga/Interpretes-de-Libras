@@ -16,12 +16,8 @@ import java.util.List;
 @RequestMapping("/usuario")
 @CrossOrigin(origins = "*")
 public class UsuarioController {
-	private final UsuarioService usuarioService;
-
-	@Autowired // INJECAO DE DEPENDENCIA VIA CONSTRUTOR
-	public UsuarioController(UsuarioService usuarioService) {
-		this.usuarioService = usuarioService;
-	}
+	@Autowired
+	private UsuarioService usuarioService;
 
 	@GetMapping
 	public ResponseEntity<List<Usuario>> listarUsuario() {
