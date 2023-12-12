@@ -10,10 +10,12 @@ import br.com.interpreto.model.usuario.UsuarioRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -24,6 +26,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@Validated
 public class InterpreteService {
 	@Autowired
 	private InterpreteRepository interpreteRepository;
@@ -35,10 +38,7 @@ public class InterpreteService {
 	private DocumentoService documentoService;
 
 	@Transactional
-	public ResponseEntity cadastrarInterprete(String dados, MultipartFile arquivo, UriComponentsBuilder uriBuilder) throws JsonProcessingException {
-		ObjectMapper mapper = new ObjectMapper();
-		InterpreteCadastroDTO modelDTO = mapper.readValue(dados, InterpreteCadastroDTO.class);
-
+	public ResponseEntity cadastrarInterprete(@Valid InterpreteCadastroDTO modelDTO, MultipartFile arquivo, UriComponentsBuilder uriBuilder) throws JsonProcessingException {
 		Interprete interprete = new Interprete(modelDTO);
 		//Verifica se email já existe, caso exista não cria o novo usuário!
 		if(this.usuarioRepository.findByEmail(interprete.getEmail()) != null){

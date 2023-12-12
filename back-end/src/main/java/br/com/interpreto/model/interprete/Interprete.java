@@ -35,13 +35,9 @@ public class Interprete extends Usuario {
 		this.setEmail(dados.email());
 		this.setSenha(dados.senha());
 		// Converte a data de nascimento da String para LocalDate
-		if (dados.dataNascimento() != null) {
-			DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-			LocalDate dataNascimento = LocalDate.parse(dados.dataNascimento(), inputFormatter);
-			this.setDataNascimento(dataNascimento);
-		} else {
-			this.setDataNascimento(null); // Define como null se a data de nascimento for nula
-		}
+		DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate dataNascimento = LocalDate.parse(dados.dataNascimento(), inputFormatter);
+		this.setDataNascimento(dataNascimento);
 		this.setRole(TipoUsuario.valueOf(dados.role()));
 		this.setAtivo(false);
 		this.valorHora = dados.valorHora();
