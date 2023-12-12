@@ -6,14 +6,9 @@ import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioRepository;
 import br.com.interpreto.model.enums.Especialidade;
 import br.com.interpreto.model.enums.Regiao;
 import br.com.interpreto.model.interprete.*;
-import br.com.interpreto.model.solicitacao.Solicitacao;
-import br.com.interpreto.model.solicitacao.SolicitacaoDetalhamentoDTO;
-import br.com.interpreto.model.surdo.Surdo;
-import br.com.interpreto.model.surdo.SurdoDetalhamentoDTO;
 import br.com.interpreto.model.usuario.UsuarioRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -107,15 +103,48 @@ public class InterpreteService {
 	}
 	// Metodo usado para listar Interpretes com Especialidades/Regioes que a Solicitacao possui, é usado para o Surdo escolher um Interprete
 	// ao criar a Solicitacao
-	/* Correcao, ainda trabalhando na funcionalidade!
-
 	public List<InterpreteDetalhamentoDTO> listarInterpretesSolicitacao (Set<Regiao> regioes, Set<Especialidade> especialidades){
-		List<Interprete> listagem = interpreteRepository.findByRegioesAndEspecialidades(regioes, especialidades);
+		//Convertendo Set para List para conseguir realizar a consulta
+		List<Especialidade> listaEspecialidades = new ArrayList<>(especialidades);
+		List<Regiao> listaRegioes = new ArrayList<>(regioes);
+
+		//Recebendo todos os interpretes em listagem diferentes por possuirem moto de implementação separadas
+		List<Interprete> listagemEspecialidades = interpreteRepository.findByEspecialidadesIn(listaEspecialidades);
+		List<Interprete> listagemRegioes = interpreteRepository.findByRegioesIn(listaRegioes);
+
+		//Agora converto para Set novamente para evitar duplicantes
+		Set<Interprete> listagemCombinada = new HashSet<>();
+		listagemCombinada.addAll(listagemEspecialidades);
+		listagemCombinada.addAll(listagemRegioes);
+
+		List<InterpreteDetalhamentoDTO> listagemDTO = new ArrayList<>();
+		for (Interprete interprete: listagemCombinada){
+			listagemDTO.add(new InterpreteDetalhamentoDTO(interprete));
+		}
+		return listagemDTO;
+	}
+	public List<InterpreteDetalhamentoDTO> listarInterpretesSolicitacaoRegiao (Set<Regiao> regioes){
+		//Convertendo Set para List para conseguir realizar a consulta
+		List<Regiao> listaRegioes = new ArrayList<>(regioes);
+
+		List<Interprete> listagem = interpreteRepository.findByRegioesIn(listaRegioes);
 
 		List<InterpreteDetalhamentoDTO> listagemDTO = new ArrayList<>();
 		for (Interprete interprete: listagem){
 			listagemDTO.add(new InterpreteDetalhamentoDTO(interprete));
 		}
 		return listagemDTO;
-	}*/
+	}
+	public List<InterpreteDetalhamentoDTO> listarInterpretesSolicitacaoEspecialidade (Set<Especialidade> especialidades){
+		//Convertendo Set para List para conseguir realizar a consulta
+		List<Especialidade> listaEspecialidades = new ArrayList<>(especialidades);
+
+		List<Interprete> listagem = interpreteRepository.findByEspecialidadesIn(listaEspecialidades);
+
+		List<InterpreteDetalhamentoDTO> listagemDTO = new ArrayList<>();
+		for (Interprete interprete: listagem){
+			listagemDTO.add(new InterpreteDetalhamentoDTO(interprete));
+		}
+		return listagemDTO;
+	}
 }

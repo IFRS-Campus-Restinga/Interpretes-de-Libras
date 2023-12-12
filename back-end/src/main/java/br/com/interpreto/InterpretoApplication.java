@@ -8,5 +8,4 @@ public class InterpretoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(InterpretoApplication.class, args);
 	}
-
 }

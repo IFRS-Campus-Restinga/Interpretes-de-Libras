@@ -1,6 +1,7 @@
 package br.com.interpreto.service;
 
 import br.com.interpreto.model.enums.StatusSolicitacao;
+import br.com.interpreto.model.interprete.Interprete;
 import br.com.interpreto.model.interprete.InterpreteDetalhamentoDTO;
 import br.com.interpreto.model.interprete.InterpreteRepository;
 import br.com.interpreto.model.solicitacao.*;
@@ -12,9 +13,7 @@ import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,18 +28,40 @@ public class SolicitacaoService {
     @Transactional
     public ResponseEntity cadastrarSolicitacao(SolicitacaoCadastroDTO dados, UriComponentsBuilder uriBuilder) throws
             JsonProcessingException{
-        //A magica deve ocorrer aqui!
-        //System.out.println(interpreteService.listarInterpretesSolicitacao(dados.regioes(), dados.especialidades()));
-        //List<InterpreteDetalhamentoDTO> interpretes = interpreteService.listarInterpretesSolicitacao(dados.regioes(), dados.especialidades());
-        //System.out.println(interpretes);
-
-
+        //Para armazenar interpretes
+        List<InterpreteDetalhamentoDTO> listaInterpretes = new ArrayList<>();
+        //É criada a Solicitacao
         Solicitacao solicitacao = new Solicitacao(dados);
         solicitacaoRepository.save(solicitacao);
 
-        var uri = uriBuilder.path("/solicitacao/{id}").buildAndExpand(solicitacao.getId()).toUri();
+        //Verifico se regioes ou especialidades são nulas, casa verdadeiro crio uma Solicitacao Publica e retorno pro front essa Solicitacao
+        if(dados.regioes() == null && dados.especialidades() == null){
+            var uri = uriBuilder.path("/solicitacao/{id}").buildAndExpand(solicitacao.getId()).toUri();
 
-        return ResponseEntity.created(uri).body(new SolicitacaoDetalhamentoDTO(solicitacao));
+            return ResponseEntity.created(uri).body(new SolicitacaoDetalhamentoDTO(solicitacao));
+        }
+        if(dados.regioes() == null){
+            listaInterpretes = interpreteService.listarInterpretesSolicitacaoEspecialidade(dados.especialidades());
+        }
+        if(dados.especialidades() == null){
+            listaInterpretes = interpreteService.listarInterpretesSolicitacaoRegiao(dados.regioes());
+        }
+        if(dados.regioes() != null && dados.especialidades() != null){
+            listaInterpretes = interpreteService.listarInterpretesSolicitacao(dados.regioes(), dados.especialidades());
+        }
+        //Lista vazia, não encontrou interpretes então será criada uma Solicitacao Publica e retorno pro front essa Solicitacao!
+        if(listaInterpretes.isEmpty()){
+            var uri = uriBuilder.path("/solicitacao/{id}").buildAndExpand(solicitacao.getId()).toUri();
+
+            return ResponseEntity.created(uri).body(new SolicitacaoDetalhamentoDTO(solicitacao));
+        }
+        //Lista com Interpretes, então retorno para o front essa lista de interpretes e o id da solicitacao para depois dar um PUT
+        //Na Solicitacao agora com um Interprete selecionado!
+        Map<String, Object> resposta = new HashMap<>();
+        resposta.put("solicitacaoId", solicitacao.getId());
+        resposta.put("listaInterpretes", listaInterpretes);
+
+        return ResponseEntity.ok().body(resposta);
     }
     public ResponseEntity<List<SolicitacaoDetalhamentoDTO>> listarSolicitacao() {
         List<Solicitacao> listagem = solicitacaoRepository.findAll();
