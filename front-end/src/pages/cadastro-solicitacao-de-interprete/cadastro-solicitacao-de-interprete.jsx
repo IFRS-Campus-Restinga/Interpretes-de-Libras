@@ -2,16 +2,16 @@ import { useForm } from "react-hook-form";
 import "./formulario.css";
 import { useDispatch } from "react-redux";
 import { postCadastroSolicitacaoInterprete } from "../../store/fecthActions";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 
-const CadastroDeSolicitacaoDeInteprete = ({ id }) => {
+const CadastroDeSolicitacaoDeInteprete = () => {
   const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const cepRegex = /^\d{5}-\d{3}$/;
 
   const onSubmit = (data) => {
     var surdo = {
@@ -68,8 +68,8 @@ const CadastroDeSolicitacaoDeInteprete = ({ id }) => {
     data["endereco"] = endereco;
     data["surdo"] = surdo;
 
-    console.log(data);
     dispatch(postCadastroSolicitacaoInterprete(data));
+    alert("Cadastro realizado com sucesso!");
   };
 
   return (
@@ -210,7 +210,7 @@ const CadastroDeSolicitacaoDeInteprete = ({ id }) => {
             <label>Número</label>
             <input
               className={errors?.numero && "input-error"}
-              type="text"
+              type="number"
               placeholder="Escreva o número do endereço"
               {...register("numero", { required: true })}
             />
@@ -249,10 +249,19 @@ const CadastroDeSolicitacaoDeInteprete = ({ id }) => {
               className={errors?.cep && "input-error"}
               type="text"
               placeholder="Escreva o CEP"
-              {...register("cep", { required: true })}
+              {...register("cep", {
+                required: true,
+                pattern: {
+                  value: cepRegex,
+                  message: "Formato de CEP inválido. Use o formato 00000-000.",
+                },
+              })}
             />
             {errors?.cep?.type === "required" && (
               <p className="error-message">CEP é um campo obrigatório.</p>
+            )}
+            {errors?.cep && (
+              <p className="error-message">{errors.cep.message}</p>
             )}
           </div>
           <div className="form-group">
@@ -302,12 +311,4 @@ const CadastroDeSolicitacaoDeInteprete = ({ id }) => {
   );
 };
 
-CadastroDeSolicitacaoDeInteprete.propTypes = {
-  id: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  id: state.perfil[0].id,
-});
-
-export default connect(mapStateToProps)(CadastroDeSolicitacaoDeInteprete);
+export default CadastroDeSolicitacaoDeInteprete;

@@ -13,6 +13,9 @@ const Formulario = () => {
     formState: { errors },
   } = useForm();
 
+  const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+  const valorHoraRegex = /^\d{1,3},\d{2}$/;
+
   const watchPassword = watch("senha");
   const [file, setFile] = useState(null);
 
@@ -115,10 +118,20 @@ const Formulario = () => {
               className={errors?.cpf && "input-error"}
               type="text"
               placeholder="Escreva seu CPF"
-              {...register("cpf", { required: true })}
+              {...register("cpf", {
+                required: true,
+                pattern: {
+                  value: cpfRegex,
+                  message:
+                    "Formato de CPF inválido. Use o formato 123.456.789-01.",
+                },
+              })}
             />
             {errors?.cpf?.type === "required" && (
               <p className="error-message">CPF é um campo obrigatório.</p>
+            )}
+            {errors?.cpf && (
+              <p className="error-message">{errors.cpf.message}</p>
             )}
           </div>
 
@@ -224,12 +237,21 @@ const Formulario = () => {
               className={errors?.valorHora && "input-error"}
               type="text"
               placeholder="Escreva o valor do seu atendimento por hora."
-              {...register("valorHora", { required: true })}
+              {...register("valorHora", {
+                required: true,
+                pattern: {
+                  value: valorHoraRegex,
+                  message: "Formato inválido. Use o formato 000,00.",
+                },
+              })}
             />
             {errors?.valorHora?.type === "required" && (
               <p className="error-message">
                 Valor da hora é um campo obrigatório.
               </p>
+            )}
+            {errors?.valorHora && (
+              <p className="error-message">{errors.valorHora.message}</p>
             )}
           </div>
         </div>

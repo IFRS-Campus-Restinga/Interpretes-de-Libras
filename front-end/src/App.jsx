@@ -10,7 +10,7 @@ import PerfilInterprete from "../src/pages/usuarios/interprete/perfil_interprete
 import PerfilSurdo from "../src/pages/usuarios/surdo/perfil_surdo.jsx";
 import ForgotPassword from "../src/pages/login/forgotPassword/recupera_senha.jsx";
 import MeusEncontros from "../src/pages/usuarios/surdo-encontros/meus_encontros.jsx";
-import MeusEncontrosInterprete from "../../front-end/src/pages/usuarios/interprete-encontros/meus_encontros.jsx"
+import MeusEncontrosInterprete from "../../front-end/src/pages/usuarios/interprete-encontros/meus_encontros.jsx";
 
 function App() {
   return (
@@ -20,7 +20,10 @@ function App() {
       <Route path="/cadastro" element={<Cadastro />}></Route>
       <Route path="/login/forgotPassword" element={<ForgotPassword />}></Route>
       <Route path="/surdo/encontros" element={<MeusEncontros />}></Route>
-      <Route path="/interprete/encontros" element={<MeusEncontrosInterprete />}></Route>
+      <Route
+        path="/interprete/encontros"
+        element={<MeusEncontrosInterprete />}
+      ></Route>
       <Route
         path="/cadastro/formulario/surdo"
         element={<FormularioSurdo />}
@@ -29,9 +32,15 @@ function App() {
         path="/cadastro/formulario/interprete"
         element={<Formulario />}
       ></Route>
-      <Route path="/admin/*" element={<PerfilAdmin />} />
-      <Route path="/inteprete/*" element={<PerfilInterprete />}></Route>
-      <Route path="/surdo/*" element={<PerfilSurdo />}></Route>
+      {localStorage.getItem("tipoUsuario") === "SURDO" && (
+        <Route path="/surdo/*" element={<PerfilSurdo />}></Route>
+      )}
+      {localStorage.getItem("tipoUsuario") === "ADMIN" && (
+        <Route path="/admin/*" element={<PerfilAdmin />} />
+      )}
+      {localStorage.getItem("tipoUsuario") === "INTERPRETE" && (
+        <Route path="/inteprete/*" element={<PerfilInterprete />}></Route>
+      )}
     </Routes>
   );
 }

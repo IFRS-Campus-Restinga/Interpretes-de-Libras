@@ -1,15 +1,21 @@
 import CardSolicitacaoInterprete from "../../components/solicitacoes-intepretes/card-solicitacao-interprete";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { getSolicitacoesInterprete } from "../../store/fecthActions";
+import { useEffect, useState } from "react";
+import api from "../../services/api";
 
-const ListaSolicitacoesIntepretes = ({ solicitacoes, id }) => {
+const ListaSolicitacoesIntepretes = () => {
   const dispatch = useDispatch();
+  const [solicitacoes, setSolicitacoes] = useState();
+
+  const id = localStorage.getItem("id");
   console.log("ListaSolicitacoesIntepretes", id);
+
   useEffect(() => {
-    dispatch(getSolicitacoesInterprete());
+    api.get(`/solicitacao`).then((response) => {
+      if (response?.data) {
+        setSolicitacoes(response.data);
+      }
+    });
   }, [dispatch]);
 
   return (
@@ -20,8 +26,9 @@ const ListaSolicitacoesIntepretes = ({ solicitacoes, id }) => {
             key={index}
             surdoNome={solicitacao.surdoNome}
             dataEncontro={solicitacao.dataEncontro}
-            hora={solicitacao.hora}
-            local={solicitacao.local}
+            hora={solicitacao.horaEncontro}
+            local={solicitacao.endereco}
+            status={solicitacao.statusSolicitacao}
           />
         );
       })}
@@ -29,14 +36,4 @@ const ListaSolicitacoesIntepretes = ({ solicitacoes, id }) => {
   );
 };
 
-ListaSolicitacoesIntepretes.propTypes = {
-  solicitacoes: PropTypes.array.isRequired,
-  id: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  solicitacoes: state.socicitacoesInterpretes,
-  id: state.perfil[0].id,
-});
-
-export default connect(mapStateToProps)(ListaSolicitacoesIntepretes);
+export default ListaSolicitacoesIntepretes;
