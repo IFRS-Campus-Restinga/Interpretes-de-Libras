@@ -6,9 +6,11 @@ import br.com.interpreto.model.enums.StatusAvaliacao;
 import br.com.interpreto.model.interprete.InterpreteCandidatura;
 import br.com.interpreto.model.interprete.InterpreteDetalhamentoDTO;
 import br.com.interpreto.model.surdo.SurdoAtualizaDTO;
+import br.com.interpreto.model.surdo.SurdoCadastroDTO;
 import br.com.interpreto.model.surdo.SurdoDetalhamentoDTO;
 import br.com.interpreto.service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +52,9 @@ public class SurdoController {
 	public ResponseEntity cadastrarSurdo(@RequestParam("dados") String dados,
 			@RequestParam("arquivo") MultipartFile arquivo, UriComponentsBuilder uriBuilder)
 			throws JsonProcessingException {
-		return surdoService.cadastrarSurdo(dados, arquivo, uriBuilder);
+		ObjectMapper mapper = new ObjectMapper();
+		SurdoCadastroDTO modelDTO = mapper.readValue(dados, SurdoCadastroDTO.class);
+		return surdoService.cadastrarSurdo(modelDTO, arquivo, uriBuilder);
 	}
 
 	@GetMapping("/{id}")

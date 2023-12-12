@@ -32,13 +32,9 @@ public class Surdo extends Usuario {
         this.setEmail(dados.email());
         this.setSenha(dados.senha());
         // Converte a data de nascimento da String para LocalDate
-        if (dados.dataNascimento() != null) {
-            DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate dataNascimento = LocalDate.parse(dados.dataNascimento(), inputFormatter);
-            this.setDataNascimento(dataNascimento);
-        } else {
-            this.setDataNascimento(null); // Define como null se a data de nascimento for nula
-        }
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dataNascimento = LocalDate.parse(dados.dataNascimento(), inputFormatter);
+        this.setDataNascimento(dataNascimento);
         this.setRole(TipoUsuario.valueOf(dados.role()));
         this.setAtivo(false);
 
@@ -46,7 +42,10 @@ public class Surdo extends Usuario {
 	public void surdoAtualizarDTO(SurdoAtualizaDTO novosDados) {
         this.setNome(novosDados.nome());
         this.setSobrenome(novosDados.sobrenome());
-        this.setDataNascimento(novosDados.dataNascimento());
+        // Converte a data de nascimento da String para LocalDate
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dataNascimento = LocalDate.parse(novosDados.dataNascimento(), inputFormatter);
+        this.setDataNascimento(dataNascimento);
         this.setTelefone(novosDados.telefone());
         this.setSenha(novosDados.senha());
 	}

@@ -3,14 +3,17 @@ package br.com.interpreto.controller;
 import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuario;
 import br.com.interpreto.model.enums.StatusAvaliacao;
 import br.com.interpreto.model.interprete.InterpreteAtualizaDTO;
+import br.com.interpreto.model.interprete.InterpreteCadastroDTO;
 import br.com.interpreto.model.interprete.InterpreteDetalhamentoDTO;
 import br.com.interpreto.model.solicitacao.SolicitacaoLista;
+import br.com.interpreto.model.surdo.SurdoCadastroDTO;
 import br.com.interpreto.service.AvaliacaoUsuarioService;
 import br.com.interpreto.service.CandidaturaService;
 import br.com.interpreto.service.InterpreteService;
 import br.com.interpreto.service.SolicitacaoService;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +50,9 @@ public class InterpreteController {
 	public ResponseEntity cadastrarInterprete(@RequestParam("dados") String dados,
 			@RequestParam("arquivo") MultipartFile arquivo, UriComponentsBuilder uriBuilder)
 			throws JsonProcessingException {
-		return interpreteService.cadastrarInterprete(dados, arquivo, uriBuilder);
+		ObjectMapper mapper = new ObjectMapper();
+		InterpreteCadastroDTO modelDTO = mapper.readValue(dados, InterpreteCadastroDTO.class);
+		return interpreteService.cadastrarInterprete(modelDTO, arquivo, uriBuilder);
 	}
 
 	@GetMapping("/{id}")
