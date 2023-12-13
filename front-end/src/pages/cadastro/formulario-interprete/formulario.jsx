@@ -14,7 +14,7 @@ const Formulario = () => {
   } = useForm();
 
   const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
-  const valorHoraRegex = /^\d{1,3},\d{2}$/;
+  const valorHoraRegex = /^\d{1,3}\.\d{2}$/;
 
   const watchPassword = watch("senha");
   const [file, setFile] = useState(null);
@@ -73,8 +73,14 @@ const Formulario = () => {
         alert("Cadastro realizado com sucesso!");
       })
       .catch(function (error) {
-        alert(error.response.data);
-        console.log(error.response.data);
+        if(error.response.data.message != null){
+          
+          alert(error.response.data.message);
+          console.log(error.response.data);
+        }else{
+          alert(error.response.data);
+          console.log(error.response.data);
+        }
       });
     console.log(options);
   };
@@ -241,7 +247,7 @@ const Formulario = () => {
                 required: true,
                 pattern: {
                   value: valorHoraRegex,
-                  message: "Formato inválido. Use o formato 000,00.",
+                  message: "Formato inválido. Use o formato 000.00.",
                 },
               })}
             />

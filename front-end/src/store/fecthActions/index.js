@@ -52,8 +52,13 @@ export const postSocilicitacaoCadastroSurdo = (solcitacao) => {
         alert("Cadastro realizado com sucesso!");
       })
       .catch((err) => {
-        console.log(err.response.data);
-        alert(err.response.data);
+        if (err.response.data.message != null) {
+          console.log(err.response.data.message);
+          alert(err.response.data.message.message);
+        } else {
+          console.log(err.response.data);
+          alert(err.response.data);
+        }
       });
   };
 };

@@ -6,10 +6,10 @@ import StarRatings from "react-star-ratings";
 const ListaInterpretesLogados = () => {
   const dispatch = useDispatch();
   const [interpretes, setInterpretes] = useState([]);
-  
+
   const [userRatings, setUserRatings] = useState([]);
 
-  const [rating, setRatings] = useState(Array(userRatings.length).fill(''));
+  const [rating, setRatings] = useState(Array(userRatings.length).fill(""));
 
   const updateRating = (index, newRating) => {
     const newRatings = [...rating];
@@ -30,15 +30,22 @@ const ListaInterpretesLogados = () => {
     const payload = {
       avaliador: parseInt(localStorage.getItem("id")),
       resenha: "Esta é uma resenha de exemplo.",
-      nota: rating[index],
+      nota: rating[index] ?? 5,
       avaliado: avaliado,
     };
-
+    console.log(payload);
     return (dispatch) => {
       api.post(`/feedback/criarFeedback`, payload).then((response) => {
         console.log("/interprete", response.data);
+        alert(response.data);
       });
     };
+  };
+  const openWhatsApp = (telefone) => {
+    window.open(
+      `https://api.whatsapp.com/send?phone=55${telefone}e&text=Ol%C3%A1,%20quero%20fazer%20algumas%20combina%C3%A7%C3%B5es%20com%20voc%C3%AA!%20`,
+      "_blank"
+    );
   };
 
   useEffect(() => {
@@ -52,8 +59,13 @@ const ListaInterpretesLogados = () => {
             <div className="card-left">
               <div>ID do interprete: {solicitacao.id}</div>
               <div>Nome do interprete: {solicitacao.nome} </div>
-              <div>E-mail interprete: {solicitacao.email} </div>
-              <div>Telefone interprete: {solicitacao.telefone} </div>
+              <div>E-mail do interprete: {solicitacao.email} </div>
+              <div>
+                WhatsApp do interprete:{" "}
+                <span className="goToWhatssAppButton" onClick={() => openWhatsApp(solicitacao.telefone)}>
+                  {solicitacao.telefone}
+                </span>{" "}
+              </div>
               <div>
                 Avaliar encontro:{" "}
                 <StarRatings
