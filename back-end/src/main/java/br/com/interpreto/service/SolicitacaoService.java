@@ -154,5 +154,47 @@ public class SolicitacaoService {
                 })
                 .orElse(((BodyBuilder) ResponseEntity.notFound()).body("Solicitação não encontrada"));
     }
+	
+	public ResponseEntity<String> selecionarCandidatura(Long solicitacaoId, Long interpreteId) {
+		return solicitacaoRepository.findById(solicitacaoId)
+				.map(solicitacao -> interpreteRepository.findById(interpreteId).map(interprete -> {
+					solicitacao.setInterprete(interprete);
+					solicitacao.setStatusSolicitacao(StatusSolicitacao.ACEITA);
+					solicitacaoRepository.save(solicitacao);
+					return ResponseEntity.ok("Intérprete selecionado com sucesso.");
+				}).orElse(ResponseEntity.notFound().build())).orElse(ResponseEntity.notFound().build());
+	}
+
+	public ResponseEntity<String> alterarStatusSolicitacao(Long id, StatusSolicitacao statusAtual,
+			StatusSolicitacao novoStatus) {
+		return solicitacaoRepository.findById(id).map(solicitacao -> {
+			if (solicitacao.getStatusSolicitacao() != statusAtual) {
+				return ResponseEntity.badRequest().body("Solicitação não pode ter o status alterado no estado atual");
+			}
+
+			solicitacao.setStatusSolicitacao(novoStatus);
+			solicitacaoRepository.save(solicitacao);
+
+			if (novoStatus != null) {
+				return ResponseEntity.ok("Solicitação alterada para " + novoStatus);
+			} else {
+				return ResponseEntity.ok("Solicitação finalizada");
+			}
+		}).orElse(ResponseEntity.notFound().build());
+	}
+
+	public List<SolicitacaoAvaliacao> aguardandoAvaliacao() {
+		List<Solicitacao> solicitacoes = solicitacaoRepository
+				.findByStatusSolicitacao(StatusSolicitacao.AGUARDANDO_AVALIACAO);
+		return solicitacoes.stream().map(SolicitacaoAvaliacao::new).collect(Collectors.toList());
+	}
+
+	public SolicitacaoAvaliacao aguardandoAvaliacaoPorId(Long solicitacaoId) {
+		Optional<Solicitacao> optionalSolicitacao = solicitacaoRepository.findByIdAndStatusSolicitacao(solicitacaoId,
+				StatusSolicitacao.AGUARDANDO_AVALIACAO);
+
+		return optionalSolicitacao.map(SolicitacaoAvaliacao::new).orElse(null);
+	}
+
 }
 
