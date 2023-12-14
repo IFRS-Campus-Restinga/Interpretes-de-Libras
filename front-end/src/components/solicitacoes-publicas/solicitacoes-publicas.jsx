@@ -1,29 +1,53 @@
 import "./card-solicitacoes.css";
-import {useDispatch} from "react-redux";
-import {postCandidaturaSolicitacaoInterprete} from "../../store/fecthActions/index";
+import api from "../../services/api";
+import classNames from "classnames";
 
-const CardSolicitacaoPublica = ({ surdoNome, dataEncontro, hora, local }) => {
-  
-  const dispatch = useDispatch();
-  
+const CardSolicitacaoPublica = ({
+  dataEncontro,
+  hora,
+  local,
+  idSolicitacao,
+  statusSolicitacao,
+}) => {
+  const classStatus = classNames("card-status", statusSolicitacao);
+  const enderecoString =
+    `Rua: ${local?.rua}, ` +
+    `${local?.numero}. ` +
+    `Complemento: ${local?.complemento}. ` +
+    `Cidade: ${local?.cidade}, ` +
+    `Bairro: ${local?.bairro}, ` +
+    `Observação: ${local?.observacaoEndereco}, ` +
+    `Ponto de Referência: ${local?.pontoReferencia}`;
+
   const candidatar = () => {
-    const candidatura = [surdoNome, dataEncontro, hora, local];
-    dispatch(postCandidaturaSolicitacaoInterprete(candidatura));
-    console.log("implementando canditadura");
+    const interpreteId = localStorage.getItem("id");
+
+    api
+      .post(
+        `/solicitacao/selecionarCandidatura/aceitar?solicitacaoId=${idSolicitacao}&interpreteId=${interpreteId}`
+      )
+      .then((response) => {
+        if (response?.data) {
+          window.location.reload();
+        }
+      });
   };
 
   return (
     <div className="card">
       <div className="card-left">
-        <div className="card-nome">Nome: {surdoNome}</div>
         <div>Data Encontro: {dataEncontro}</div>
         <div>Horário Encontro: {hora} </div>
-        <div>Endereço Encontro: {local} </div>
+        <div>Endereço Encontro: {enderecoString} </div>
       </div>
       <div className="card-rigth">
-        <button class="card-button" onClick={() => candidatar()}>
-          Candidatar-se
-        </button>
+        <div className={classStatus}>{statusSolicitacao}</div>
+        {statusSolicitacao !== "CANCELADA" &&
+          statusSolicitacao !== "ACEITA" && (
+            <button class="card-button" onClick={() => candidatar()}>
+              Candidatar-se
+            </button>
+          )}
       </div>
     </div>
   );

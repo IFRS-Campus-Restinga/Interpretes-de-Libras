@@ -1,8 +1,15 @@
 import "./card-solicitacoes.css";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
+import api from "../../services/api";
 
-const CardSolicitacaoInterprete = ({ dataEncontro, hora, local, status }) => {
+const CardSolicitacaoInterprete = ({
+  dataEncontro,
+  hora,
+  local,
+  status,
+  id,
+}) => {
   const enderecoString =
     `Rua: ${local?.rua}, ` +
     `${local?.numero}. ` +
@@ -15,7 +22,11 @@ const CardSolicitacaoInterprete = ({ dataEncontro, hora, local, status }) => {
   const classStatus = classNames("card-status", status);
 
   const cancelar = () => {
-    console.log("implementar cancelamento");
+    api.put(`/surdo/${id}/cancelar`).then((response) => {
+      if (response?.data) {
+        window.location.reload();
+      }
+    });
   };
 
   return (
@@ -27,9 +38,12 @@ const CardSolicitacaoInterprete = ({ dataEncontro, hora, local, status }) => {
       </div>
       <div className="card-rigth">
         <div className={classStatus}>{status}</div>
-        <button class="card-button" onClick={() => cancelar()}>
-          Cancelar
-        </button>
+        {status !== "CANCELADA" && status !== "ACEITA" && (
+          <button class="card-button" onClick={() => cancelar()}>
+            Cancelar
+          </button>
+        )}
+
         <Link to="/candidatura-solicitacao">
           <button class="card-button">Ver candidaturas</button>
         </Link>

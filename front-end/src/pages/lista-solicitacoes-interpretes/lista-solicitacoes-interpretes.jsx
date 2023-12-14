@@ -11,7 +11,7 @@ const ListaSolicitacoesIntepretes = () => {
   console.log("ListaSolicitacoesIntepretes", id);
 
   useEffect(() => {
-    api.get(`/solicitacao`).then((response) => {
+    api.get(`/surdo/MinhasSolicitacoes/${id}`).then((response) => {
       if (response?.data) {
         setSolicitacoes(response.data);
       }
@@ -29,6 +29,7 @@ const ListaSolicitacoesIntepretes = () => {
             hora={solicitacao.horaEncontro}
             local={solicitacao.endereco}
             status={solicitacao.statusSolicitacao}
+            id={solicitacao.solicitacaoId}
           />
         );
       })}

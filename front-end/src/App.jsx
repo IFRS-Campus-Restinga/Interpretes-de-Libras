@@ -32,15 +32,9 @@ function App() {
         path="/cadastro/formulario/interprete"
         element={<Formulario />}
       ></Route>
-      {localStorage.getItem("tipoUsuario") === "SURDO" && (
-        <Route path="/surdo/*" element={<PerfilSurdo />}></Route>
-      )}
-      {localStorage.getItem("tipoUsuario") === "ADMIN" && (
-        <Route path="/admin/*" element={<PerfilAdmin />} />
-      )}
-      {localStorage.getItem("tipoUsuario") === "INTERPRETE" && (
-        <Route path="/inteprete/*" element={<PerfilInterprete />}></Route>
-      )}
+      <Route path="/surdo/*" element={<PerfilSurdo />}></Route>
+      <Route path="/admin/*" element={<PerfilAdmin />} />
+      <Route path="/inteprete/*" element={<PerfilInterprete />}></Route>
     </Routes>
   );
 }

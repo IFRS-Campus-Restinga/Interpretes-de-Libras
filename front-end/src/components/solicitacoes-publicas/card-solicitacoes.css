@@ -11,7 +11,7 @@
   padding: 20px;
 }
 
-.card-status.ANALISANDO {
+.card-status.ABERTA {
   display: flex;
   justify-content: center;
   width: 100px;
@@ -23,7 +23,19 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-.card-status.DEFERIDO {
+.card-status.AGUARDANDO_ACEITE {
+  display: flex;
+  justify-content: center;
+  width: 100px;
+  margin-left: 10px;
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #cccc45;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.card-status.ACEITA {
   display: flex;
   justify-content: center;
   width: 100px;
@@ -35,7 +47,7 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-.card-status.INDEFERIDO {
+.card-status.CANCELADA {
   display: flex;
   justify-content: center;
   width: 100px;

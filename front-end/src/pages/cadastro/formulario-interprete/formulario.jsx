@@ -14,7 +14,6 @@ const Formulario = () => {
   } = useForm();
 
   const cpfRegex = /^\d{3}\.\d{3}\.\d{3}-\d{2}$/;
-  const valorHoraRegex = /^\d{1,3}\.\d{2}$/;
 
   const watchPassword = watch("senha");
   const [file, setFile] = useState(null);
@@ -73,11 +72,10 @@ const Formulario = () => {
         alert("Cadastro realizado com sucesso!");
       })
       .catch(function (error) {
-        if(error.response.data.message != null){
-          
+        if (error.response.data.message != null) {
           alert(error.response.data.message);
           console.log(error.response.data);
-        }else{
+        } else {
           alert(error.response.data);
           console.log(error.response.data);
         }
@@ -221,7 +219,7 @@ const Formulario = () => {
               placeholder="Repita sua senha"
               {...register("senhaConfirmation", {
                 required: true,
-                validate: (value) => value !== watchPassword,
+                validate: (value) => value === watchPassword,
               })}
             />
             {errors?.senhaConfirmation?.type === "required" && (
@@ -245,19 +243,12 @@ const Formulario = () => {
               placeholder="Escreva o valor do seu atendimento por hora."
               {...register("valorHora", {
                 required: true,
-                pattern: {
-                  value: valorHoraRegex,
-                  message: "Formato inválido. Use o formato 000.00.",
-                },
               })}
             />
             {errors?.valorHora?.type === "required" && (
               <p className="error-message">
                 Valor da hora é um campo obrigatório.
               </p>
-            )}
-            {errors?.valorHora && (
-              <p className="error-message">{errors.valorHora.message}</p>
             )}
           </div>
         </div>

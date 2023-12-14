@@ -1,14 +1,18 @@
 import CardSolicitacaoPublica from "../../components/solicitacoes-publicas/solicitacoes-publicas";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import api from "../../services/api";
 
-const ListaSolicitacoesPublicas = ({ solicitacoes }) => {
+const ListaSolicitacoesPublicas = () => {
   const dispatch = useDispatch();
+  const [solicitacoes, setSolicitacoes] = useState();
 
   useEffect(() => {
-    //dispatch(getAllSocilicitacoesPublicas());
+    api.get("/solicitacao").then((response) => {
+      if (response?.data) {
+        setSolicitacoes(response.data);
+      }
+    });
   }, [dispatch]);
 
   return (
@@ -17,10 +21,11 @@ const ListaSolicitacoesPublicas = ({ solicitacoes }) => {
         return (
           <CardSolicitacaoPublica
             key={index}
-            surdoNome={solicitacao.surdoNome}
             dataEncontro={solicitacao.dataEncontro}
-            hora={solicitacao.hora}
-            local={solicitacao.local}
+            hora={solicitacao.horaEncontro}
+            local={solicitacao.endereco}
+            idSolicitacao={solicitacao.solicitacaoId}
+            statusSolicitacao={solicitacao.statusSolicitacao}
           />
         );
       })}
@@ -28,12 +33,4 @@ const ListaSolicitacoesPublicas = ({ solicitacoes }) => {
   );
 };
 
-ListaSolicitacoesPublicas.propTypes = {
-  solicitacoes: PropTypes.array.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  solicitacoes: state.solicitacoesPublicas,
-});
-
-export default connect(mapStateToProps)(ListaSolicitacoesPublicas);
+export default ListaSolicitacoesPublicas;
