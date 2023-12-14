@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="c04cd727-5a17-4456-a995-c53fc11554fa" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/back-end.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.jdt.apt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.settings/org.springframework.ide.eclipse.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/.idea/back-end.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/.project" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/.settings/org.eclipse.core.resources.prefs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/HELP.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/src/main/resources/import.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/target/classes/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/target/classes/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/target/classes/import.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/interpreto/service/SolicitacaoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/br/com/interpreto/service/SolicitacaoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/interpreto/controller/InterpreteController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/interpreto/controller/InterpreteController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/interpreto/controller/SurdoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/interpreto/controller/SurdoController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/interpreto/model/interprete/Interprete.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/interpreto/model/interprete/Interprete.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/interpreto/model/interprete/InterpreteAtualizaDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/interpreto/model/interprete/InterpreteAtualizaDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/interpreto/model/interprete/InterpreteCadastroDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/interpreto/model/interprete/InterpreteCadastroDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/interpreto/model/surdo/Surdo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/interpreto/model/surdo/Surdo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/interpreto/model/surdo/SurdoAtualizaDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/interpreto/model/surdo/SurdoAtualizaDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/interpreto/model/surdo/SurdoCadastroDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/interpreto/model/surdo/SurdoCadastroDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/interpreto/service/InterpreteService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/interpreto/service/InterpreteService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/br/com/interpreto/service/SurdoService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/br/com/interpreto/service/SurdoService.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2ZRPtjJgWcbbmf4ifir4N7zYcst" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration name="InterpretoApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="br.com.interpreto.InterpretoApplication" />
+      <module name="interpreto" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="br.com.interpreto.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.InterpretoApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="c04cd727-5a17-4456-a995-c53fc11554fa" name="Changes" comment="" />
+      <created>1702382138566</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1702382138566</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -28,40 +28,12 @@ public class SolicitacaoService {
     @Transactional
     public ResponseEntity cadastrarSolicitacao(SolicitacaoCadastroDTO dados, UriComponentsBuilder uriBuilder) throws
             JsonProcessingException{
-        //Para armazenar interpretes
-        List<InterpreteDetalhamentoDTO> listaInterpretes = new ArrayList<>();
-        //É criada a Solicitacao
         Solicitacao solicitacao = new Solicitacao(dados);
         solicitacaoRepository.save(solicitacao);
 
-        //Verifico se regioes ou especialidades são nulas, casa verdadeiro crio uma Solicitacao Publica e retorno pro front essa Solicitacao
-        if(dados.regioes() == null && dados.especialidades() == null){
-            var uri = uriBuilder.path("/solicitacao/{id}").buildAndExpand(solicitacao.getId()).toUri();
+        var uri = uriBuilder.path("/solicitacao/{id}").buildAndExpand(solicitacao.getId()).toUri();
 
-            return ResponseEntity.created(uri).body(new SolicitacaoDetalhamentoDTO(solicitacao));
-        }
-        if(dados.regioes() == null){
-            listaInterpretes = interpreteService.listarInterpretesSolicitacaoEspecialidade(dados.especialidades());
-        }
-        if(dados.especialidades() == null){
-            listaInterpretes = interpreteService.listarInterpretesSolicitacaoRegiao(dados.regioes());
-        }
-        if(dados.regioes() != null && dados.especialidades() != null){
-            listaInterpretes = interpreteService.listarInterpretesSolicitacao(dados.regioes(), dados.especialidades());
-        }
-        //Lista vazia, não encontrou interpretes então será criada uma Solicitacao Publica e retorno pro front essa Solicitacao!
-        if(listaInterpretes.isEmpty()){
-            var uri = uriBuilder.path("/solicitacao/{id}").buildAndExpand(solicitacao.getId()).toUri();
-
-            return ResponseEntity.created(uri).body(new SolicitacaoDetalhamentoDTO(solicitacao));
-        }
-        //Lista com Interpretes, então retorno para o front essa lista de interpretes e o id da solicitacao para depois dar um PUT
-        //Na Solicitacao agora com um Interprete selecionado!
-        Map<String, Object> resposta = new HashMap<>();
-        resposta.put("solicitacaoId", solicitacao.getId());
-        resposta.put("listaInterpretes", listaInterpretes);
-
-        return ResponseEntity.ok().body(resposta);
+        return ResponseEntity.created(uri).body(new SolicitacaoDetalhamentoDTO(solicitacao));
     }
     public ResponseEntity<List<SolicitacaoDetalhamentoDTO>> listarSolicitacao() {
         List<Solicitacao> listagem = solicitacaoRepository.findAll();
@@ -92,16 +64,36 @@ public class SolicitacaoService {
 
         return ResponseEntity.noContent().build();
     }
-    //Metodo usado por SurdoService para buscar Solicitacoes vinculadas a um determinado Surdo
-    public ResponseEntity<List<SolicitacaoDetalhamentoDTO>> buscarSolicitacoes (Long id){
-        List<Solicitacao> listagem = solicitacaoRepository.findBySurdoId(id);
+    //Metodo usado por SurdoService para buscar Solicitacoes vinculadas a um determinado Surdo, bem como os interpretes que
+    //Possuem determinada regiao/especialidade, alterado conforme o Front pediu.
+	public ResponseEntity<Map<Object, Object>> buscarSolicitacoes(Long id) {
+		Map<Object, Object> resposta = new HashMap<>();
+		List<Map<Object, Object>> listagemSolicitacoesComInterpretes = new ArrayList<>();
 
-        List<SolicitacaoDetalhamentoDTO> listagemDTO = new ArrayList<>();
-        for (Solicitacao solicitacao: listagem){
-            listagemDTO.add(new SolicitacaoDetalhamentoDTO(solicitacao));
-        }
-        return ResponseEntity.ok(listagemDTO);
-    }
+		List<Solicitacao> listagemSolicitacoes = solicitacaoRepository.findBySurdoId(id);
+
+		for (Solicitacao solicitacao : listagemSolicitacoes) {
+			List<InterpreteDetalhamentoDTO> listaInterpretes = new ArrayList<>();
+
+			if (solicitacao.getRegioes() == null) {
+				listaInterpretes = interpreteService.listarInterpretesSolicitacaoEspecialidade(solicitacao.getEspecialidade());
+			} else if (solicitacao.getEspecialidade() == null) {
+				listaInterpretes = interpreteService.listarInterpretesSolicitacaoRegiao(solicitacao.getRegioes());
+			} else {
+				listaInterpretes = interpreteService.listarInterpretesSolicitacao(solicitacao.getRegioes(), solicitacao.getEspecialidade());
+			}
+
+			// Criar um mapa para armazenar a solicitação e a lista de intérpretes
+			Map<Object, Object> solicitacaoComInterprete = new HashMap<>();
+			solicitacaoComInterprete.put("solicitacao", solicitacao);
+			solicitacaoComInterprete.put("listaInterpretes", listaInterpretes);
+
+			listagemSolicitacoesComInterpretes.add(solicitacaoComInterprete);
+		}
+
+		resposta.put("solicitacoesComInterpretes", listagemSolicitacoesComInterpretes);
+		return ResponseEntity.ok().body(resposta);
+	}
     
 	public Optional<Solicitacao> buscarSolicitacaoSurdo(Long id) {
 	    return solicitacaoRepository.findById(id);
