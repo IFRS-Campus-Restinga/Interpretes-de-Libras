@@ -5,18 +5,28 @@ import api from "../../services/api";
 
 const ListaSolicitacoesIntepretes = () => {
   const dispatch = useDispatch();
-  const [solicitacoes, setSolicitacoes] = useState();
+  const [solicitacoes, setSolicitacoes] = useState([]);
+  const [interpretes, setInterpretes] = useState([]);
 
   const id = localStorage.getItem("id");
-  console.log("ListaSolicitacoesIntepretes", id);
+
+  let listSolicitacao = [];
+  let listInterpretes = [];
 
   useEffect(() => {
     api.get(`/surdo/MinhasSolicitacoes/${id}`).then((response) => {
+      debugger;
+      setSolicitacoes();
       if (response?.data) {
-        setSolicitacoes(response.data);
+        response.data.solicitacoesComInterpretes.map((item) => {
+          listSolicitacao.push(item.solicitacao);
+          listInterpretes.push(item.interpretes);
+        });
       }
+      setSolicitacoes(listSolicitacao);
+      setInterpretes(listInterpretes);
     });
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   return (
     <div>
@@ -29,7 +39,7 @@ const ListaSolicitacoesIntepretes = () => {
             hora={solicitacao.horaEncontro}
             local={solicitacao.endereco}
             status={solicitacao.statusSolicitacao}
-            id={solicitacao.solicitacaoId}
+            id={solicitacao.id}
           />
         );
       })}
