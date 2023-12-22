@@ -1,6 +1,6 @@
 .perfil {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 75px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,4 +43,109 @@
   cursor: pointer;
   color: white;
   background-color: blue;
+}
+.fotoCard {
+  position: absolute;
+  width: 75px;
+  width: 75px;
+  top: -37.5px;
+  right: calc(225px - 37.5px);
+  background-color: white;
+  border: 2px solid #ccc;
+  border-radius: 100%;
+  padding: 5px;
+}
+.deleteEncontro {
+  color: white;
+  background-color: red;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  font-size: 22px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  top: -25px;
+  position: absolute;
+  right: -25px;
+  transition: transform ease-in-out 0.35s;
+  cursor: pointer;
+}
+.deleteEncontro:hover {
+  transform: scale(1.2);
+}
+.meetAgain {
+  border: 0;
+  height: 50px;
+  width: 100px;
+  color: white;
+  background-color: black;
+}
+.modal-content {
+  height: 650px;
+  width: 500px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  padding: 25px;
+}
+.modal-content2 {
+  height: 300px;
+  width: 300px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+  padding: 25px;
+}
+.modal-content2 input {
+  height: 50px;
+  width: 100%;
+  border: 0px;
+  padding: 0px 15px;
+  background-color: #efefef;
+  outline: none;
+}
+.modal-content2 button {
+  height: 50px;
+  width: 100%;
+  border: 0px;
+  padding: 0px 15px;
+  background-color: black;
+  color: white;
+  outline: none;
+}
+.modal-content h2 {
+  text-align: center;
+}
+.modal-overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.mensagem {
+  resize: none;
+  width: 90%;
+  height: 250px;
+  padding: 15px;
+}
+.enviarMensagem {
+  border: none;
+  background-color: black;
+  color: white;
+  padding: 15px 35px;
+  font-size: 22px;
+}
+.divider-75 {
+  height: 75px;
 }

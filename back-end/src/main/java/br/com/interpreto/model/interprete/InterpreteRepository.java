@@ -15,8 +15,8 @@ import java.util.Set;
 
 @Repository
 public interface InterpreteRepository extends JpaRepository<Interprete, Long> {
-    //Usado para o Surdo escolher um Interprete ao criar uma Solicitacao
+    // Usado para o Surdo escolher um Interprete ao criar uma Solicitacao
     List<Interprete> findByEspecialidadesIn(List<Especialidade> especialidades);
-    List<Interprete> findByRegioesIn(List<Regiao> regioes);
 
+    List<Interprete> findByRegioesIn(List<Regiao> regioes);
 }

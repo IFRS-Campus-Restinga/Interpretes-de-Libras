@@ -3,6 +3,7 @@
   height: 100%;
   display: flex;
   align-items: center;
+  height: calc(100% - 75px);
   justify-content: center;
 }
 .perfil .fotoPerfil {

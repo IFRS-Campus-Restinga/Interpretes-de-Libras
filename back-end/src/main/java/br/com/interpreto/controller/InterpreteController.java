@@ -13,14 +13,26 @@ import br.com.interpreto.service.SolicitacaoService;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
+
 import jakarta.validation.Valid;
+
+import org.apache.tomcat.util.json.JSONParser;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -102,13 +114,42 @@ public class InterpreteController {
 			@RequestParam("status") String status) {
 		return solicitacaoService.aceitarSolicitacao(solicitacaoId, status);
 	}
-	
+
+	@PostMapping("/email")
+	public ResponseEntity<String> enviarEmail(@RequestBody JSONObject solicitacao) {
+
+		final String apiKey = "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";
+		final String uri = "https://api.brevo.com/v3/smtp/email";
+		HttpHeaders headers = new HttpHeaders();
+		RestTemplate restTemplate = new RestTemplate();
+		headers.setAccept(Arrays.asList(new MediaType[] { MediaType.APPLICATION_JSON
+		}));
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.set("api-key", apiKey);
+		String nomeSurdo = solicitacao.getString("nome");
+		String emailSurdo = solicitacao.toString();
+
+		String nomeInterprete = solicitacao.toString();
+		String emailInterprete = solicitacao.toString();
+		final String payload = "{\"sender\":{\"name\":" + nomeSurdo
+				+ ",\"email\":" + emailSurdo
+				+ "},\"to\":[{\"email\":" + emailInterprete + ",\"name\":" + nomeInterprete
+				+
+				"}],\"subject\":\"Solicitação de encontro\",\"htmlContent\":\"<html><head></head><body><p>Hello,</p>ThisismyfirsttransactionalemailsentfromBrevo.</p></body></html>\"}";
+		System.out.println(nomeSurdo);
+		HttpEntity<String> entity = new HttpEntity<String>(payload, headers);
+		ResponseEntity<String> respEntity = restTemplate.exchange(uri,
+				HttpMethod.POST, entity,
+				String.class);
+		return ResponseEntity.ok(solicitacao.toString());
+	}
+
 	@PostMapping("/{interpreteId}/candidatar/{solicitacaoId}")
-    public ResponseEntity<String> candidatarSolicitacao(
-    		@PathVariable Long interpreteId,
-            @PathVariable Long solicitacaoId,
-            @RequestBody Double novoValorHora) {
-        return candidaturaService.candidatarSolicitacao(solicitacaoId, interpreteId, novoValorHora);
-    }
+	public ResponseEntity<String> candidatarSolicitacao(
+			@PathVariable Long interpreteId,
+			@PathVariable Long solicitacaoId,
+			@RequestBody Double novoValorHora) {
+		return candidaturaService.candidatarSolicitacao(solicitacaoId, interpreteId, novoValorHora);
+	}
 
 }

@@ -9,7 +9,6 @@ import jakarta.validation.Valid;
 
 import java.time.LocalDate;
 
-
 @Entity
 @Table(name = "avaliacao_usuario")
 public class AvaliacaoUsuario {
@@ -24,7 +23,7 @@ public class AvaliacaoUsuario {
     private LocalDate dataResposta;
     @Enumerated(EnumType.STRING)
     private StatusAvaliacao statusAvaliacao;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "usuario_id") // Coluna que faz a associação
     @JsonBackReference
     private Usuario usuario;
@@ -32,20 +31,20 @@ public class AvaliacaoUsuario {
     @JoinColumn(name = "documento_id")
     private Documento documento;
 
-
     public AvaliacaoUsuario(@Valid AvaliacaoUsuarioCadastroDTO dados) {
         this.usuario = dados.usuario();
         this.dataCriacao = LocalDate.now();
         this.statusAvaliacao = StatusAvaliacao.ANALISANDO;
 
     }
+
     public void avaliacaoUsuarioAtualizarDTO(@Valid AvaliacaoUsuarioAtualizaDTO novosDados) {
         this.msg = novosDados.msg();
         this.dataResposta = LocalDate.now();
         this.statusAvaliacao = novosDados.statusAvaliacao();
     }
 
-    @Deprecated //Funcionamento do Hibernate
+    @Deprecated // Funcionamento do Hibernate
     public AvaliacaoUsuario() {
     }
 
@@ -101,4 +100,3 @@ public class AvaliacaoUsuario {
         this.documento = documento;
     }
 }
-

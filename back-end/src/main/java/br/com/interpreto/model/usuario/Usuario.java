@@ -33,11 +33,12 @@ public class Usuario implements UserDetails {
 	private Boolean ativo;
 	private Double nota;
 	private Long quantidadeEncontros;
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER) // Para tornar Bidirecional...
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY) // Para tornar
+																// Bidirecional...
 	@JsonManagedReference
 	private List<AvaliacaoUsuario> avaliacaoUsuario;
 
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "usuario")
 	private List<Feedback> feedback;
 
 	public Double calcularMediaNotas() {

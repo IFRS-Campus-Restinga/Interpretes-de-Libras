@@ -1,3 +1,4 @@
+clear
 # Compiled class file
 *.class
 
@@ -23,3 +24,5 @@
 hs_err_pid*
 replay_pid*
 *node_modules
+node_modules
+node_modules

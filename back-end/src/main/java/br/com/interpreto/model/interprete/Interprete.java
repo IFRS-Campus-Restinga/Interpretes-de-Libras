@@ -44,7 +44,7 @@ public class Interprete extends Usuario {
 		this.especialidades = dados.especialidades();
 		this.regioes = dados.regioes();
 	}
-	
+
 	public void interpreteAtualizarDTO(InterpreteAtualizaDTO novosDados) {
 		this.setNome(novosDados.nome());
 		this.setSobrenome(novosDados.sobrenome());
@@ -86,4 +86,5 @@ public class Interprete extends Usuario {
 	public void setRegioes(Set<Regiao> regioes) {
 		this.regioes = regioes;
 	}
+
 }

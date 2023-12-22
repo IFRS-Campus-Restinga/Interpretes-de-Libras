@@ -1,6 +1,8 @@
 .card {
   display: flex;
-  height: 200px;
+  position: relative;
+  height: 300px;
+  width: 450px;
   justify-content: space-between;
   background: white;
   border-radius: 10px;
@@ -50,6 +52,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .card-rigth {
@@ -84,4 +89,23 @@
   text-decoration: none;
   color: cornflowerblue;
   cursor: pointer;
+}
+
+.noDataFound {
+  color: black;
+  height: 200px;
+  width: 350px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-direction: column;
+}
+
+.noDataFound button {
+  height: 50px;
+  width: 200px;
+  border: 0px;
+  color: white;
+  background-color: black;
 }

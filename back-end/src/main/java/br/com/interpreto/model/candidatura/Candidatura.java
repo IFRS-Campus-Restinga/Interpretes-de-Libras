@@ -28,10 +28,10 @@ public class Candidatura {
 	@ManyToOne
 	@JoinColumn(name = "interprete_id")
 	private Interprete interprete;
-	
+
 	public Candidatura() {
-        // Default constructor required by JPA
-    }
+		// Default constructor required by JPA
+	}
 
 	public Candidatura(Solicitacao solicitacao, Interprete interprete) {
 		this.solicitacao = solicitacao;
@@ -56,7 +56,7 @@ public class Candidatura {
 	public void setInterprete(Interprete interprete) {
 		this.interprete = interprete;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -64,7 +64,6 @@ public class Candidatura {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
 
 	public String getNome() {
 		return nome;
@@ -89,5 +88,5 @@ public class Candidatura {
 	public void setValorHora(Double valorHora) {
 		this.valorHora = valorHora;
 	}
-	
+
 }

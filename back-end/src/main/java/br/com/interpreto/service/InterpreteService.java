@@ -6,6 +6,7 @@ import br.com.interpreto.model.avaliacaousuario.AvaliacaoUsuarioRepository;
 import br.com.interpreto.model.enums.Especialidade;
 import br.com.interpreto.model.enums.Regiao;
 import br.com.interpreto.model.interprete.*;
+import br.com.interpreto.model.usuario.Usuario;
 import br.com.interpreto.model.usuario.UsuarioRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,47 +39,48 @@ public class InterpreteService {
 	private DocumentoService documentoService;
 
 	@Transactional
-	public ResponseEntity cadastrarInterprete(@Valid InterpreteCadastroDTO modelDTO, MultipartFile arquivo, UriComponentsBuilder uriBuilder) throws JsonProcessingException {
+	public ResponseEntity cadastrarInterprete(@Valid InterpreteCadastroDTO modelDTO, MultipartFile arquivo,
+			UriComponentsBuilder uriBuilder) throws JsonProcessingException {
 		Interprete interprete = new Interprete(modelDTO);
-		//Verifica se email já existe, caso exista não cria o novo usuário!
-		if(this.usuarioRepository.findByEmail(interprete.getEmail()) != null){
-			return ResponseEntity.badRequest().body("Email já cadastrado no sistema!");
-		}
-		//Encriptando a senha do usuário
+		// Encriptando a senha do usuário
 		String senhaEncriptada = new BCryptPasswordEncoder().encode(interprete.getSenha());
 		interprete.setSenha(senhaEncriptada);
 		interpreteRepository.save(interprete);
 
-		//Na parte abaixo ocorre o salvamento da Avaliacao e a vinculacao do documento na avaliacao
+		// Na parte abaixo ocorre o salvamento da Avaliacao e a vinculacao do documento
+		// na avaliacao
 		AvaliacaoUsuarioCadastroDTO avaliacaoDTO = new AvaliacaoUsuarioCadastroDTO(interprete);
 		AvaliacaoUsuario avaliacao = new AvaliacaoUsuario(avaliacaoDTO);
 		avaliacaoUsuarioRepository.save(avaliacao);
-		documentoService.salvarDocumento(arquivo , avaliacao);
+		documentoService.salvarDocumento(arquivo, avaliacao);
 
 		var uri = uriBuilder.path("/interprete/{id}").buildAndExpand(interprete.getId()).toUri();
 
 		return ResponseEntity.created(uri).body(new InterpreteDetalhamentoDTO(interprete));
 	}
+
 	public ResponseEntity<List<InterpreteDetalhamentoDTO>> listarInterprete() {
 		List<Interprete> listagem = interpreteRepository.findAll();
 
 		List<InterpreteDetalhamentoDTO> listagemDTO = new ArrayList<>();
-		for (Interprete interprete: listagem){
+		for (Interprete interprete : listagem) {
 			listagemDTO.add(new InterpreteDetalhamentoDTO(interprete));
 		}
 
 		return ResponseEntity.ok(listagemDTO);
 	}
+
 	public ResponseEntity buscarInterprete(Long id) {
 		Interprete interprete = interpreteRepository.getReferenceById(id);
 
 		return ResponseEntity.ok(new InterpreteDetalhamentoDTO(interprete));
 	}
+
 	@Transactional
 	public ResponseEntity atualizarInterprete(Long id, InterpreteAtualizaDTO novosDados) {
 		Interprete interprete = interpreteRepository.getReferenceById(id);
 
-		//Encriptando a senha do usuário
+		// Encriptando a senha do usuário
 		String senhaEncriptada = new BCryptPasswordEncoder().encode(novosDados.senha());
 
 		interprete.interpreteAtualizarDTO(novosDados);
@@ -87,62 +89,71 @@ public class InterpreteService {
 
 		return ResponseEntity.ok(new InterpreteDetalhamentoDTO(interprete));
 	}
+
 	@Transactional
 	public ResponseEntity deletarInterprete(Long id) {
 		Interprete interprete = interpreteRepository.getReferenceById(id);
 
-			interpreteRepository.deleteById(id);
+		interpreteRepository.deleteById(id);
 
 		return ResponseEntity.noContent().build();
 	}
+
 	// Surdo Visualizar Candidaturas de Interpretes na regiao escolhida.
 	public List<InterpreteCandidatura> ListarCandidaturasInterprete() {
 		List<Interprete> listagem = interpreteRepository.findAll();
 
 		return listagem.stream().map(InterpreteCandidatura::new).collect(Collectors.toList());
 	}
-	// Metodo usado para listar Interpretes com Especialidades/Regioes que a Solicitacao possui, é usado para o Surdo escolher um Interprete
+
+	// Metodo usado para listar Interpretes com Especialidades/Regioes que a
+	// Solicitacao possui, é usado para o Surdo escolher um Interprete
 	// ao criar a Solicitacao
-	public List<InterpreteDetalhamentoDTO> listarInterpretesSolicitacao (Set<Regiao> regioes, Set<Especialidade> especialidades){
-		//Convertendo Set para List para conseguir realizar a consulta
+	public List<InterpreteDetalhamentoDTO> listarInterpretesSolicitacao(Set<Regiao> regioes,
+			Set<Especialidade> especialidades) {
+		// Convertendo Set para List para conseguir realizar a consulta
 		List<Especialidade> listaEspecialidades = new ArrayList<>(especialidades);
 		List<Regiao> listaRegioes = new ArrayList<>(regioes);
 
-		//Recebendo todos os interpretes em listagem diferentes por possuirem moto de implementação separadas
+		// Recebendo todos os interpretes em listagem diferentes por possuirem moto de
+		// implementação separadas
 		List<Interprete> listagemEspecialidades = interpreteRepository.findByEspecialidadesIn(listaEspecialidades);
 		List<Interprete> listagemRegioes = interpreteRepository.findByRegioesIn(listaRegioes);
 
-		//Agora converto para Set novamente para evitar duplicantes
+		// Agora converto para Set novamente para evitar duplicantes
 		Set<Interprete> listagemCombinada = new HashSet<>();
 		listagemCombinada.addAll(listagemEspecialidades);
 		listagemCombinada.addAll(listagemRegioes);
 
 		List<InterpreteDetalhamentoDTO> listagemDTO = new ArrayList<>();
-		for (Interprete interprete: listagemCombinada){
+		for (Interprete interprete : listagemCombinada) {
 			listagemDTO.add(new InterpreteDetalhamentoDTO(interprete));
 		}
 		return listagemDTO;
 	}
-	public List<InterpreteDetalhamentoDTO> listarInterpretesSolicitacaoRegiao (Set<Regiao> regioes){
-		//Convertendo Set para List para conseguir realizar a consulta
+
+	public List<InterpreteDetalhamentoDTO> listarInterpretesSolicitacaoRegiao(Set<Regiao> regioes) {
+		// Convertendo Set para List para conseguir realizar a consulta
 		List<Regiao> listaRegioes = new ArrayList<>(regioes);
 
 		List<Interprete> listagem = interpreteRepository.findByRegioesIn(listaRegioes);
 
 		List<InterpreteDetalhamentoDTO> listagemDTO = new ArrayList<>();
-		for (Interprete interprete: listagem){
+		for (Interprete interprete : listagem) {
 			listagemDTO.add(new InterpreteDetalhamentoDTO(interprete));
 		}
 		return listagemDTO;
 	}
-	public List<InterpreteDetalhamentoDTO> listarInterpretesSolicitacaoEspecialidade (Set<Especialidade> especialidades){
-		//Convertendo Set para List para conseguir realizar a consulta
+
+	public List<InterpreteDetalhamentoDTO> listarInterpretesSolicitacaoEspecialidade(
+			Set<Especialidade> especialidades) {
+		// Convertendo Set para List para conseguir realizar a consulta
 		List<Especialidade> listaEspecialidades = new ArrayList<>(especialidades);
 
 		List<Interprete> listagem = interpreteRepository.findByEspecialidadesIn(listaEspecialidades);
 
 		List<InterpreteDetalhamentoDTO> listagemDTO = new ArrayList<>();
-		for (Interprete interprete: listagem){
+		for (Interprete interprete : listagem) {
 			listagemDTO.add(new InterpreteDetalhamentoDTO(interprete));
 		}
 		return listagemDTO;
