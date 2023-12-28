@@ -1,0 +1,2 @@
+*node_modules* filter=lfs diff=lfs merge=lfs -text
+front-end/node_modules/.cache/default-development/ filter=lfs diff=lfs merge=lfs -text
